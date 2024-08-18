@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="LiwaPOS.WpfAppUI.UserControls.LoginUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls"
+             xmlns:viewmodels="clr-namespace:LiwaPOS.WpfAppUI.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="ImageLogo" Grid.Column="0" Stretch="None" Source="{Binding LogoPath}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <local:PINPadUserControl x:Name="PINPad" PINEntered="PINPad_PINEntered" Height="450" Width="300"/>
+
+            <Button x:Name="ButtonExit" Click="ButtonExit_Click" Content="⮿" Width="50" Background="Red" Foreground="White" FontSize="30"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

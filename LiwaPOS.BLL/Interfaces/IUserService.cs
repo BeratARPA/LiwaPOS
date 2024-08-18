@@ -1,0 +1,16 @@
+﻿using LiwaPOS.Entities.DTOs;
+using LiwaPOS.Entities.Entities;
+using System.Linq.Expressions;
+
+namespace LiwaPOS.BLL.Interfaces
+{
+    public interface IUserService
+    {
+        Task<IEnumerable<UserDTO>> GetAllUsersAsync(Expression<Func<User, bool>> filter = null);
+        Task<UserDTO> GetUserAsync(Expression<Func<User, bool>> filter = null);
+        Task<UserDTO> GetUserByIdAsync(int id);
+        Task AddUserAsync(UserDTO appRuleDto);
+        Task UpdateUserAsync(UserDTO appRuleDto);
+        Task DeleteUserAsync(int id);
+    }
+}
