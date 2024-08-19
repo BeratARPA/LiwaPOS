@@ -11,16 +11,17 @@ namespace LiwaPOS.BLL
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
         {
             // Servisler ve yöneticiler burada tanımlanır
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<UserManager>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<UserManager>();
 
-            services.AddScoped<IAppRuleService, AppRuleService>();
-            services.AddScoped<AppRuleManager>();
+            services.AddSingleton<IAppRuleService, AppRuleService>();
+            services.AddSingleton<AppRuleManager>();
 
-            services.AddScoped<IAppActionService, AppActionService>();
+            services.AddSingleton<IAppActionService, AppActionService>();
 
             services.AddSingleton<EventFactory>();
             services.AddSingleton<ActionFactory>();
+            services.AddSingleton<LocalizationService>();
 
             return services;
         }

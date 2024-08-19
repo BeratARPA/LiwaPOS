@@ -11,8 +11,6 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Converters\" />
-    <Folder Include="Models\" />
-    <Folder Include="Resources\" />
     <Folder Include="Views\" />
   </ItemGroup>
 
@@ -24,6 +22,12 @@
     <ProjectReference Include="..\LiwaPOS.BLL\LiwaPOS.BLL.csproj" />
     <ProjectReference Include="..\LiwaPOS.DAL\LiwaPOS.DAL.csproj" />
     <ProjectReference Include="..\LiwaPOS.Entities\LiwaPOS.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Localization\Languages\tr.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

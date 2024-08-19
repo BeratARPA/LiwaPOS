@@ -14,6 +14,11 @@ namespace LiwaPOS.Shared.Extensions
             return false;
         }
 
+        public static bool Exists(string filePath)
+        {
+            return File.Exists(filePath) ? true : false;
+        }
+
         public static async Task CopyFileAsync(string sourceFilePath, string destFilePath, bool overwrite = true)
         {
             var destDirectory = Path.GetDirectoryName(destFilePath);
@@ -31,7 +36,7 @@ namespace LiwaPOS.Shared.Extensions
             await DeleteFileAsync(sourceFilePath);
         }
 
-        public static byte[] ReadFileAsync(string filePath)
+        public static byte[] ReadFile(string filePath)
         {
             if (File.Exists(filePath))
             {
@@ -40,7 +45,7 @@ namespace LiwaPOS.Shared.Extensions
             return new byte[0];
         }
 
-        public static string ReadTextAsync(string filePath)
+        public static string ReadText(string filePath)
         {
             if (File.Exists(filePath))
             {

@@ -10,7 +10,8 @@ namespace LiwaPOS.BLL.Factories
         {
             { EventType.POSPageOpened, typeof(POSPageOpenedEventHandler) },
             { EventType.UserLoggedIn, typeof(UserLoggedInEventHandler) },
-            { EventType.PopupDisplayed, typeof(PopupDisplayedEventHandler) }
+            { EventType.PopupDisplayed, typeof(PopupDisplayedEventHandler) },
+            { EventType.UserFailedToLogin, typeof(UserFailedToLoginEventHandler) },
         };
 
         private readonly IServiceProvider _serviceProvider;

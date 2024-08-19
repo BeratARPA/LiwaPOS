@@ -20,18 +20,35 @@ namespace LiwaPOS.BLL.Managers
         public async Task ExecuteAppRulesForEventAsync(EventType eventType)
         {
             var eventHandler = _eventFactory.GetEventHandler(eventType);
-            await eventHandler.HandleEventAsync(eventType.ToString());
+            if (eventHandler != null)
+            {
+                await eventHandler.HandleEventAsync(eventType.ToString());
+            }
+            else
+            {
+                throw new InvalidOperationException($"No event handler found for event type {eventType}.");
+            }
 
             var appRules = await _appRuleService.GetAllAppRulesAsync(r => r.EventName == eventType.ToString());
 
-            foreach (var appRule in appRules)
+            if (appRules != null)
             {
-                foreach (var appAction in appRule.Actions)
+                foreach (var appRule in appRules)
                 {
-                    var action = _actionFactory.GetAction(appAction.ActionType);
-                    action.Execute(appAction.Properties);
+                    if (appRule.Actions != null)
+                    {
+                        foreach (var appAction in appRule.Actions)
+                        {
+                            var action = _actionFactory.GetAction(appAction.ActionType);
+                            if (action != null)
+                            {
+                                action.Execute(appAction.Properties);
+                            }
+                        }
+                    }
                 }
             }
         }
+
     }
 }

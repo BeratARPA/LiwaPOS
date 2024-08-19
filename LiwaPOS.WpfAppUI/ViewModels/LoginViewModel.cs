@@ -1,4 +1,5 @@
 ﻿using LiwaPOS.BLL.Managers;
+using LiwaPOS.Entities.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,6 +8,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         private readonly UserManager _userManager;
+        private readonly AppRuleManager _appRuleManager;
         private string _pinCode;
         private string _message;
 
@@ -30,15 +32,19 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
         }
 
-        public LoginViewModel(UserManager userManager)
+        public LoginViewModel(UserManager userManager, AppRuleManager appRuleManager)
         {
             _userManager = userManager;
+            _appRuleManager = appRuleManager;
         }
 
         public async Task LoginAsync()
         {
             bool loginSuccessful = await _userManager.Login(PinCode);
-            Message = loginSuccessful ? "Giriş başarılı!" : "Giriş başarısız. Pin kodunu kontrol edin.";
+            if (loginSuccessful)
+                Message = "Giriş başarılı!";
+            else
+                await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserFailedToLogin);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

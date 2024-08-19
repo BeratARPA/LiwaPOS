@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls"
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
              mc:Ignorable="d">
      
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Focusable="False">
@@ -31,9 +32,9 @@
         <Button x:Name="ButtonSeven" Grid.Column="0" Grid.Row="3" Margin="3" Content="7" Click="Numbers"/>
         <Button x:Name="ButtonEight" Grid.Column="1" Grid.Row="3" Margin="3" Content="8" Click="Numbers"/>
         <Button x:Name="ButtonNine" Grid.Column="2" Grid.Row="3" Margin="3" Content="9" Click="Numbers"/>
-        <Button x:Name="ButtonOk" Grid.Column="0" Grid.Row="4" Margin="3" Content="Tamam" Click="ButtonOk_Click"/>
+        <Button x:Name="ButtonOk" Grid.Column="0" Grid.Row="4" Margin="3" Content="{extension:Translator Ok}" Click="ButtonOk_Click"/>
         <Button x:Name="ButtonZero" Grid.Column="1" Grid.Row="4" Margin="3" Content="0" Click="Numbers"/>
-        <Button x:Name="ButtonClean" Grid.Column="2" Grid.Row="4" Margin="3" Content="Temizle" Click="ButtonClean_Click"/>
+        <Button x:Name="ButtonClean" Grid.Column="2" Grid.Row="4" Margin="3" Content="{extension:Translator Clear}" Click="ButtonClean_Click"/>
 
     </Grid>
 </UserControl>

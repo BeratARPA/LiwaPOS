@@ -3,6 +3,7 @@
     public enum EventType
     {
         UserLoggedIn,
+        UserFailedToLogin,
         PopupDisplayed,
         POSPageOpened
     }

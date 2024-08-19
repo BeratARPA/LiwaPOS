@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240817111909_InitialCreate")]
+    [Migration("20240818221718_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

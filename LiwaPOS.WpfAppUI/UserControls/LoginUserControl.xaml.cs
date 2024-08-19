@@ -8,21 +8,21 @@ namespace LiwaPOS.WpfAppUI.UserControls
     /// Interaction logic for LoginUserControl.xaml
     /// </summary>
     public partial class LoginUserControl : UserControl
-    { 
+    {
+        LoginViewModel _loginViewModel = null;
+
         public LoginUserControl(LoginViewModel viewModel)
         {
-            InitializeComponent();        
-            
+            InitializeComponent();
+
             DataContext = viewModel;
+            _loginViewModel = viewModel;
         }
 
         private async void PINPad_PINEntered(object sender, string e)
         {
-            if (DataContext is LoginViewModel viewModel)
-            {
-                viewModel.PinCode = e;
-                await viewModel.LoginAsync();
-            }
+            _loginViewModel.PinCode = e;
+            await _loginViewModel.LoginAsync();
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)

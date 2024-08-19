@@ -1,6 +1,7 @@
 ﻿using LiwaPOS.BLL;
 using LiwaPOS.DAL;
 using LiwaPOS.Entities;
+using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,15 +14,6 @@ namespace LiwaPOS.WpfAppUI
     /// </summary>
     public partial class App : Application
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public App()
-        {
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-        }
-
         private void ConfigureServices(IServiceCollection services)
         {
             //Entities servisleri
@@ -44,10 +36,21 @@ namespace LiwaPOS.WpfAppUI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var shell = _serviceProvider.GetRequiredService<Shell>();
-            shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
-            shell.Show();
             base.OnStartup(e);
+
+            // DI Container'ı oluştur
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            // TranslatorExtension'ı başlat
+            TranslatorExtension.Initialize(serviceProvider);
+
+            // Uygulamayı başlat
+            var shell = serviceProvider.GetRequiredService<Shell>();
+            shell.DataContext = serviceProvider.GetRequiredService<ShellViewModel>();
+            shell.Show();
         }
     }
 }

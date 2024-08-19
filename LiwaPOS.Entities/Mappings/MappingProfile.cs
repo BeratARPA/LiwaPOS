@@ -8,10 +8,10 @@ namespace LiwaPOS.Entities.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<UserRole, UserRoleDTO>().ReverseMap();
             CreateMap<AppAction, AppActionDTO>().ReverseMap();
             CreateMap<AppRule, AppRuleDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<UserRole, UserRoleDTO>().ReverseMap();
         }
     }
 }
