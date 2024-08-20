@@ -40,11 +40,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         public async Task LoginAsync()
         {
-            bool loginSuccessful = await _userManager.Login(PinCode);
-            if (loginSuccessful)
-                Message = "Giriş başarılı!";
-            else
-                await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserFailedToLogin);
+         await _userManager.Login(PinCode);           
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

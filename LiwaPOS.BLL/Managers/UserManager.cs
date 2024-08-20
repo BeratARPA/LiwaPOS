@@ -24,10 +24,13 @@ namespace LiwaPOS.BLL.Managers
             var user = await _userService.GetUserAsync(x => x.PinCode == pinCode);
             if (user != null)
             {
+                // Kullanıcı giriş yaptı, kuralları tetikleyelim
                 await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserLoggedIn);
                 return true;
             }
 
+            // Giriş başarısız, başarısız giriş kuralları tetiklenebilir
+            await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserFailedToLogin);
             return false;
         }
     }

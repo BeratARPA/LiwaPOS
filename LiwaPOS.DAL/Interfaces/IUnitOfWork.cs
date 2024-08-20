@@ -4,6 +4,7 @@
     {
         IAppRuleRepository AppRules { get; }
         IAppActionRepository AppActions { get; }
+        IRuleActionMapRepository RuleActionMaps { get; }
         IUserRepository Users { get; }
 
         void Commit();

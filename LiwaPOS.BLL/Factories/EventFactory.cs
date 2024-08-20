@@ -25,7 +25,15 @@ namespace LiwaPOS.BLL.Factories
         {
             if (_eventHandlers.TryGetValue(eventType, out var handlerType))
             {
-                return _serviceProvider.GetService(handlerType) as IEventHandler;
+                var handler = _serviceProvider.GetService(handlerType) as IEventHandler;
+                if (handler != null)
+                {
+                    return handler;
+                }
+                else
+                {
+                    throw new InvalidOperationException($"No service found for event handler type {handlerType.Name}.");
+                }
             }
 
             throw new NotImplementedException($"Event type {eventType} is not implemented.");

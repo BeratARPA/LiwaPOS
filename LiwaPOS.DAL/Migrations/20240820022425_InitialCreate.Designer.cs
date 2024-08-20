@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240818221718_InitialCreate")]
+    [Migration("20240820022425_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,21 +33,16 @@ namespace LiwaPOS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ActionName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ActionType")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AppRuleId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Properties")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
-                    b.HasIndex("AppRuleId");
+                    b.HasKey("Id");
 
                     b.ToTable("AppActions");
                 });
@@ -60,15 +55,41 @@ namespace LiwaPOS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("AppRules");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppActionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AppRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppActionId");
+
+                    b.HasIndex("AppRuleId");
+
+                    b.ToTable("RuleActionMaps");
                 });
 
             modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>
@@ -111,11 +132,23 @@ namespace LiwaPOS.DAL.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("LiwaPOS.Entities.Entities.AppAction", b =>
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
                 {
-                    b.HasOne("LiwaPOS.Entities.Entities.AppRule", null)
-                        .WithMany("Actions")
-                        .HasForeignKey("AppRuleId");
+                    b.HasOne("LiwaPOS.Entities.Entities.AppAction", "AppAction")
+                        .WithMany()
+                        .HasForeignKey("AppActionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LiwaPOS.Entities.Entities.AppRule", "AppRule")
+                        .WithMany()
+                        .HasForeignKey("AppRuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppAction");
+
+                    b.Navigation("AppRule");
                 });
 
             modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>
@@ -125,11 +158,6 @@ namespace LiwaPOS.DAL.Migrations
                         .HasForeignKey("UserRoleId");
 
                     b.Navigation("UserRole");
-                });
-
-            modelBuilder.Entity("LiwaPOS.Entities.Entities.AppRule", b =>
-                {
-                    b.Navigation("Actions");
                 });
 #pragma warning restore 612, 618
         }

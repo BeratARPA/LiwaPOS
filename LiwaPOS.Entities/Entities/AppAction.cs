@@ -4,8 +4,8 @@ namespace LiwaPOS.Entities.Entities
 {
     public class AppAction : BaseEntity
     {     
-        public string? ActionName { get; set; }
-        public ActionType ActionType { get; set; }
+        public string? Name { get; set; }
+        public ActionType Type { get; set; }
         public string? Properties { get; set; }
     }
 }

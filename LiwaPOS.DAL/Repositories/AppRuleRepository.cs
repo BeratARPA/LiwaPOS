@@ -17,7 +17,7 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task<IEnumerable<AppRule>> GetAllAsync(Expression<Func<AppRule, bool>> filter = null)
         {
-            return await _context.AppRules.Include(r => r.Actions).Where(filter).ToListAsync();
+            return await _context.AppRules.Where(filter).ToListAsync();
         }
 
         public async Task<AppRule> GetAsync(Expression<Func<AppRule, bool>> filter = null)
@@ -27,7 +27,7 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task<AppRule> GetByIdAsync(int id)
         {
-            return await _context.AppRules.Include(r => r.Actions) .FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.AppRules.FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task AddAsync(AppRule entity)

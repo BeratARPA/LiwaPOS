@@ -1,7 +1,9 @@
 ﻿using LiwaPOS.BLL;
+using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.DAL;
 using LiwaPOS.Entities;
 using LiwaPOS.WpfAppUI.Extensions;
+using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,11 +26,12 @@ namespace LiwaPOS.WpfAppUI
 
             // Business Logic Layer servisleri
             services.AddBusinessLogicLayer();
+            services.AddSingleton<INotificationService, NotificationService>();
 
             // ViewModels
             services.AddTransient<LoginViewModel>();
             services.AddTransient<ShellViewModel>();
-
+           
             // Views
             services.AddTransient<LoginUserControl>();
             services.AddTransient<Shell>();

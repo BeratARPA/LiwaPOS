@@ -11,13 +11,28 @@ namespace LiwaPOS.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AppActions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppActions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppRules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Type = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,24 +53,30 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppActions",
+                name: "RuleActionMaps",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ActionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ActionType = table.Column<int>(type: "int", nullable: false),
-                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AppRuleId = table.Column<int>(type: "int", nullable: true)
+                    AppRuleId = table.Column<int>(type: "int", nullable: false),
+                    AppActionId = table.Column<int>(type: "int", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppActions", x => x.Id);
+                    table.PrimaryKey("PK_RuleActionMaps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppActions_AppRules_AppRuleId",
+                        name: "FK_RuleActionMaps_AppActions_AppActionId",
+                        column: x => x.AppActionId,
+                        principalTable: "AppActions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RuleActionMaps_AppRules_AppRuleId",
                         column: x => x.AppRuleId,
                         principalTable: "AppRules",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,8 +100,13 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppActions_AppRuleId",
-                table: "AppActions",
+                name: "IX_RuleActionMaps_AppActionId",
+                table: "RuleActionMaps",
+                column: "AppActionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RuleActionMaps_AppRuleId",
+                table: "RuleActionMaps",
                 column: "AppRuleId");
 
             migrationBuilder.CreateIndex(
@@ -93,10 +119,13 @@ namespace LiwaPOS.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AppActions");
+                name: "RuleActionMaps");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "AppActions");
 
             migrationBuilder.DropTable(
                 name: "AppRules");

@@ -15,6 +15,7 @@ namespace LiwaPOS.DAL.Services
 
         public IAppRuleRepository AppRules => new AppRuleRepository(_context);
         public IAppActionRepository AppActions => new AppActionRepository(_context);
+        public IRuleActionMapRepository RuleActionMaps => new RuleActionMapRepository(_context);
         public IUserRepository Users => new UserRepository(_context);
 
         public void Commit()
