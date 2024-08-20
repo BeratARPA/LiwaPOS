@@ -28,6 +28,7 @@ namespace LiwaPOS.BLL
             services.AddSingleton<ActionFactory>();
             services.AddSingleton<LocalizationService>();
 
+            services.AddTransient<CloseTheApplicationAction>();
             services.AddTransient<LoginUserAction>();
             services.AddTransient<OpenPOSPageAction>();
             services.AddTransient<ShowPopupAction>();

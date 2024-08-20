@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240820022425_InitialCreate")]
+    [Migration("20240820030052_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -85,10 +85,6 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppActionId");
-
-                    b.HasIndex("AppRuleId");
-
                     b.ToTable("RuleActionMaps");
                 });
 
@@ -130,25 +126,6 @@ namespace LiwaPOS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
-                });
-
-            modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
-                {
-                    b.HasOne("LiwaPOS.Entities.Entities.AppAction", "AppAction")
-                        .WithMany()
-                        .HasForeignKey("AppActionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LiwaPOS.Entities.Entities.AppRule", "AppRule")
-                        .WithMany()
-                        .HasForeignKey("AppRuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppAction");
-
-                    b.Navigation("AppRule");
                 });
 
             modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>

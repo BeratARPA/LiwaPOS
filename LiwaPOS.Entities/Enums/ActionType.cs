@@ -4,6 +4,7 @@
     {
         LoginUser,
         ShowPopup,
-        POSPageOpen
+        POSPageOpen,
+        CloseTheApplication
     }
 }

@@ -40,19 +40,6 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RuleActionMaps",
                 columns: table => new
                 {
@@ -65,18 +52,19 @@ namespace LiwaPOS.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RuleActionMaps", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RuleActionMaps_AppActions_AppActionId",
-                        column: x => x.AppActionId,
-                        principalTable: "AppActions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RuleActionMaps_AppRules_AppRuleId",
-                        column: x => x.AppRuleId,
-                        principalTable: "AppRules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,16 +88,6 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RuleActionMaps_AppActionId",
-                table: "RuleActionMaps",
-                column: "AppActionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RuleActionMaps_AppRuleId",
-                table: "RuleActionMaps",
-                column: "AppRuleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_UserRoleId",
                 table: "Users",
                 column: "UserRoleId");
@@ -119,16 +97,16 @@ namespace LiwaPOS.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RuleActionMaps");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "AppActions");
 
             migrationBuilder.DropTable(
                 name: "AppRules");
+
+            migrationBuilder.DropTable(
+                name: "RuleActionMaps");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
