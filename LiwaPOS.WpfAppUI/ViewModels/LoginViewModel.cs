@@ -1,5 +1,6 @@
 ﻿using LiwaPOS.BLL.Managers;
-using LiwaPOS.Entities.Enums;
+using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.UserControls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,7 +9,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         private readonly UserManager _userManager;
-        private readonly AppRuleManager _appRuleManager;
         private string _pinCode;
         private string _message;
 
@@ -32,19 +32,19 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
         }
 
-        public LoginViewModel(UserManager userManager, AppRuleManager appRuleManager)
+        public LoginViewModel(UserManager userManager)
         {
             _userManager = userManager;
-            _appRuleManager = appRuleManager;
         }
 
         public async Task LoginAsync()
         {
-         await _userManager.Login(PinCode);           
+           bool isSuccessful= await _userManager.Login(PinCode);
+            if (isSuccessful)
+                GlobalVariables.Navigator.Navigate(typeof(NavigationUserControl));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

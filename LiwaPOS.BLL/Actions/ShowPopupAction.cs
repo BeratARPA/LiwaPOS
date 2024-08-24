@@ -1,31 +1,25 @@
 ﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.Shared.Helpers;
+using LiwaPOS.Shared.Models;
 using System.Text.Json;
 
 namespace LiwaPOS.BLL.Actions
 {
     public class ShowPopupAction : IAction
     {
-        private readonly INotificationService _notificationService;
+        private readonly ICustomNotificationService _customNotificationService;
 
-        public ShowPopupAction(INotificationService notificationService)
+        public ShowPopupAction(ICustomNotificationService customNotificationService)
         {
-            _notificationService = notificationService;
+            _customNotificationService = customNotificationService;
         }
 
         public void Execute(string properties)
         {
             // JSON verisini ayrıştır
-            var popupProperties = JsonSerializer.Deserialize<PopupProperties>(properties);
+            var popupProperties = JsonHelper.Deserialize<NotificationDTO>(properties);
             if (popupProperties != null)
-                _notificationService.ShowMessage(popupProperties.Message, popupProperties.Title, popupProperties.Icon, popupProperties.Button);
+                _customNotificationService.ShowNotification(popupProperties);
         }
-    }
-
-    public class PopupProperties
-    {
-        public string? Title { get; set; }
-        public string? Message { get; set; }
-        public string? Icon { get; set; }
-        public string? Button { get; set; }
     }
 }

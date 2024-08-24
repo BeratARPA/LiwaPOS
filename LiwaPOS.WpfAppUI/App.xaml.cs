@@ -14,7 +14,7 @@ namespace LiwaPOS.WpfAppUI
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private void ConfigureServices(IServiceCollection services)
         {
@@ -26,14 +26,17 @@ namespace LiwaPOS.WpfAppUI
 
             // Business Logic Layer servisleri
             services.AddBusinessLogicLayer();
-            services.AddSingleton<INotificationService, NotificationService>();
+
+            services.AddSingleton<ICustomNotificationService, CustomNotificationService>();
 
             // ViewModels
+            services.AddTransient<NavigationViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<ShellViewModel>();
            
             // Views
             services.AddTransient<LoginUserControl>();
+            services.AddTransient<NavigationUserControl>();
             services.AddTransient<Shell>();
         }
 

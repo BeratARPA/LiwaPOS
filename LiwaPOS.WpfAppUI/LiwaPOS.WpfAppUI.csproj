@@ -9,12 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Converters\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="devexpress.wpf.layoutcontrol" Version="24.1.3" />
+    <PackageReference Include="devexpress.wpf.navbar" Version="24.1.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 

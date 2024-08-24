@@ -19,7 +19,7 @@ namespace LiwaPOS.WpfAppUI.Services
             if (_frame == null)
                 throw new InvalidOperationException("Frame is not initialized.");
 
-            var page = _serviceProvider.GetRequiredService(pageType) as UserControl;
+            var page = _serviceProvider.GetRequiredService(pageType) as System.Windows.Controls.UserControl;
             if (page == null)
                 throw new InvalidOperationException($"No service for type '{pageType}' has been registered.");
 

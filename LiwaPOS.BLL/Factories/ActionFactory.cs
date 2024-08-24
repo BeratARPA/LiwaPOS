@@ -11,7 +11,9 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.ShowPopup, typeof(ShowPopupAction) },
             { ActionType.LoginUser, typeof(LoginUserAction) },
             { ActionType.POSPageOpen, typeof(OpenPOSPageAction) },
-            { ActionType.CloseTheApplication, typeof(CloseTheApplicationAction) }
+            { ActionType.CloseTheApplication, typeof(CloseTheApplicationAction) },
+            { ActionType.SendEmail, typeof(SendEmailAction) },
+            { ActionType.SendSMS, typeof(SendSmsAction) }
         };
 
         private readonly IServiceProvider _serviceProvider;

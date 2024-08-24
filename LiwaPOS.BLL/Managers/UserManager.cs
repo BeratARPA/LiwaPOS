@@ -7,16 +7,13 @@ namespace LiwaPOS.BLL.Managers
     {
         private readonly IUserService _userService;
         private readonly AppRuleManager _appRuleManager;
-        private readonly IAppRuleService _appRuleService;
 
         public UserManager(
             IUserService userService,
-            AppRuleManager appRuleManager,
-            IAppRuleService appRuleService)
+            AppRuleManager appRuleManager)
         {
             _userService = userService;
             _appRuleManager = appRuleManager;
-            _appRuleService = appRuleService;
         }
 
         public async Task<bool> Login(string pinCode)

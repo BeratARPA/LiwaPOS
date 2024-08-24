@@ -5,6 +5,8 @@
         LoginUser,
         ShowPopup,
         POSPageOpen,
-        CloseTheApplication
+        CloseTheApplication,
+        SendEmail,
+        SendSMS
     }
 }

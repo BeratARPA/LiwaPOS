@@ -1,11 +1,7 @@
 ﻿using LiwaPOS.BLL.Services;
 using LiwaPOS.Shared.Helpers;
-using LiwaPOS.WpfAppUI.Models;
+using LiwaPOS.Shared.Models;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace LiwaPOS.WpfAppUI.Extensions

@@ -22,6 +22,7 @@ namespace LiwaPOS.BLL
             services.AddSingleton<IAppActionService, AppActionService>();
 
             services.AddSingleton<IRuleActionMapService, RuleActionMapService>();
+            services.AddSingleton<IEmailService, EmailService>();
 
             services.AddSingleton<EventManager>();
             services.AddSingleton<EventFactory>();
@@ -32,6 +33,8 @@ namespace LiwaPOS.BLL
             services.AddTransient<LoginUserAction>();
             services.AddTransient<OpenPOSPageAction>();
             services.AddTransient<ShowPopupAction>();
+            services.AddTransient<SendEmailAction>();
+            services.AddTransient<SendSmsAction>();
 
             services.AddTransient<POSPageOpenedEventHandler>();
             services.AddTransient<UserLoggedInEventHandler>();

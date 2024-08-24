@@ -1,15 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace LiwaPOS.WpfAppUI
+namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class ShellViewModel : INotifyPropertyChanged
+    public class NavigationViewModel: INotifyPropertyChanged
     {
-        public ShellViewModel()
-        {
-            
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -17,4 +12,3 @@ namespace LiwaPOS.WpfAppUI
         }
     }
 }
- 

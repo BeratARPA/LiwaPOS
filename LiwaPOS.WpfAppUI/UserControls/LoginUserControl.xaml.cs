@@ -7,7 +7,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
     /// <summary>
     /// Interaction logic for LoginUserControl.xaml
     /// </summary>
-    public partial class LoginUserControl : UserControl
+    public partial class LoginUserControl : System.Windows.Controls.UserControl
     {
         LoginViewModel _loginViewModel = null;
 

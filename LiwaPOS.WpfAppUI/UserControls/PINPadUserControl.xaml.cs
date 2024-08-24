@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace LiwaPOS.WpfAppUI.UserControls
 {
     /// <summary>
     /// Interaction logic for PINPadUserControl.xaml
     /// </summary>
-    public partial class PINPadUserControl : UserControl
+    public partial class PINPadUserControl : System.Windows.Controls.UserControl
     {
         public event EventHandler<string> PINEntered = null;
 
@@ -29,6 +28,9 @@ namespace LiwaPOS.WpfAppUI.UserControls
                 return;
 
             PINEntered?.Invoke(this, PIN);
+
+            PIN = "";
+            TextBoxPIN.Clear();
         }
 
         private void ButtonClean_Click(object sender, RoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
 
         private void Numbers(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
+            var button = sender as System.Windows.Controls.Button;
             if (button == null)
                 return;
 
