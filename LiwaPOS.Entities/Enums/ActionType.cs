@@ -7,6 +7,6 @@
         POSPageOpen,
         CloseTheApplication,
         SendEmail,
-        SendSMS
+        TelsamSendSMS
     }
 }

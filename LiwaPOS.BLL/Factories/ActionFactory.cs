@@ -13,7 +13,7 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.POSPageOpen, typeof(OpenPOSPageAction) },
             { ActionType.CloseTheApplication, typeof(CloseTheApplicationAction) },
             { ActionType.SendEmail, typeof(SendEmailAction) },
-            { ActionType.SendSMS, typeof(SendSmsAction) }
+            { ActionType.TelsamSendSMS, typeof(TelsamSendSmsAction) }
         };
 
         private readonly IServiceProvider _serviceProvider;
