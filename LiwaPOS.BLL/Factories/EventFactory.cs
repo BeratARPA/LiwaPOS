@@ -1,6 +1,9 @@
 ﻿using LiwaPOS.BLL.EventHandlers;
 using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.Entities.Enums;
+using LiwaPOS.BLL.Services;
+using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Models;
+using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Factories
 {
@@ -12,6 +15,7 @@ namespace LiwaPOS.BLL.Factories
             { EventType.UserLoggedIn, typeof(UserLoggedInEventHandler) },
             { EventType.PopupDisplayed, typeof(PopupDisplayedEventHandler) },
             { EventType.UserFailedToLogin, typeof(UserFailedToLoginEventHandler) },
+            { EventType.ShellInitialized, typeof(ShellInitializedEventHandler) },
         };
 
         private readonly IServiceProvider _serviceProvider;
@@ -32,11 +36,13 @@ namespace LiwaPOS.BLL.Factories
                 }
                 else
                 {
-                    throw new InvalidOperationException($"No service found for event handler type {handlerType.Name}.");
+                    LoggingService.LogErrorAsync($"No service found for event handler type {handlerType.Name}.", typeof(EventFactory).Name, eventType.ToString(), new InvalidOperationException());
                 }
             }
 
-            throw new NotImplementedException($"Event type {eventType} is not implemented.");
+            LoggingService.LogErrorAsync($"Event type {eventType} is not implemented.", typeof(EventFactory).Name, eventType.ToString(), new NotImplementedException());
+
+            return null;
         }
     }
 }

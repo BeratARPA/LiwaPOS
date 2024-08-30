@@ -1,4 +1,4 @@
-﻿using LiwaPOS.Entities.Enums;
+﻿using LiwaPOS.Shared.Enums;
 
 namespace LiwaPOS.Entities.Entities
 {

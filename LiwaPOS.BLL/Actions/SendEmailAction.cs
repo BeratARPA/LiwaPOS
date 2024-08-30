@@ -7,6 +7,7 @@ namespace LiwaPOS.BLL.Actions
     public class SendEmailAction : IAction
     {
         private readonly IEmailService _emailService;
+
         public SendEmailAction(IEmailService emailService)
         {
             _emailService = emailService;
@@ -14,10 +15,11 @@ namespace LiwaPOS.BLL.Actions
 
         public void Execute(string properties)
         {
-            // JSON verisini ayrıştır
             var emailProperties = JsonHelper.Deserialize<EmailDTO>(properties);
-            if (emailProperties != null)
-                _emailService.SendEmailAsync(emailProperties);
+            if (emailProperties == null)
+                return;
+
+            _emailService.SendEmailAsync(emailProperties);
         }
     }
 }

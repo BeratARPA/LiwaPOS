@@ -1,5 +1,5 @@
 ﻿using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.Entities.Enums;
+using LiwaPOS.Shared.Enums;
 
 namespace LiwaPOS.BLL.Managers
 {

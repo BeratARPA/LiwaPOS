@@ -6,7 +6,6 @@ namespace LiwaPOS.BLL.EventHandlers
     {
         public Task HandleEventAsync(string eventData)
         {
-            // POS Page opened event handling logic
             return Task.CompletedTask;
         }
     }

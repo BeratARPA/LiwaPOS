@@ -6,7 +6,7 @@ namespace LiwaPOS.BLL.Actions
     {
         public void Execute(string properties)
         {
-            // Implement POS screen navigation logic
+            throw new NotImplementedException();
         }
     }
 }

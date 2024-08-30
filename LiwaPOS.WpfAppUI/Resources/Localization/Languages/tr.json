@@ -18,5 +18,57 @@
   {
     "Key": "Cancel",
     "Value": "İptal"
+  },
+  {
+    "Key": "Information",
+    "Value": "Bilgi"
+  },
+  {
+    "Key": "Warning",
+    "Value": "Uyarı"
+  },
+  {
+    "Key": "Error",
+    "Value": "Hata"
+  },
+  {
+    "Key": "Question",
+    "Value": "Soru"
+  },
+  {
+    "Key": "ErrorMessage",
+    "Value": "Hata Mesajı"
+  },
+  {
+    "Key": "PleaseEnterABriefExplanationOfTheActionThatCausedThisError",
+    "Value": "Lütfen, bu hataya neden olan işleminiz ile ilgili kısaca bilgi veriniz"
+  },
+  {
+    "Key": "DetailedReport",
+    "Value": "Detaylı Rapor"
+  },
+  {
+    "Key": "Close",
+    "Value": "Kapat"
+  },
+  {
+    "Key": "LiwaPOSReporter",
+    "Value": "LiwaPOS Raporlayıcı"
+  },
+  {
+    "Key": "UnableToSaveFile_ph",
+    "Value": "'{0}' dosyası kaydedilemiyor: {1}"
+  },
+  {
+    "Key": "Copy",
+    "Value": "Kopyala"
+  },
+  {
+    "Key": "Save",
+    "Value": "Kaydet"
+  },
+  {
+    "Key": "Submit",
+    "Value": "Gönder"
   }
 ]

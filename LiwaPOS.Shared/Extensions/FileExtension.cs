@@ -1,4 +1,5 @@
 ﻿using LiwaPOS.Shared.Helpers;
+using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.Shared.Extensions
 {
@@ -82,7 +83,8 @@ namespace LiwaPOS.Shared.Extensions
             {
                 return await StreamHelper.OpenFileReadStreamAsync(filePath);
             }
-            throw new FileNotFoundException("File not found.", filePath);
+            await LoggingService.LogErrorAsync("File not found.", typeof(FileExtension).Name, filePath, new FileNotFoundException());
+            return null;
         }
 
         public static async Task<Stream> OpenWriteStreamAsync(string filePath)

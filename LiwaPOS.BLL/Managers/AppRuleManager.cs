@@ -1,7 +1,9 @@
 ﻿using LiwaPOS.BLL.Factories;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Entities.DTOs;
-using LiwaPOS.Entities.Enums;
+using LiwaPOS.Entities.Entities;
+using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Managers
 {
@@ -48,7 +50,7 @@ namespace LiwaPOS.BLL.Managers
             else
             {
                 // Hata loglama veya farklı bir hata yönetimi eklenebilir
-                throw new InvalidOperationException($"No event handler found for event type {eventType}.");
+               await LoggingService.LogErrorAsync($"No event handler found for event type {eventType}.", typeof(AppRuleManager).Name, eventType.ToString(), new InvalidOperationException());
             }
         }
 
@@ -57,7 +59,7 @@ namespace LiwaPOS.BLL.Managers
             var rulesActionMaps = await _ruleActionMapService.GetAllRuleActionMapsAsync(r => r.AppRuleId == appRule.Id);
             if (rulesActionMaps != null)
             {
-                foreach (var rulesActionMap in rulesActionMaps)
+                foreach (var rulesActionMap in rulesActionMaps.OrderBy(x => x.SortOrder))
                 {
                     await ExecuteActionForRuleAsync(rulesActionMap);
                 }
@@ -77,7 +79,7 @@ namespace LiwaPOS.BLL.Managers
                 else
                 {
                     // Hata loglama veya farklı bir hata yönetimi eklenebilir
-                    throw new InvalidOperationException($"No action found for action type {appAction.Type}.");
+                   await LoggingService.LogErrorAsync($"No action found for action type {appAction.Type}.", typeof(ActionFactory).Name, appAction.Type.ToString(), new InvalidOperationException());
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Models;
+using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Services
 {
@@ -16,7 +17,8 @@ namespace LiwaPOS.BLL.Services
         {
             if (model is not TelsamSmsDTO smsDto)
             {
-                throw new ArgumentException("Model is not of type TelsamSMSDTO");
+                await LoggingService.LogErrorAsync("Model is not of type TelsamSmsDTO", typeof(TelsamSmsService).Name, model.ToString(), new ArgumentException());
+                return;
             }
 
             // API URL'yi oluştur
@@ -38,16 +40,17 @@ namespace LiwaPOS.BLL.Services
                 string responseContent = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception($"SMS sending failed: {responseContent}");
+                    await LoggingService.LogErrorAsync($"SMS sending failed: {responseContent}", typeof(TelsamSmsService).Name, model.ToString(), new Exception());
+                    return;
                 }
 
                 // Process successful response
-                Console.WriteLine($"SMS successfully sent. Package ID: {responseContent}");
+                await LoggingService.LogInfoAsync($"SMS successfully sent. Package ID: {responseContent}", typeof(TelsamSmsService).Name, model.ToString());
             }
             catch (Exception ex)
             {
                 // Error handling
-                throw new Exception($"An error occurred while sending SMS with Telsam: {ex.Message}");
+                await LoggingService.LogErrorAsync($"An error occurred while sending SMS with Telsam: {ex.Message}", typeof(TelsamSmsService).Name, model.ToString(), new Exception());           
             }
         }
     }

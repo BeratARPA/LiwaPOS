@@ -1,4 +1,4 @@
-﻿namespace LiwaPOS.Entities.Enums
+﻿namespace LiwaPOS.Shared.Enums
 {
     public enum ActionType
     {
@@ -7,6 +7,9 @@
         POSPageOpen,
         CloseTheApplication,
         SendEmail,
-        TelsamSendSMS
+        TelsamSendSMS,
+        RunProcess,
+        AddLineToTextFile,
+        OpenWebsiteOnWindow
     }
 }

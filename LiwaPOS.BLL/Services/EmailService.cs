@@ -1,5 +1,6 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Models;
+using LiwaPOS.Shared.Services;
 using System.Net;
 using System.Net.Mail;
 
@@ -9,39 +10,34 @@ namespace LiwaPOS.BLL.Services
     {
         public async Task SendEmailAsync(EmailDTO emailDto)
         {
-            using (var smtpClient = new SmtpClient(emailDto.SMTPServer, (int)emailDto.SMTPPort)
+            var smtpClient = new SmtpClient(emailDto.SMTPServer, (int)emailDto.SMTPPort);
+
+            smtpClient.Credentials = new NetworkCredential(emailDto.SMTPUser, emailDto.SMTPPassword);
+            smtpClient.EnableSsl = (bool)emailDto.SMTPEnableSsl;
+
+            var mailMessage = new MailMessage
             {
-                Credentials = new NetworkCredential(emailDto.SMTPUser, emailDto.SMTPPassword),
-                EnableSsl = (bool)emailDto.SMTPEnableSsl
-            })
+                From = new MailAddress(emailDto.FromEmailAddress),
+                Subject = emailDto.Subject,
+                Body = emailDto.Message,  // Mesaj gövdesini buraya ekleyebilirsiniz
+                IsBodyHtml = true  // Eğer HTML formatında e-posta gönderecekseniz
+            };
+
+            if (!string.IsNullOrEmpty(emailDto.ToEmailAddress))
+                emailDto.ToEmailAddress.Split(';').ToList().ForEach(x => mailMessage.To.Add(x));
+
+            if (!string.IsNullOrEmpty(emailDto.CCEmailAddresses))
+                emailDto.CCEmailAddresses.Split(';').ToList().ForEach(x => mailMessage.CC.Add(x));
+
+            try
             {
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress(emailDto.FromEmailAddress),
-                    Subject = emailDto.Subject,
-                    Body = emailDto.Message,  // Mesaj gövdesini buraya ekleyebilirsiniz
-                    IsBodyHtml = true  // Eğer HTML formatında e-posta gönderecekseniz
-                };
-
-                mailMessage.To.Add(emailDto.ToEmailAddress);
-
-                if (!string.IsNullOrEmpty(emailDto.CCEmailAddresses))
-                {
-                    foreach (var cc in emailDto.CCEmailAddresses.Split(';'))
-                    {
-                        mailMessage.CC.Add(cc);
-                    }
-                }
-
-                try
-                {
-                    await smtpClient.SendMailAsync(mailMessage);
-                }
-                catch (Exception ex)
-                {
-                    // Hata yönetimi
-                    throw new Exception($"An error occurred while sending the email: {ex.Message} ");
-                }
+                await smtpClient.SendMailAsync(mailMessage);
+                await LoggingService.LogInfoAsync("Email successfully sent.", typeof(EmailService).Name, emailDto.ToString());
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi
+                await LoggingService.LogErrorAsync($"An error occurred while sending the email: {ex.Message}", typeof(EmailService).Name, emailDto.ToString(), new Exception());
             }
         }
     }

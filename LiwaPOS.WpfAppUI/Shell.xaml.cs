@@ -4,6 +4,7 @@ using LiwaPOS.WpfAppUI.UserControls;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace LiwaPOS.WpfAppUI
 {
@@ -12,6 +13,7 @@ namespace LiwaPOS.WpfAppUI
     /// </summary>
     public partial class Shell : Window
     {
+        private readonly DispatcherTimer _dispatcherTimerTime;
         private readonly IServiceProvider _serviceProvider;
 
         public Shell(IServiceProvider serviceProvider)
@@ -23,6 +25,19 @@ namespace LiwaPOS.WpfAppUI
             GlobalVariables.Navigator = new NavigatorService(FrameContent, _serviceProvider);
 
             GlobalVariables.Navigator.Navigate(typeof(LoginUserControl));
+
+            _dispatcherTimerTime = new DispatcherTimer();
+            _dispatcherTimerTime.Tick += DispatcherTimerTime_Tick;
+            TextBlockTime.Text = "...";
+
+            _dispatcherTimerTime.Interval = TimeSpan.FromSeconds(1);
+            _dispatcherTimerTime.Start();
+        }
+
+        private void DispatcherTimerTime_Tick(object? sender, EventArgs e)
+        {
+            var time = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString();
+            TextBlockTime.Text = TextBlockTime.Text.Contains(":") ? time.Replace(":", ".") : time;
         }
 
         private void TextBlockAppName_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -64,6 +79,11 @@ namespace LiwaPOS.WpfAppUI
                     WindowState = WindowState.Maximized;
                 }
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

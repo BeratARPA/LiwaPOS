@@ -9,15 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logo.ico" />
+    <None Remove="Resources\Images\internet.ico" />
+    <None Remove="Resources\Images\internet.png" />
+    <None Remove="Resources\Images\liwasoftwhitelogo.png" />
+    <None Remove="Resources\Images\warning.ico" />
+    <None Remove="Resources\Images\warning.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="devexpress.wpf.layoutcontrol" Version="24.1.3" />
     <PackageReference Include="devexpress.wpf.navbar" Version="24.1.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LiwaPOS.BLL\LiwaPOS.BLL.csproj" />
     <ProjectReference Include="..\LiwaPOS.DAL\LiwaPOS.DAL.csproj" />
     <ProjectReference Include="..\LiwaPOS.Entities\LiwaPOS.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="logo.ico" />
+    <Resource Include="Resources\Images\internet.ico" />
+    <Resource Include="Resources\Images\internet.png" />
+    <Resource Include="Resources\Images\liwasoftwhitelogo.png" />
+    <Resource Include="Resources\Images\warning.ico" />
+    <Resource Include="Resources\Images\warning.png" />
   </ItemGroup>
 
   <ItemGroup>

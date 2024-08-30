@@ -3,16 +3,16 @@ using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.Commands
 {
-    public class AsyncRelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        private readonly Func<object, Task> _execute;
+        private readonly Action<object> _execute;
         private readonly Predicate<object> _canExecute;
 
-        public AsyncRelayCommand(Func<object, Task> execute, Predicate<object> canExecute = null)
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
             if (execute == null)
             {
-                LoggingService.LogErrorAsync(nameof(execute), typeof(AsyncRelayCommand).Name, execute.ToString(), new ArgumentNullException());
+                LoggingService.LogErrorAsync(nameof(execute), typeof(RelayCommand).Name, execute.ToString(), new ArgumentNullException());
                 return;
             }
 
@@ -25,14 +25,9 @@ namespace LiwaPOS.WpfAppUI.Commands
             return _canExecute == null || _canExecute(parameter);
         }
 
-        public async void Execute(object parameter)
+        public void Execute(object parameter)
         {
-            await ExecuteAsync(parameter);
-        }
-
-        public async Task ExecuteAsync(object parameter)
-        {
-            await _execute(parameter);
+            _execute(parameter);
         }
 
         public event EventHandler CanExecuteChanged

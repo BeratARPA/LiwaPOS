@@ -2,7 +2,7 @@
 
 namespace LiwaPOS.BLL.EventHandlers
 {
-    public class UserFailedToLoginEventHandler : IEventHandler
+    public class ShellInitializedEventHandler : IEventHandler
     {
         public Task HandleEventAsync(string eventData)
         {           

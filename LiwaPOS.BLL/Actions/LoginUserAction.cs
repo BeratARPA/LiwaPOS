@@ -6,7 +6,7 @@ namespace LiwaPOS.BLL.Actions
     {
         public void Execute(string properties)
         {
-            // Implement login logic
+            throw new NotImplementedException();
         }
     }
 }

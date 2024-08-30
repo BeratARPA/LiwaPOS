@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LiwaPOS.Shared.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 
 namespace LiwaPOS.WpfAppUI.Services
@@ -10,18 +11,29 @@ namespace LiwaPOS.WpfAppUI.Services
 
         public NavigatorService(Frame frame, IServiceProvider serviceProvider)
         {
-            _frame = frame ?? throw new ArgumentNullException(nameof(frame));
-            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            if (frame == null || serviceProvider == null)
+            {
+                LoggingService.LogErrorAsync("", typeof(NavigatorService).Name, "", new ArgumentNullException());
+                return;
+            }
+            _frame = frame;
+            _serviceProvider = serviceProvider;
         }
 
         public void Navigate(Type pageType, object parameter = null)
         {
             if (_frame == null)
-                throw new InvalidOperationException("Frame is not initialized.");
+            {
+                LoggingService.LogErrorAsync("Frame is not initialized.", typeof(NavigatorService).Name, _frame.ToString(), new InvalidOperationException());
+                return;
+            }
 
             var page = _serviceProvider.GetRequiredService(pageType) as System.Windows.Controls.UserControl;
             if (page == null)
-                throw new InvalidOperationException($"No service for type '{pageType}' has been registered.");
+            {
+                LoggingService.LogErrorAsync($"No service for type '{pageType}' has been registered.", typeof(NavigatorService).Name, pageType.ToString(), new InvalidOperationException());
+                return;
+            }
 
             _frame.Navigate(page, parameter);
         }

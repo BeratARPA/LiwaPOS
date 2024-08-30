@@ -1,6 +1,7 @@
 ﻿using LiwaPOS.BLL.Actions;
 using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.Entities.Enums;
+using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Factories
 {
@@ -13,7 +14,10 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.POSPageOpen, typeof(OpenPOSPageAction) },
             { ActionType.CloseTheApplication, typeof(CloseTheApplicationAction) },
             { ActionType.SendEmail, typeof(SendEmailAction) },
-            { ActionType.TelsamSendSMS, typeof(TelsamSendSmsAction) }
+            { ActionType.TelsamSendSMS, typeof(TelsamSendSmsAction) },
+            { ActionType.RunProcess, typeof(RunProcessAction) },
+            { ActionType.AddLineToTextFile, typeof(AddLineToTextFileAction) },
+            { ActionType.OpenWebsiteOnWindow, typeof(OpenWebsiteOnWindowAction) },
         };
 
         private readonly IServiceProvider _serviceProvider;
@@ -30,7 +34,9 @@ namespace LiwaPOS.BLL.Factories
                 return _serviceProvider.GetService(actionTypeInstance) as IAction;
             }
 
-            throw new NotImplementedException($"Action type {actionType} is not implemented.");
+            LoggingService.LogErrorAsync($"Action type {actionType} is not implemented.", typeof(ActionFactory).Name, actionType.ToString(), new NotImplementedException());
+
+            return null;
         }
     }
 }

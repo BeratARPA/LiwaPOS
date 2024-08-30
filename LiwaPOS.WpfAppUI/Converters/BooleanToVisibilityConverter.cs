@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using LiwaPOS.Shared.Services;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
@@ -21,7 +22,8 @@ namespace LiwaPOS.WpfAppUI.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // İki yönlü veri bağlaması için genellikle kullanılmaz
-            throw new NotImplementedException();
+            LoggingService.LogErrorAsync("", typeof(BooleanToVisibilityConverter).Name, "", new NotImplementedException());
+            return null;
         }
     }
 }
