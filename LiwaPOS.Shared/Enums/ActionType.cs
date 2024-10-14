@@ -10,6 +10,7 @@
         TelsamSendSMS,
         RunProcess,
         AddLineToTextFile,
-        OpenWebsiteOnWindow
+        OpenWebsiteOnWindow,
+        ShowGoogleMapsDirections
     }
 }

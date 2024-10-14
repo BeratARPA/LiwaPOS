@@ -7,7 +7,7 @@ namespace LiwaPOS.Entities
     {    
         public static IServiceCollection AddEntitiesLayer(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(MappingProfile));          
+            services.AddAutoMapper(typeof(MappingProfile));
 
             return services;
         }

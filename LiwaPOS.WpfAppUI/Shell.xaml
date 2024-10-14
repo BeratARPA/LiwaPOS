@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
         xmlns:local="clr-namespace:LiwaPOS.WpfAppUI"
         mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Title="Liwa POS Shell" SnapsToDevicePixels="True" Height="600" Width="800" FontFamily="Segoe UI" FontSize="20" Icon="logo.ico" Closing="Window_Closing">
-    
+
     <Grid x:Name="GridMain">
         <Grid.LayoutTransform>
             <ScaleTransform/>
@@ -15,9 +16,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="GridTopBar" Grid.Row="0" Background="LightSlateGray">
+        <Grid x:Name="GridTopBar" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -25,12 +27,34 @@
 
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10">
                 <Image x:Name="ImageLogo" Stretch="UniformToFill" Source="\Resources\Images\liwasoftwhitelogo.png" Height="25" Margin="0 0 5 0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TextBlockAppName" MouseWheel="TextBlockAppName_MouseWheel" MouseDown="TextBlockAppName_MouseDown" Text="LiwaPOS 1.0.0" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock x:Name="TextBlockAppName" MouseWheel="TextBlockAppName_MouseWheel" MouseDown="TextBlockAppName_MouseDown" Text="LiwaPOS 1.0.0" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <TextBlock x:Name="TextBlockTime" Grid.Column="1" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White" Margin="10"/>
+            <TextBlock x:Name="TextBlockTime" Grid.Column="1" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
         </Grid>
 
         <Frame x:Name="FrameContent" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+
+        <Grid x:Name="GridBottomBar" Grid.Row="2" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="StackPanelButtons" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10"/>
+
+            <TextBlock x:Name="TextBlockMessage" Grid.Column="1" Text="Message" VerticalAlignment="Center" Margin="10" Visibility="Collapsed"/>
+
+            <Grid Grid.Column="2" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="TextBlockUsername" Grid.Column="0" Text="Username" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                <Button x:Name="ButtonMainMenu" Grid.Column="1" Content="{extension:Translator MainMenu}" Click="ButtonMainMenu_Click"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

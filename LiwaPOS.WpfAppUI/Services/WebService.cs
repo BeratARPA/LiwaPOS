@@ -10,8 +10,11 @@ namespace LiwaPOS.WpfAppUI.Services
     {
         private WebView2 _webView;
 
-        public async void Navigate(string url)
+        public async Task NavigateURL(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                return;
+
             if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
             {
                 _webView.Source = uri;
@@ -20,6 +23,15 @@ namespace LiwaPOS.WpfAppUI.Services
             {
                 await LoggingService.LogErrorAsync("Invalid URL format", typeof(WebService).Name, url, new ArgumentException());
             }
+        }
+
+        public async void NavigateHTMLContent(string htmlContent)
+        {
+            if (string.IsNullOrEmpty(htmlContent))
+                return;
+
+            await _webView.EnsureCoreWebView2Async();
+            _webView.NavigateToString(htmlContent);
         }
 
         public void Reload()
@@ -43,12 +55,15 @@ namespace LiwaPOS.WpfAppUI.Services
             }
         }
 
-        public void ExecuteScript(string script)
+        public async Task ExecuteScript(string script)
         {
-            _webView.ExecuteScriptAsync(script);
+            if (string.IsNullOrEmpty(script))
+                return;
+
+            await _webView.ExecuteScriptAsync(script);
         }
 
-        public void OpenWebsiteOnWindow(string title, bool useBorder, bool useFullscreen, int width, int height)
+        public void OpenWebsiteOnWindow(string title = "Web", bool useBorder = true, bool useFullscreen = false, int width = 400, int height = 400)
         {
             WebViewWindow webViewWindow = new WebViewWindow();
             webViewWindow.Title = title;

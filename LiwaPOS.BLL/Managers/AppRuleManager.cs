@@ -1,8 +1,7 @@
 ﻿using LiwaPOS.BLL.Factories;
 using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.Entities.DTOs;
-using LiwaPOS.Entities.Entities;
 using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Managers

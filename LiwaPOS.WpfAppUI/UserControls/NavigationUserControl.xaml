@@ -12,7 +12,7 @@
             <dxlc:Tile Header="Tile" Size="ExtraSmall"/>
             <dxlc:Tile Header="Tile" Size="Small"/>
             <dxlc:Tile Header="Tile" Size="Large" VerticalHeaderAlignment="Center" HorizontalHeaderAlignment="Center"/>
-            <dxlc:Tile Header="Tile" Size="ExtraLarge"/>
+            <dxlc:Tile Header="Tile" Size="ExtraLarge" Click="Tile_Click"/>
         </dxlc:TileLayoutControl>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿namespace LiwaPOS.Entities.Enums
+﻿namespace LiwaPOS.Shared.Enums
 {
     public enum ComparisonOperation
     {

@@ -1,6 +1,6 @@
 ﻿using LiwaPOS.Shared.Enums;
 
-namespace LiwaPOS.Entities.DTOs
+namespace LiwaPOS.Shared.Models.Entities
 {
     public class AppActionDTO
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LiwaPOS.Entities.DTOs;
 using LiwaPOS.Entities.Entities;
+using LiwaPOS.Shared.Models.Entities;
 
 namespace LiwaPOS.Entities.Mappings
 {
@@ -15,6 +15,7 @@ namespace LiwaPOS.Entities.Mappings
 
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserRole, UserRoleDTO>().ReverseMap();
+            CreateMap<Script, ScriptDTO>().ReverseMap();
         }
     }
 }

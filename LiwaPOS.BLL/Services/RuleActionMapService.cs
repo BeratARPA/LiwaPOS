@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.DAL.Interfaces;
-using LiwaPOS.Entities.DTOs;
 using LiwaPOS.Entities.Entities;
+using LiwaPOS.Shared.Models.Entities;
 using System.Linq.Expressions;
 
 namespace LiwaPOS.BLL.Services

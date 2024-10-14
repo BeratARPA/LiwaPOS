@@ -6,8 +6,46 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800" Background="White">
     <Grid>
-            <dxn:NavBarControl />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <dxn:NavBarControl Grid.Column="0">
+            <dxn:NavBarControl.View>
+                <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons"/>
+            </dxn:NavBarControl.View>
+            
+            <dxn:NavBarGroup Header="Ayarlar">
+             
+            </dxn:NavBarGroup>
+            
+            <dxn:NavBarGroup Header="Ürünler">
+
+            </dxn:NavBarGroup>
+            
+            <dxn:NavBarGroup Header="Yazdırma">
+
+            </dxn:NavBarGroup>
+            
+            <dxn:NavBarGroup Header="Raporlar">
+
+            </dxn:NavBarGroup>
+            
+            <dxn:NavBarGroup Header="Otomasyon">
+                <dxn:NavBarItem Content="Eylemler"/>
+                <dxn:NavBarItem Content="Kurallar"/>
+                <dxn:NavBarItem Content="Otomasyon Komutları"/>
+                <dxn:NavBarItem Content="Komutlar" Command="{Binding OpenScriptsCommand}"/>
+            </dxn:NavBarGroup>
+            
+            <dxn:NavBarGroup Header="Kullanıcılar">
+
+            </dxn:NavBarGroup>
+        </dxn:NavBarControl>
+
+        <Frame x:Name="FrameContent" NavigationUIVisibility="Hidden" Grid.Column="1"/>
     </Grid>
 </UserControl>

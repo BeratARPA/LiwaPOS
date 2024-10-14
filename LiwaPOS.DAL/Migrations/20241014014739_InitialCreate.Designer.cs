@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240820030052_InitialCreate")]
+    [Migration("20241014014739_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -86,6 +86,25 @@ namespace LiwaPOS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RuleActionMaps");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.Script", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Scripts");
                 });
 
             modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>

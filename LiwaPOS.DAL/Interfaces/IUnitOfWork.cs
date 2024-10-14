@@ -6,6 +6,7 @@
         IAppActionRepository AppActions { get; }
         IRuleActionMapRepository RuleActionMaps { get; }
         IUserRepository Users { get; }
+        IScriptRepository Scripts { get; }
 
         void Commit();
     }

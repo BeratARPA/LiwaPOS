@@ -6,7 +6,7 @@ namespace LiwaPOS.BLL.Actions
 {
     public class AddLineToTextFileAction : IAction
     {
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             var addLineToTextFileProperties = JsonHelper.Deserialize<AddLineToTextFileDTO>(properties);
             if (addLineToTextFileProperties == null)

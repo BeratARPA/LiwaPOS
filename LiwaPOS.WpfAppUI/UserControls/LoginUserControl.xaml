@@ -15,11 +15,11 @@
         </Grid.ColumnDefinitions>
 
         <Image x:Name="ImageLogo" Grid.Column="0" Stretch="None" Source="{Binding LogoPath}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+       
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <local:PINPadUserControl x:Name="PINPad" PINEntered="PINPad_PINEntered" Height="450" Width="300"/>
+            <local:PINPadUserControl x:Name="PINPad" PINEntered="PINPad_PINEntered" Height="400" Width="350"/>
 
-            <Button x:Name="ButtonExit" Click="ButtonExit_Click" Content="⮿" Width="50" Background="Red" Foreground="White" FontSize="30"/>
+            <Button x:Name="ButtonExit" Click="ButtonExit_Click" FontFamily="Segoe UI Symbol" Content="" Height="65" Width="120" FontSize="30" Margin="0 100 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

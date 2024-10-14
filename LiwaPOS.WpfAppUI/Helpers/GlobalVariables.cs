@@ -6,5 +6,6 @@ namespace LiwaPOS.WpfAppUI.Helpers
     {
         public static Shell? Shell { get; set; } = null;
         public static NavigatorService? Navigator { get; set; } = null;
+        public static IServiceProvider? ServiceProvider { get; set; } = null;
     }
 }

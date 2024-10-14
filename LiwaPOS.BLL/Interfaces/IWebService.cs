@@ -2,11 +2,12 @@
 {
     public interface IWebService
     {
-        void Navigate(string url);
+        Task NavigateURL(string url);
+        void NavigateHTMLContent(string htmlContent);
         void Reload();
         void GoBack();
         void GoForward();
-        void ExecuteScript(string script);
-        void OpenWebsiteOnWindow(string title, bool useBorder, bool useFullscreen, int width, int height);
+        Task ExecuteScript(string script);
+        void OpenWebsiteOnWindow(string title = "Web", bool useBorder = true, bool useFullscreen = false, int width = 400, int height = 400);
     }
 }

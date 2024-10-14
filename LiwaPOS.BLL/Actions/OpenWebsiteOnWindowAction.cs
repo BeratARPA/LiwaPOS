@@ -13,7 +13,7 @@ namespace LiwaPOS.BLL.Actions
             _webService = webService;
         }
 
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             var openWebsiteOnWindowProperties = JsonHelper.Deserialize<OpenWebsiteOnWindowDTO>(properties);
             if (openWebsiteOnWindowProperties == null)
@@ -23,7 +23,7 @@ namespace LiwaPOS.BLL.Actions
             string url = string.Format(protocol, openWebsiteOnWindowProperties.URL);
 
             _webService.OpenWebsiteOnWindow(openWebsiteOnWindowProperties.Title, (bool)openWebsiteOnWindowProperties.UseBorder, (bool)openWebsiteOnWindowProperties.UseFullscreen, (int)openWebsiteOnWindowProperties.Width, (int)openWebsiteOnWindowProperties.Height);
-            _webService.Navigate(url);
+            await _webService.NavigateURL(url);
         }
     }
 }

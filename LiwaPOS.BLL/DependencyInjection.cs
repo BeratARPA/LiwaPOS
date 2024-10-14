@@ -11,7 +11,7 @@ namespace LiwaPOS.BLL
     public static class DependencyInjection
     {
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
-        {
+        {           
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<UserManager>();
 
@@ -22,7 +22,11 @@ namespace LiwaPOS.BLL
 
             services.AddSingleton<IRuleActionMapService, RuleActionMapService>();
 
+            services.AddSingleton<IScriptService, ScriptService>();
+
             services.AddSingleton<IEmailService, EmailService>();
+
+            services.AddSingleton<IGoogleMapService, GoogleMapService>();
 
             services.AddSingleton<ISmsService, TelsamSmsService>();
 
@@ -39,6 +43,7 @@ namespace LiwaPOS.BLL
             services.AddTransient<RunProcessAction>();
             services.AddTransient<AddLineToTextFileAction>();
             services.AddTransient<OpenWebsiteOnWindowAction>();
+            services.AddTransient<ShowGoogleMapsDirectionsAction>();
 
             services.AddTransient<POSPageOpenedEventHandler>();
             services.AddTransient<UserLoggedInEventHandler>();

@@ -5,6 +5,7 @@ using LiwaPOS.DAL;
 using LiwaPOS.Entities;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.WpfAppUI.Extensions;
+using LiwaPOS.WpfAppUI.Interfaces;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.ViewModels;
@@ -33,16 +34,23 @@ namespace LiwaPOS.WpfAppUI
             services.AddBusinessLogicLayer();
 
             services.AddSingleton<ICustomNotificationService, CustomNotificationService>();
+            services.AddSingleton<IApplicationStateService, ApplicationStateService>();
             services.AddSingleton<IWebService, WebService>();
 
             // ViewModels
             services.AddTransient<NavigationViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<ScriptsViewModel>();
+            services.AddTransient<ScriptManagementViewModel>();
+           
 
             // Views
             services.AddTransient<LoginUserControl>();
             services.AddTransient<NavigationUserControl>();
+            services.AddTransient<ManagementUserControl>();
+            services.AddTransient<ScriptManagementUserControl>();
+            services.AddTransient<ScriptsUserControl>();
             services.AddTransient<Shell>();
         }
 
@@ -68,7 +76,7 @@ namespace LiwaPOS.WpfAppUI
                 shell.Show();
 
                 var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
-                await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);              
+                await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
             }
             catch (Exception ex)
             {

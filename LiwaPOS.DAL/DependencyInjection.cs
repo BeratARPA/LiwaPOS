@@ -13,6 +13,7 @@ namespace LiwaPOS.DAL
             services.AddSingleton<DataContext>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IScriptRepository, ScriptRepository>();
             services.AddSingleton<IAppRuleRepository, AppRuleRepository>();
             services.AddSingleton<IAppActionRepository, AppActionRepository>();
             services.AddSingleton<IRuleActionMapRepository, RuleActionMapRepository>();

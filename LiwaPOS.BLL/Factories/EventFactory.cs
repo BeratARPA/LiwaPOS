@@ -1,8 +1,6 @@
 ﻿using LiwaPOS.BLL.EventHandlers;
 using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.BLL.Services;
 using LiwaPOS.Shared.Enums;
-using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Services;
 
 namespace LiwaPOS.BLL.Factories

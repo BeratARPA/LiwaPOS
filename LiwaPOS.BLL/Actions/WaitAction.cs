@@ -6,7 +6,7 @@ namespace LiwaPOS.BLL.Actions
 {
     public class WaitAction : IAction
     {
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             var waitProperties = JsonHelper.Deserialize<WaitDTO>(properties);
             if (waitProperties == null)

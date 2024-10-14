@@ -1,6 +1,5 @@
 ﻿using LiwaPOS.WpfAppUI.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace LiwaPOS.WpfAppUI.UserControls
 {
@@ -27,7 +26,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(1);
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

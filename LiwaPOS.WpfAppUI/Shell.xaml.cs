@@ -1,6 +1,9 @@
 ﻿using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.Interfaces;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.UserControls;
+using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,13 +18,18 @@ namespace LiwaPOS.WpfAppUI
     {
         private readonly DispatcherTimer _dispatcherTimerTime;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IApplicationStateService _applicationState;
 
         public Shell(IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
 
+            _applicationState = _serviceProvider.GetRequiredService<IApplicationStateService>();
+
+            GlobalVariables.ServiceProvider = _serviceProvider;
             GlobalVariables.Shell = this;
+
             GlobalVariables.Navigator = new NavigatorService(FrameContent, _serviceProvider);
 
             GlobalVariables.Navigator.Navigate(typeof(LoginUserControl));
@@ -32,6 +40,13 @@ namespace LiwaPOS.WpfAppUI
 
             _dispatcherTimerTime.Interval = TimeSpan.FromSeconds(1);
             _dispatcherTimerTime.Start();
+
+            var scaleTransform = GridMain.LayoutTransform as ScaleTransform;
+            if (scaleTransform != null)
+            {
+                scaleTransform.ScaleX = Properties.Settings.Default.WindowScale;
+                scaleTransform.ScaleY = Properties.Settings.Default.WindowScale;
+            }
         }
 
         private void DispatcherTimerTime_Tick(object? sender, EventArgs e)
@@ -44,13 +59,13 @@ namespace LiwaPOS.WpfAppUI
         {
             if (Keyboard.Modifiers != (ModifierKeys.Control | ModifierKeys.Shift)) return;
 
-            var val = e.Delta / 3000d;
+            var value = e.Delta / 3000d;
 
-            var sc = GridMain.LayoutTransform as ScaleTransform;
-            if (sc == null || sc.ScaleX + val < 0.05) return;
+            var scaleTransform = GridMain.LayoutTransform as ScaleTransform;
+            if (scaleTransform == null || scaleTransform.ScaleX + value < 0.05) return;
 
-            sc.ScaleX += val;
-            sc.ScaleY += val;
+            scaleTransform.ScaleX += value;
+            scaleTransform.ScaleY += value;
         }
 
         private void TextBlockAppName_MouseDown(object sender, MouseButtonEventArgs e)
@@ -59,11 +74,11 @@ namespace LiwaPOS.WpfAppUI
             {
                 if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
                 {
-                    var lt = GridMain.LayoutTransform as ScaleTransform;
-                    if (lt != null)
+                    var scaleTransform = GridMain.LayoutTransform as ScaleTransform;
+                    if (scaleTransform != null)
                     {
-                        lt.ScaleX = 1;
-                        lt.ScaleY = 1;
+                        scaleTransform.ScaleX = 1;
+                        scaleTransform.ScaleY = 1;
                     }
                     return;
                 }
@@ -81,9 +96,22 @@ namespace LiwaPOS.WpfAppUI
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (_applicationState.IsLocked)
+            {
+                e.Cancel = true;
+                return;
+            }
+          
+            Properties.Settings.Default.WindowScale = (GridMain.LayoutTransform as ScaleTransform).ScaleX;
+            Properties.Settings.Default.Save();
+        }
 
+        private void ButtonMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
+            GlobalVariables.Navigator.Navigate(typeof(NavigationUserControl));
         }
     }
 }

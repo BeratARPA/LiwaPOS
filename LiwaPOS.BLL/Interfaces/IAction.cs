@@ -2,6 +2,6 @@
 {
     public interface IAction
     {
-        void Execute(string properties);
+        Task Execute(string properties);
     }
 }

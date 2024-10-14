@@ -44,10 +44,10 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var rule = await GetByIdAsync(id);
-            if (rule != null)
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
             {
-                _context.AppRules.Remove(rule);
+                _context.AppRules.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }

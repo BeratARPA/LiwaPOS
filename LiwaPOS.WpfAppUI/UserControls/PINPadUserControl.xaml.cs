@@ -30,13 +30,13 @@ namespace LiwaPOS.WpfAppUI.UserControls
             PINEntered?.Invoke(this, PIN);
 
             PIN = "";
-            TextBoxPIN.Clear();
+            PasswordBoxPIN.Clear();
         }
 
         private void ButtonClean_Click(object sender, RoutedEventArgs e)
         {
             PIN = "";
-            TextBoxPIN.Clear();
+            PasswordBoxPIN.Clear();
         }
 
         private void Numbers(object sender, RoutedEventArgs e)
@@ -46,7 +46,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
                 return;
 
             PIN += button.Content;
-            TextBoxPIN.Text = PIN;
+            PasswordBoxPIN.Password = PIN;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace LiwaPOS.BLL.Actions
 {
     public class CloseTheApplicationAction : IAction
     {
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
            Environment.Exit(1);
         }

@@ -70,5 +70,13 @@
   {
     "Key": "Submit",
     "Value": "Gönder"
+  },
+  {
+    "Key": "MainMenu",
+    "Value": "Ana Menü"
+  },
+  {
+    "Key": "Keyboard",
+    "Value": "Klavye"
   }
 ]

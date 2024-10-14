@@ -13,7 +13,7 @@ namespace LiwaPOS.BLL.Actions
             _emailService = emailService;
         }
 
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             var emailProperties = JsonHelper.Deserialize<EmailDTO>(properties);
             if (emailProperties == null)

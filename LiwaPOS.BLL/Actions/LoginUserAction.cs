@@ -4,7 +4,7 @@ namespace LiwaPOS.BLL.Actions
 {
     public class LoginUserAction : IAction
     {
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             throw new NotImplementedException();
         }

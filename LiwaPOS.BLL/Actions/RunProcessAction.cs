@@ -7,7 +7,7 @@ namespace LiwaPOS.BLL.Actions
 {
     public class RunProcessAction : IAction
     {
-        public void Execute(string properties)
+        public async Task Execute(string properties)
         {
             var runProcessProperties = JsonHelper.Deserialize<RunProcessDTO>(properties);
             if (runProcessProperties == null)

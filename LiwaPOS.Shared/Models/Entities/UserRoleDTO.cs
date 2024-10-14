@@ -1,4 +1,4 @@
-﻿namespace LiwaPOS.Entities.DTOs
+﻿namespace LiwaPOS.Shared.Models.Entities
 {
     public class UserRoleDTO
     {

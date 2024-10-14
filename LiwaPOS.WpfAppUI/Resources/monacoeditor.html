@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monaco Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs/editor/editor.main.css" />
+    <style>
+        /* Editor'ün tam ekran görünmesi için gerekli stil */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #editor {
+            flex-grow: 1; /* Editor alanını esnetmek için */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs/loader.js"></script>
+    <script>
+        // Monaco Editor'ü yükleme
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs' }});
+        require(['vs/editor/editor.main'], function () {
+            monaco.editor.create(document.getElementById('editor'), {
+                value: "// Yazmaya başlayın...",
+                language: 'javascript',
+                automaticLayout: true // Pencere boyutu değiştiğinde otomatik düzenleme
+            });
+        });
+
+        // Editor'den içerik almak için yardımcı fonksiyon
+        function getEditorContent() {
+            const editor = monaco.editor.getModels()[0]; // İlk model (editor) alınıyor
+            return editor.getValue(); // Değer alınıyor
+        }
+    </script>
+</body>
+</html>

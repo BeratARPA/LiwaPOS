@@ -1,4 +1,4 @@
-﻿using LiwaPOS.Entities.Enums;
+﻿using LiwaPOS.Shared.Enums;
 using System.Text.RegularExpressions;
 
 namespace LiwaPOS.BLL.Services

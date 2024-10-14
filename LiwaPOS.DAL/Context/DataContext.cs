@@ -32,6 +32,7 @@ namespace LiwaPOS.DAL.Context
         public DbSet<AppAction> AppActions { get; set; }
         public DbSet<AppRule> AppRules { get; set; }
         public DbSet<RuleActionMap> RuleActionMaps { get; set; }
+        public DbSet<Script> Scripts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 

@@ -55,6 +55,20 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Scripts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scripts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
@@ -104,6 +118,9 @@ namespace LiwaPOS.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "RuleActionMaps");
+
+            migrationBuilder.DropTable(
+                name: "Scripts");
 
             migrationBuilder.DropTable(
                 name: "Users");
