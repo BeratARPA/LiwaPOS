@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiwaPOS.WpfAppUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace LiwaPOS.WpfAppUI.UserControls
         public ScriptManagementUserControl()
         {
             InitializeComponent();
+            if (DataContext is ScriptManagementViewModel viewModel)
+            {
+                viewModel.SetWebView(MonacoEditorWebView);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace LiwaPOS.BLL.Actions
             if (waitProperties == null)
                 return;
 
-            Task.Delay(waitProperties.DurationInSecond);
+            await Task.Delay(waitProperties.DurationInSecond);
         }
     }
 }

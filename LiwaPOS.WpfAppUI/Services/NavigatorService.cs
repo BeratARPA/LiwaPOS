@@ -35,7 +35,13 @@ namespace LiwaPOS.WpfAppUI.Services
                 return;
             }
 
-            _frame.Navigate(page, parameter);
+            var viewModel = page.DataContext as dynamic;
+            if (viewModel != null)
+            {
+                viewModel.SetParameter(parameter);
+            }
+
+            _frame.Navigate(page);
         }
 
         public void GoBack()

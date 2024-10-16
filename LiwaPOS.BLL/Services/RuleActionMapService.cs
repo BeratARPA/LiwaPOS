@@ -31,15 +31,33 @@ namespace LiwaPOS.BLL.Services
             _unitOfWork.Commit();
         }
 
+        public async Task<IEnumerable<RuleActionMapDTO>> GetAllRuleActionMapsAsNoTrackingAsync(Expression<Func<RuleActionMap, bool>> filter = null)
+        {
+            var ruleActionMaps = await _unitOfWork.RuleActionMaps.GetAllAsNoTrackingAsync(filter);
+            return _mapper.Map<IEnumerable<RuleActionMapDTO>>(ruleActionMaps);
+        }
+
         public async Task<IEnumerable<RuleActionMapDTO>> GetAllRuleActionMapsAsync(Expression<Func<RuleActionMap, bool>> filter = null)
         {
             var ruleActionMaps = await _unitOfWork.RuleActionMaps.GetAllAsync(filter);
             return _mapper.Map<IEnumerable<RuleActionMapDTO>>(ruleActionMaps);
         }
 
+        public async Task<RuleActionMapDTO> GetRuleActionMapAsNoTrackingAsync(Expression<Func<RuleActionMap, bool>> filter = null)
+        {
+            var ruleActionMap = await _unitOfWork.RuleActionMaps.GetAsNoTrackingAsync(filter);
+            return _mapper.Map<RuleActionMapDTO>(ruleActionMap);
+        }
+
         public async Task<RuleActionMapDTO> GetRuleActionMapAsync(Expression<Func<RuleActionMap, bool>> filter = null)
         {
             var ruleActionMap = await _unitOfWork.RuleActionMaps.GetAsync(filter);
+            return _mapper.Map<RuleActionMapDTO>(ruleActionMap);
+        }
+
+        public async Task<RuleActionMapDTO> GetRuleActionMapByIdAsNoTrackingAsync(int id)
+        {
+            var ruleActionMap = await _unitOfWork.RuleActionMaps.GetByIdAsNoTrackingAsync(id);
             return _mapper.Map<RuleActionMapDTO>(ruleActionMap);
         }
 

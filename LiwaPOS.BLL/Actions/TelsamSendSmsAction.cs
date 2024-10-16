@@ -19,7 +19,7 @@ namespace LiwaPOS.BLL.Actions
             if (smsProperties == null)
                 return;
 
-            _smsService.SendSmsAsync(smsProperties);
+            await _smsService.SendSmsAsync(smsProperties);
         }
     }
 }

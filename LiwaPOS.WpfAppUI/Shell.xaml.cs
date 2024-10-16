@@ -17,20 +17,17 @@ namespace LiwaPOS.WpfAppUI
     public partial class Shell : Window
     {
         private readonly DispatcherTimer _dispatcherTimerTime;
-        private readonly IServiceProvider _serviceProvider;
         private readonly IApplicationStateService _applicationState;
 
-        public Shell(IServiceProvider serviceProvider)
+        public Shell()
         {
             InitializeComponent();
-            _serviceProvider = serviceProvider;
 
-            _applicationState = _serviceProvider.GetRequiredService<IApplicationStateService>();
-
-            GlobalVariables.ServiceProvider = _serviceProvider;
+            _applicationState = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
+          
             GlobalVariables.Shell = this;
 
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, _serviceProvider);
+            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
 
             GlobalVariables.Navigator.Navigate(typeof(LoginUserControl));
 

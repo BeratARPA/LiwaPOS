@@ -7,14 +7,13 @@ using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class ManagementViewModel
+    public class ManagementViewModel : ViewModelBase
     {
         public ICommand OpenScriptsCommand { get; }
         public Frame FrameContent { get; set; }
 
-        public ManagementViewModel(Frame frameContent)
+        public ManagementViewModel()
         {
-            FrameContent = frameContent; // Frame referansını al
             OpenScriptsCommand = new RelayCommand(OpenScripts);
         }
 
@@ -23,6 +22,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             // NavigatorService'i başlatma
             GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
             GlobalVariables.Navigator.Navigate(typeof(ScriptsUserControl));
-        }
+        }       
     }
 }

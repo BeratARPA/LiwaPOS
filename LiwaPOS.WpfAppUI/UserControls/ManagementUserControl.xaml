@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" Background="White">
+             d:DesignHeight="600" d:DesignWidth="800" Background="White"
+             DataContext="{Binding ManagementViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

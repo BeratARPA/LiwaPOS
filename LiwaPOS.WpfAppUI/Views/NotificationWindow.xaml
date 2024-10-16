@@ -15,7 +15,8 @@
         Background="Transparent"
         Topmost="True"
         MouseDown="Window_MouseDown" 
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        DataContext="{Binding NotificationViewModel, Source={StaticResource ViewModelLocator}}">
 
     <Window.Resources>
         <Storyboard x:Key="FadeInStoryboard">

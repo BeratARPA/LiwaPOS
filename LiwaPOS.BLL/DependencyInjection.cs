@@ -33,6 +33,7 @@ namespace LiwaPOS.BLL
             services.AddSingleton<EventFactory>();
             services.AddSingleton<ActionFactory>();
             services.AddSingleton<LocalizationService>();
+            services.AddSingleton<JavaScriptEngineService>();
 
             services.AddTransient<CloseTheApplicationAction>();
             services.AddTransient<LoginUserAction>();

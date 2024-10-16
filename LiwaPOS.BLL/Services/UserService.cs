@@ -31,15 +31,33 @@ namespace LiwaPOS.BLL.Services
             _unitOfWork.Commit();
         }
 
+        public async Task<IEnumerable<UserDTO>> GetAllUsersAsNoTrackingAsync(Expression<Func<User, bool>> filter = null)
+        {
+            var users = await _unitOfWork.Users.GetAllAsNoTrackingAsync(filter);
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
+        }
+
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync(Expression<Func<User, bool>> filter = null)
         {
             var users = await _unitOfWork.Users.GetAllAsync(filter);
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
+        public async Task<UserDTO> GetUserAsNoTrackingAsync(Expression<Func<User, bool>> filter = null)
+        {
+            var user = await _unitOfWork.Users.GetAsNoTrackingAsync(filter);
+            return _mapper.Map<UserDTO>(user);
+        }
+
         public async Task<UserDTO> GetUserAsync(Expression<Func<User, bool>> filter = null)
         {
             var user = await _unitOfWork.Users.GetAsync(filter);
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        public async Task<UserDTO> GetUserByIdAsNoTrackingAsync(int id)
+        {
+            var user = await _unitOfWork.Users.GetByIdAsNoTrackingAsync(id);
             return _mapper.Map<UserDTO>(user);
         }
 

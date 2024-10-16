@@ -32,12 +32,35 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task<IEnumerable<RuleActionMap>> GetAllAsync(Expression<Func<RuleActionMap, bool>> filter = null)
         {
-            return await _context.RuleActionMaps.Where(filter).ToListAsync();
+            return filter != null
+                ? await _context.RuleActionMaps.Where(filter).ToListAsync()
+                : await _context.RuleActionMaps.ToListAsync();
+        }
+
+        public async Task<IEnumerable<RuleActionMap>> GetAllAsNoTrackingAsync(Expression<Func<RuleActionMap, bool>> filter = null)
+        {
+            return filter != null
+                ? await _context.RuleActionMaps.AsNoTracking().Where(filter).ToListAsync()
+                : await _context.RuleActionMaps.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<RuleActionMap> GetAsNoTrackingAsync(Expression<Func<RuleActionMap, bool>> filter = null)
+        {
+            return filter != null
+                 ? await _context.RuleActionMaps.AsNoTracking().Where(filter).FirstOrDefaultAsync()
+                 : await _context.RuleActionMaps.AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<RuleActionMap> GetAsync(Expression<Func<RuleActionMap, bool>> filter = null)
         {
-            return await _context.RuleActionMaps.Where(filter).FirstOrDefaultAsync();
+            return filter != null
+                ? await _context.RuleActionMaps.Where(filter).FirstOrDefaultAsync()
+                : await _context.RuleActionMaps.FirstOrDefaultAsync();
+        }
+
+        public async Task<RuleActionMap> GetByIdAsNoTrackingAsync(int id)
+        {
+            return await _context.RuleActionMaps.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<RuleActionMap> GetByIdAsync(int id)
@@ -47,6 +70,12 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task UpdateAsync(RuleActionMap entity)
         {
+            var localEntity = _context.Scripts.Local.FirstOrDefault(e => e.Id == entity.Id);
+            if (localEntity != null)
+            {
+                _context.Entry(localEntity).State = EntityState.Detached;
+            }
+
             _context.RuleActionMaps.Update(entity);
             await _context.SaveChangesAsync();
         }

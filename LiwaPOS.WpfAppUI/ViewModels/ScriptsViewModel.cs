@@ -1,20 +1,20 @@
-﻿using LiwaPOS.Shared.Models.Entities;
+﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.UserControls;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class ScriptsViewModel : INotifyPropertyChanged
+    public class ScriptsViewModel : ViewModelBase
     {
         private string _searchText;
         private ScriptDTO _selectedCommand;
         private ObservableCollection<ScriptDTO> _commands;
         private ObservableCollection<ScriptDTO> _filteredCommands;
+        private readonly IScriptService _scriptService;
 
         public string SearchText
         {
@@ -62,23 +62,24 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand ReorderCommand { get; }
 
-        public ScriptsViewModel()
+        public ScriptsViewModel(IScriptService scriptService)
         {
-            // Örnek komutlar ekleme
-            Commands = new ObservableCollection<ScriptDTO>
-            {
-                new ScriptDTO { Name = "Komut 1" },
-                new ScriptDTO { Name = "Komut 2" },
-                new ScriptDTO { Name = "Komut 3" }
-            };
+            _scriptService = scriptService;
 
-            FilteredCommands = new ObservableCollection<ScriptDTO>(Commands);
+            LoadScriptsAsync();      
 
             // Komutları tanımlama
             AddCommand = new RelayCommand(AddNewCommand);
             EditCommand = new RelayCommand(EditSelectedCommand, CanEditOrDelete);
             DeleteCommand = new RelayCommand(DeleteSelectedCommand, CanEditOrDelete);
             ReorderCommand = new RelayCommand(ReorderCommands);
+        }
+
+        private async void LoadScriptsAsync()
+        {
+            var scripts = await GetScripts();
+            Commands = new ObservableCollection<ScriptDTO>(scripts);
+            FilteredCommands = new ObservableCollection<ScriptDTO>(Commands);
         }
 
         // Arama metni değiştikçe komutları filtreler
@@ -107,19 +108,24 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             if (SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate(typeof(ScriptManagementUserControl));
+                GlobalVariables.Navigator.Navigate(typeof(ScriptManagementUserControl), SelectedCommand);
             }
         }
 
         // Seçili komutu silme
-        private void DeleteSelectedCommand(object obj)
+        private async void DeleteSelectedCommand(object obj)
         {
             if (SelectedCommand != null)
             {
+                await _scriptService.DeleteScriptAsync(SelectedCommand.Id);
                 Commands.Remove(SelectedCommand);
-                FilterCommands();
-                MessageBox.Show($"{SelectedCommand.Name} komutu silindi.");
+                FilterCommands();                   
             }
+        }
+
+        private async Task<IEnumerable<ScriptDTO>> GetScripts()
+        {
+            return await _scriptService.GetAllScriptsAsync();
         }
 
         // Komutları yeniden sıralama
@@ -127,20 +133,13 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             // Örnek: Komutları isme göre sıralama
             Commands = new ObservableCollection<ScriptDTO>(Commands.OrderBy(c => c.Name));
-            FilterCommands();
-            MessageBox.Show("Komutlar sıralandı.");
+            FilterCommands();           
         }
 
         // Komutun düzenlenip silinebilmesi için seçili komut var mı kontrolü
         private bool CanEditOrDelete(object obj)
         {
             return SelectedCommand != null;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }       
     }
 }

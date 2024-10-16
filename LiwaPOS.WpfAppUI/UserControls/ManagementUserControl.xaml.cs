@@ -10,7 +10,11 @@ namespace LiwaPOS.WpfAppUI.UserControls
         public ManagementUserControl()
         {
             InitializeComponent();
-            DataContext = new ManagementViewModel(FrameContent);
+            
+            if(DataContext is ManagementViewModel viewModel)
+            {
+                viewModel.FrameContent = FrameContent;
+            }
         }
     }
 }

@@ -15,15 +15,13 @@ namespace LiwaPOS.WpfAppUI.Services
         { NotificationPosition.BottomRight, new List<NotificationWindow>() },
         { NotificationPosition.BottomLeft, new List<NotificationWindow>() },
         { NotificationPosition.TopRight, new List<NotificationWindow>() },
-        { NotificationPosition.TopLeft, new List<NotificationWindow>() }
+        { NotificationPosition.TopLeft, new List<NotificationWindow>() },
+        { NotificationPosition.Center, new List<NotificationWindow>() }
     };
 
         public void ShowNotification(NotificationDTO notification)
         {
-            var notificationWindow = new NotificationWindow()
-            {
-                DataContext = new NotificationViewModel(notification)
-            };
+            var notificationWindow = new NotificationWindow(new NotificationViewModel(notification));         
 
             notificationWindow.Loaded += (s, e) => ArrangeNotificationPosition(notificationWindow, notification.Position);
             notificationWindow.Closed += (s, e) =>

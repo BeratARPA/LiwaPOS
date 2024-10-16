@@ -33,24 +33,52 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task<User> GetAsync(Expression<Func<User, bool>> filter = null)
         {
-            return await _context.Users.Where(filter).FirstOrDefaultAsync();
+            return filter != null
+                ? await _context.Users.Where(filter).FirstOrDefaultAsync()
+                : await _context.Users.FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> filter = null)
         {
-            return await _context.Users.Include(r => r.UserRole).Where(filter).ToListAsync();
+            return filter != null
+                ? await _context.Users.Include(r => r.UserRole).Where(filter).ToListAsync()
+                : await _context.Users.Include(r => r.UserRole).ToListAsync();
         }
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _context.Users.Include(r => r.UserRole)
-                              .FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Users.Include(r => r.UserRole).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task UpdateAsync(User entity)
         {
+            var localEntity = _context.Scripts.Local.FirstOrDefault(e => e.Id == entity.Id);
+            if (localEntity != null)
+            {
+                _context.Entry(localEntity).State = EntityState.Detached;
+            }
+
             _context.Users.Update(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsNoTrackingAsync(Expression<Func<User, bool>> filter = null)
+        {
+            return filter != null
+                  ? await _context.Users.AsNoTracking().Include(r => r.UserRole).Where(filter).ToListAsync()
+                  : await _context.Users.AsNoTracking().Include(r => r.UserRole).ToListAsync();
+        }
+
+        public async Task<User> GetAsNoTrackingAsync(Expression<Func<User, bool>> filter = null)
+        {
+            return filter != null
+                    ? await _context.Users.AsNoTracking().Where(filter).FirstOrDefaultAsync()
+                    : await _context.Users.AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<User> GetByIdAsNoTrackingAsync(int id)
+        {
+            return await _context.Users.AsNoTracking().Include(r => r.UserRole).FirstOrDefaultAsync(r => r.Id == id);
         }
     }
 }

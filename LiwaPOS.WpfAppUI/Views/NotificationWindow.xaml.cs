@@ -10,41 +10,52 @@ namespace LiwaPOS.WpfAppUI.Views
     /// </summary>
     public partial class NotificationWindow : Window
     {
-        NotificationViewModel dataContext;
+        NotificationViewModel _viewModel;
         private DispatcherTimer _closeTimer;
 
-        public NotificationWindow()
+        public NotificationWindow(NotificationViewModel viewModel)
         {
-            InitializeComponent();   
+            InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = _viewModel;
         }
 
         private void CloseTimer_Tick(object? sender, EventArgs e)
         {
-            _closeTimer.Stop();
+            if (_viewModel.DisplayDurationInSecond != 0)
+                _closeTimer.Stop();
+
             this.Close();
         }
-      
+
         public void SetDialogResult(bool result)
         {
-            _closeTimer.Stop();
+            if (_viewModel.DisplayDurationInSecond != 0)
+                _closeTimer.Stop();
+
             DialogResult = result;
             this.Close();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _closeTimer.Stop();
+            if (_viewModel.DisplayDurationInSecond != 0)
+                _closeTimer.Stop();
+
             this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            dataContext = DataContext as NotificationViewModel;
+            _viewModel = DataContext as NotificationViewModel;
+
+            if (_viewModel.DisplayDurationInSecond == 0)
+                return;
 
             // Otomatik kapanma için timer ayarı
             _closeTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(dataContext.DisplayDurationInSecond)
+                Interval = TimeSpan.FromSeconds(_viewModel.DisplayDurationInSecond)
             };
             _closeTimer.Tick += CloseTimer_Tick;
             _closeTimer.Start();

@@ -2,43 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monaco Editor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs/editor/editor.main.css" />
+    <title>Monaco Editor with IntelliSense</title>
     <style>
-        /* Editor'ün tam ekran görünmesi için gerekli stil */
-        body {
+        body, html {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 0;
+            height: 100%;
         }
 
-        #editor {
-            flex-grow: 1; /* Editor alanını esnetmek için */
+        #container {
             width: 100%;
+            height: 100%;
         }
     </style>
-</head>
-<body>
-    <div id="editor"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs/loader.js"></script>
     <script>
-        // Monaco Editor'ü yükleme
-        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs' }});
-        require(['vs/editor/editor.main'], function () {
-            monaco.editor.create(document.getElementById('editor'), {
-                value: "// Yazmaya başlayın...",
-                language: 'javascript',
-                automaticLayout: true // Pencere boyutu değiştiğinde otomatik düzenleme
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs' } });
+        require(['vs/editor/editor.main'], function () {                        
+            // Editörü başlat
+            window.editor = monaco.editor.create(document.getElementById('container'), {
+                value: '// Yazmaya başlayın..',
+                language: 'javascript', // Arpa dilini burada seçiyoruz
+                theme: 'vs-light', // 'vs-light' for light theme
+                automaticLayout: true,
+                minimap: {
+                    enabled: true // Minimap özelliğini açtı
+                },
+                fontSize: 15, // Font büyüklüğünü ayarladı
+                wordWrap: 'on', // Uzun satırlar taşarak gözükmesin diye kelime kaydırma açıldı
             });
         });
-
-        // Editor'den içerik almak için yardımcı fonksiyon
-        function getEditorContent() {
-            const editor = monaco.editor.getModels()[0]; // İlk model (editor) alınıyor
-            return editor.getValue(); // Değer alınıyor
-        }
     </script>
+</head>
+<body>
+    <div id="container"></div>
 </body>
 </html>

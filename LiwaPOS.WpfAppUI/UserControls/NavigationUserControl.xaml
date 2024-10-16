@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800"
+             DataContext="{Binding NavigationViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
         <dxlc:TileLayoutControl x:Name="TileLayoutControlNavigation" Grid.ColumnSpan="2">
             <dxlc:Tile Header="Tile" Size="ExtraSmall"/>

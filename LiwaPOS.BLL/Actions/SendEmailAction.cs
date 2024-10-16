@@ -19,7 +19,7 @@ namespace LiwaPOS.BLL.Actions
             if (emailProperties == null)
                 return;
 
-            _emailService.SendEmailAsync(emailProperties);
+            await _emailService.SendEmailAsync(emailProperties);
         }
     }
 }

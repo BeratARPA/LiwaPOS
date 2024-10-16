@@ -5,7 +5,9 @@ using LiwaPOS.DAL;
 using LiwaPOS.Entities;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.WpfAppUI.Extensions;
+using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.Interfaces;
+using LiwaPOS.WpfAppUI.Locators;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.ViewModels;
@@ -38,12 +40,14 @@ namespace LiwaPOS.WpfAppUI
             services.AddSingleton<IWebService, WebService>();
 
             // ViewModels
-            services.AddTransient<NavigationViewModel>();
+            services.AddTransient<ErrorReportViewModel>();
             services.AddTransient<LoginViewModel>();
-            services.AddTransient<ShellViewModel>();
-            services.AddTransient<ScriptsViewModel>();
+            services.AddTransient<NavigationViewModel>();
+            services.AddTransient<NotificationViewModel>();
+            services.AddTransient<ManagementViewModel>();
             services.AddTransient<ScriptManagementViewModel>();
-           
+            services.AddTransient<ScriptsViewModel>();
+            services.AddTransient<ShellViewModel>();
 
             // Views
             services.AddTransient<LoginUserControl>();
@@ -66,6 +70,10 @@ namespace LiwaPOS.WpfAppUI
                 ConfigureServices(serviceCollection);
 
                 _serviceProvider = serviceCollection.BuildServiceProvider();
+                GlobalVariables.ServiceProvider = _serviceProvider;
+
+                var viewModelLocator = new ViewModelLocator();
+                Resources.Add("ViewModelLocator", viewModelLocator);
 
                 // TranslatorExtension'ı başlat
                 TranslatorExtension.Initialize(_serviceProvider);
@@ -77,6 +85,8 @@ namespace LiwaPOS.WpfAppUI
 
                 var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
+
+                GlobalVariables.CustomNotificationService = _serviceProvider.GetRequiredService<ICustomNotificationService>();
             }
             catch (Exception ex)
             {

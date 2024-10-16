@@ -55,5 +55,23 @@ namespace LiwaPOS.BLL.Services
             var appRule = await _unitOfWork.AppRules.GetByIdAsync(id);
             return _mapper.Map<AppRuleDTO>(appRule);
         }
+
+        public async Task<IEnumerable<AppRuleDTO>> GetAllAppRulesAsNoTrackingAsync(Expression<Func<AppRule, bool>> filter = null)
+        {
+            var appRules = await _unitOfWork.AppRules.GetAllAsNoTrackingAsync(filter);
+            return _mapper.Map<IEnumerable<AppRuleDTO>>(appRules);
+        }
+
+        public async Task<AppRuleDTO> GetAppRuleAsNoTrackingAsync(Expression<Func<AppRule, bool>> filter = null)
+        {
+            var appRule = await _unitOfWork.AppRules.GetAsNoTrackingAsync(filter);
+            return _mapper.Map<AppRuleDTO>(appRule);
+        }
+
+        public async Task<AppRuleDTO> GetAppRuleByIdAsNoTrackingAsync(int id)
+        {
+            var appRule = await _unitOfWork.AppRules.GetByIdAsNoTrackingAsync(id);
+            return _mapper.Map<AppRuleDTO>(appRule);
+        }
     }
 }

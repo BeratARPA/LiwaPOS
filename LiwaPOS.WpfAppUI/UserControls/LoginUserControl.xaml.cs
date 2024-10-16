@@ -10,12 +10,14 @@ namespace LiwaPOS.WpfAppUI.UserControls
     {
         LoginViewModel _loginViewModel = null;
 
-        public LoginUserControl(LoginViewModel viewModel)
+        public LoginUserControl()
         {
             InitializeComponent();
 
-            DataContext = viewModel;
-            _loginViewModel = viewModel;
+            if (DataContext is LoginViewModel viewModel)
+            {
+                _loginViewModel = viewModel;
+            }
         }
 
         private async void PINPad_PINEntered(object sender, string e)

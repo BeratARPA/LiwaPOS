@@ -1,15 +1,13 @@
 ﻿using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Services;
 using LiwaPOS.WpfAppUI.Commands;
-using System.ComponentModel;
 using System.Management;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class ErrorReportViewModel : INotifyPropertyChanged
+    public class ErrorReportViewModel : ViewModelBase
     {
         private readonly Exception _exception;
         private string _errorMessage;
@@ -305,12 +303,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                     MessageBox.Show(string.Format(await TranslatorExtension.Translate("UnableToSaveFile_ph"), saveFileDialog.FileName, exception.Message));
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }        
     }
 }

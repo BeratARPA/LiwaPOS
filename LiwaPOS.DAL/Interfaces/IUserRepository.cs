@@ -6,8 +6,11 @@ namespace LiwaPOS.DAL.Interfaces
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> filter = null);
+        Task<IEnumerable<User>> GetAllAsNoTrackingAsync(Expression<Func<User, bool>> filter = null);
         Task<User> GetAsync(Expression<Func<User, bool>> filter = null);
+        Task<User> GetAsNoTrackingAsync(Expression<Func<User, bool>> filter = null);
         Task<User> GetByIdAsync(int id);
+        Task<User> GetByIdAsNoTrackingAsync(int id);
         Task AddAsync(User entity);
         Task UpdateAsync(User entity);
         Task DeleteAsync(int id);

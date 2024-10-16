@@ -2,13 +2,11 @@
 using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.Interfaces;
 using LiwaPOS.WpfAppUI.UserControls;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : ViewModelBase
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly UserManager _userManager;
@@ -52,12 +50,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 GlobalVariables.Shell.GridBottomBar.Visibility = Visibility.Visible;
                 GlobalVariables.Navigator.Navigate(typeof(NavigationUserControl));
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }       
     }
 }

@@ -31,15 +31,33 @@ namespace LiwaPOS.BLL.Services
             _unitOfWork.Commit();
         }
 
+        public async Task<IEnumerable<ScriptDTO>> GetAllScriptsAsNoTrackingAsync(Expression<Func<Script, bool>> filter = null)
+        {
+            var scripts = await _unitOfWork.Scripts.GetAllAsNoTrackingAsync(filter);
+            return _mapper.Map<IEnumerable<ScriptDTO>>(scripts);
+        }
+
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptsAsync(Expression<Func<Script, bool>> filter = null)
         {
             var scripts = await _unitOfWork.Scripts.GetAllAsync(filter);
             return _mapper.Map<IEnumerable<ScriptDTO>>(scripts);
         }
 
+        public async Task<ScriptDTO> GetScriptAsNoTrackingAsync(Expression<Func<Script, bool>> filter = null)
+        {
+            var script = await _unitOfWork.Scripts.GetAsNoTrackingAsync(filter);
+            return _mapper.Map<ScriptDTO>(script);
+        }
+
         public async Task<ScriptDTO> GetScriptAsync(Expression<Func<Script, bool>> filter = null)
         {
             var script = await _unitOfWork.Scripts.GetAsync(filter);
+            return _mapper.Map<ScriptDTO>(script);
+        }
+
+        public async Task<ScriptDTO> GetScriptByIdAsNoTrackingAsync(int id)
+        {
+            var script = await _unitOfWork.Scripts.GetByIdAsNoTrackingAsync(id);
             return _mapper.Map<ScriptDTO>(script);
         }
 

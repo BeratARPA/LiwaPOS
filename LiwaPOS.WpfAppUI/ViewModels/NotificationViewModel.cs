@@ -2,26 +2,26 @@
 using LiwaPOS.Shared.Models;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Views;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class NotificationViewModel : INotifyPropertyChanged
+    public class NotificationViewModel : ViewModelBase
     {
         private NotificationDTO _notification;
 
-        public NotificationViewModel(NotificationDTO notification)
+        public NotificationViewModel(NotificationDTO notification = null)
         {
-            _notification = notification; 
-            
+            _notification = notification;
+            if (notification == null)
+                _notification = new NotificationDTO();
+
             YesCommand = new AsyncRelayCommand(ExecuteYes);
             NoCommand = new AsyncRelayCommand(ExecuteNo);
             OkCommand = new AsyncRelayCommand(ExecuteOk);
             CancelCommand = new AsyncRelayCommand(ExecuteCancel);
 
-            SetButtonVisibility(notification.ButtonType);
+            SetButtonVisibility(_notification.ButtonType);
         }
 
         public string Title => _notification.Title;
@@ -99,7 +99,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
             IsYesVisible = buttonType == NotificationButtonType.YesNo || buttonType == NotificationButtonType.YesNoCancel;
             IsNoVisible = buttonType == NotificationButtonType.YesNo || buttonType == NotificationButtonType.YesNoCancel;
-            IsOkVisible = buttonType == NotificationButtonType.OK || buttonType == NotificationButtonType.OkCancel || buttonType == NotificationButtonType.YesNoCancel;
+            IsOkVisible = buttonType == NotificationButtonType.OK || buttonType == NotificationButtonType.OkCancel;
             IsCancelVisible = buttonType == NotificationButtonType.OkCancel || buttonType == NotificationButtonType.YesNoCancel;
         }
 
@@ -133,12 +133,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 (System.Windows.Application.Current.MainWindow as NotificationWindow)?.SetDialogResult(false);
             });
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }        
     }
 }
