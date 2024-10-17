@@ -2,6 +2,6 @@
 {
     public interface IEventHandler
     {
-        Task HandleEventAsync(string eventData);
+        Task HandleEventAsync(string eventData,dynamic dataObject);
     }
 }

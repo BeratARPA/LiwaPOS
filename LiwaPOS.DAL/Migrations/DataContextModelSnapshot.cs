@@ -52,6 +52,12 @@ namespace LiwaPOS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ConstraintMatch")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Constraints")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 

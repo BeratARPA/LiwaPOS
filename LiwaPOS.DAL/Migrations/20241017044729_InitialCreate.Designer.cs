@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241014014739_InitialCreate")]
+    [Migration("20241017044729_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -54,6 +54,12 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ConstraintMatch")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Constraints")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

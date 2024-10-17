@@ -23,7 +23,7 @@ namespace LiwaPOS.BLL.Managers
             if (user != null)
             {
                 // Kullanıcı giriş yaptı, kuralları tetikleyelim
-                await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserLoggedIn);
+                await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserLoggedIn,user);
                 return true;
             }
 
