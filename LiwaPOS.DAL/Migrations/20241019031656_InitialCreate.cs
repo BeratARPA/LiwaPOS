@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -18,7 +19,8 @@ namespace LiwaPOS.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,8 +35,9 @@ namespace LiwaPOS.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Constraints = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConstraintMatch = table.Column<int>(type: "int", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: true)
+                    ConditionMatch = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +52,8 @@ namespace LiwaPOS.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AppRuleId = table.Column<int>(type: "int", nullable: false),
                     AppActionId = table.Column<int>(type: "int", nullable: false),
-                    SortOrder = table.Column<int>(type: "int", nullable: false)
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,7 +67,8 @@ namespace LiwaPOS.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +81,8 @@ namespace LiwaPOS.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,7 +97,8 @@ namespace LiwaPOS.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserRoleId = table.Column<int>(type: "int", nullable: true)
+                    UserRoleId = table.Column<int>(type: "int", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

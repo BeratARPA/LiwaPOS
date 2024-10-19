@@ -24,6 +24,11 @@ namespace LiwaPOS.Shared.Helpers
             return JsonSerializer.Deserialize<T>(json, options);
         }
 
+        public static object Deserialize(string json, Type type, JsonSerializerOptions options = null)
+        {
+            return JsonSerializer.Deserialize(json, type, options);
+        }
+
         // Dosyadan JSON verisini okuma ve deserileştirme
         public static T DeserializeFromFileAsync<T>(string filePath, JsonSerializerOptions options = null)
         {

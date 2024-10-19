@@ -70,7 +70,7 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task UpdateAsync(RuleActionMap entity)
         {
-            var localEntity = _context.Scripts.Local.FirstOrDefault(e => e.Id == entity.Id);
+            var localEntity = _context.RuleActionMaps.Local.FirstOrDefault(e => e.Id == entity.Id);
             if (localEntity != null)
             {
                 _context.Entry(localEntity).State = EntityState.Detached;

@@ -102,7 +102,7 @@ namespace LiwaPOS.BLL.Managers
             var constraints = JsonHelper.Deserialize<List<RuleConstraintDTO>>(appRule.Constraints);
             if (constraints == null || !constraints.Any()) return true; // Kısıtlama yoksa, true döndür
 
-            switch (appRule.ConstraintMatch)
+            switch (appRule.ConditionMatch)
             {
                 case ConditionMatchType.Matches:
                     return constraints.All(c => c.Satisfies(dataObject));

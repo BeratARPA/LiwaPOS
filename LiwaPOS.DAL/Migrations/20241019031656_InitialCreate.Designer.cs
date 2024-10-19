@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241017044729_InitialCreate")]
+    [Migration("20241019031656_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,6 +32,9 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -55,16 +58,19 @@ namespace LiwaPOS.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ConstraintMatch")
+                    b.Property<int>("ConditionMatch")
                         .HasColumnType("int");
 
                     b.Property<string>("Constraints")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Type")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -86,6 +92,9 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<int>("AppRuleId")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
@@ -105,6 +114,9 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -120,6 +132,9 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -144,6 +159,9 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

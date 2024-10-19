@@ -13,12 +13,12 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <dxn:NavBarControl Grid.Column="0">
             <dxn:NavBarControl.View>
-                <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons"/>
+                <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" IsOverflowPanelVisible="False" MaxVisibleGroupCount="50" ExpandButtonMode="Normal" IsSplitterVisible="False"/>
             </dxn:NavBarControl.View>
-            
+
             <dxn:NavBarGroup Header="Ayarlar">
              
             </dxn:NavBarGroup>
@@ -36,8 +36,8 @@
             </dxn:NavBarGroup>
             
             <dxn:NavBarGroup Header="Otomasyon">
-                <dxn:NavBarItem Content="Eylemler"/>
-                <dxn:NavBarItem Content="Kurallar"/>
+                <dxn:NavBarItem Content="Eylemler" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Kurallar" Command="{Binding OpenAppRulesCommand}"/>
                 <dxn:NavBarItem Content="Otomasyon Komutları"/>
                 <dxn:NavBarItem Content="Komutlar" Command="{Binding OpenScriptsCommand}"/>
             </dxn:NavBarGroup>

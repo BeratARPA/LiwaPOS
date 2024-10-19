@@ -52,7 +52,7 @@ namespace LiwaPOS.DAL.Repositories
 
         public async Task UpdateAsync(User entity)
         {
-            var localEntity = _context.Scripts.Local.FirstOrDefault(e => e.Id == entity.Id);
+            var localEntity = _context.Users.Local.FirstOrDefault(e => e.Id == entity.Id);
             if (localEntity != null)
             {
                 _context.Entry(localEntity).State = EntityState.Detached;

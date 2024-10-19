@@ -1,0 +1,72 @@
+﻿<Window x:Class="LiwaPOS.WpfAppUI.Views.DynamicSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.Views"
+        mc:Ignorable="d" Height="500" Width="500"
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Başlık veya açıklama label'ı -->
+        <TextBlock Grid.ColumnSpan="3" FontWeight="Bold" FontSize="16" Text="{Binding Title}"/>
+
+        <!-- Soldaki liste: Mevcut değerler -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <TextBlock Text="Mevcut Değerler:" FontWeight="Bold" />
+            <ListBox ItemsSource="{Binding AvailableItems}" 
+         SelectedItem="{Binding SelectedAvailableItem}" 
+         SelectionMode="Extended"
+         Height="300">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <!-- Sağdaki liste: Seçilen değerler -->
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <TextBlock Text="Seçilen Değerler:" FontWeight="Bold" />
+            <ListBox ItemsSource="{Binding SelectedItems}" 
+         SelectedItem="{Binding SelectedAvailableItem}" 
+         SelectionMode="Extended"
+         Height="300">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <!-- Orta kısım: Liste arasında geçiş yapan butonlar -->
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Button Content="&gt;&gt;" Command="{Binding AddSelectedCommand}" Width="50" Margin="5"/>
+            <Button Content="&lt;&lt;" Command="{Binding RemoveSelectedCommand}" Width="50" Margin="5"/>
+        </StackPanel>
+
+        <!-- Arama Kutusu -->
+        <TextBox Grid.Row="3" Grid.ColumnSpan="3" Margin="3" x:Name="SearchTextBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!-- Alt kısım: Onaylama ve İptal Butonları -->
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="ButtonOk" Margin="5" Width="100" Content="Tamam" Command="{Binding ConfirmCommand}" Click="ButtonOk_Click"/>
+            <Button x:Name="ButtonCancel" Margin="5" Width="100" Content="İptal" Command="{Binding CancelCommand}" Click="ButtonCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -40,6 +40,10 @@ namespace LiwaPOS.WpfAppUI
             services.AddSingleton<IWebService, WebService>();
 
             // ViewModels
+            services.AddTransient<AppActionManagementViewModel>();
+            services.AddTransient<AppActionsViewModel>();
+            services.AddTransient<AppRuleManagementViewModel>();
+            services.AddTransient<AppRulesViewModel>();
             services.AddTransient<ErrorReportViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<NavigationViewModel>();
@@ -50,6 +54,11 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<ShellViewModel>();
 
             // Views
+            services.AddTransient<AppActionManagementUserControl>();
+            services.AddTransient<AppActionsUserControl>();
+            services.AddTransient<AppRuleManagementUserControl>();
+            services.AddTransient<AppRulesUserControl>();
+            services.AddTransient<AppRulesUserControl>();
             services.AddTransient<LoginUserControl>();
             services.AddTransient<NavigationUserControl>();
             services.AddTransient<ManagementUserControl>();

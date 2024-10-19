@@ -13,6 +13,10 @@ namespace LiwaPOS.WpfAppUI.Locators
             _viewModelFactory = new ViewModelFactory(GlobalVariables.ServiceProvider);
         }
 
+        public AppActionManagementViewModel AppActionManagementViewModel => _viewModelFactory.CreateViewModel<AppActionManagementViewModel>();
+        public AppActionsViewModel AppActionsViewModel => _viewModelFactory.CreateViewModel<AppActionsViewModel>();
+        public AppRuleManagementViewModel AppRuleManagementViewModel => _viewModelFactory.CreateViewModel<AppRuleManagementViewModel>();
+        public AppRulesViewModel AppRulesViewModel => _viewModelFactory.CreateViewModel<AppRulesViewModel>();
         public ErrorReportViewModel ErrorReportViewModel => _viewModelFactory.CreateViewModel<ErrorReportViewModel>();
         public LoginViewModel LoginViewModel => _viewModelFactory.CreateViewModel<LoginViewModel>();
         public ManagementViewModel ManagementViewModel => _viewModelFactory.CreateViewModel<ManagementViewModel>();

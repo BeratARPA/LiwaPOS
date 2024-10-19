@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,15 @@ namespace LiwaPOS.WpfAppUI.UserControls
         public AppActionsUserControl()
         {
             InitializeComponent();
+        }
+
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = DataContext as AppActionsViewModel;
+            if (viewModel?.SelectedCommand != null)
+            {
+                GlobalVariables.Navigator.Navigate(typeof(AppActionManagementUserControl), viewModel.SelectedCommand);
+            }
         }
     }
 }

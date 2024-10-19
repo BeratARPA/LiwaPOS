@@ -64,7 +64,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand RunCommand { get; }
 
-        public ScriptManagementViewModel(IScriptService scriptService, JavaScriptEngineService javaScriptEngineService, ScriptDTO selectedScript = null)
+        public ScriptManagementViewModel(IScriptService scriptService, JavaScriptEngineService javaScriptEngineService)
         {
             _scriptService = scriptService;
             _javaScriptEngineService = javaScriptEngineService;
@@ -124,6 +124,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 var script = new ScriptDTO
                 {
+                    EntityGuid = Guid.NewGuid(),
                     Name = ScriptName,
                     Code = editorContent
                 };
