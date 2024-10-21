@@ -12,7 +12,7 @@ namespace LiwaPOS.BLL.Actions
             if (waitProperties == null)
                 return;
 
-            await Task.Delay(waitProperties.DurationInSecond);
+            Thread.Sleep(waitProperties.DurationInSecond * 1000);  // Senkron bekleme
         }
     }
 }

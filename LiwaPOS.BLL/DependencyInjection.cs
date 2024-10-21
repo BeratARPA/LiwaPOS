@@ -35,7 +35,8 @@ namespace LiwaPOS.BLL
 
             services.AddTransient<CloseTheApplicationAction>();
             services.AddTransient<LoginUserAction>();
-            services.AddTransient<OpenPOSPageAction>();
+            services.AddTransient<LogoutUserAction>();
+            services.AddTransient<OpenPageAction>();
             services.AddTransient<ShowPopupAction>();
             services.AddTransient<SendEmailAction>();
             services.AddTransient<TelsamSendSmsAction>();
@@ -44,6 +45,7 @@ namespace LiwaPOS.BLL
             services.AddTransient<OpenWebsiteOnWindowAction>();
             services.AddTransient<ShowGoogleMapsDirectionsAction>();
             services.AddTransient<RunScriptAction>();
+            services.AddTransient<WaitAction>();
 
             services.AddTransient<POSPageOpenedEventHandler>();
             services.AddTransient<UserLoggedInEventHandler>();

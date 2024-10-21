@@ -4,7 +4,7 @@
     {
         LoginUser,
         ShowPopup,
-        POSPageOpen,
+        OpenPage,
         CloseTheApplication,
         SendEmail,
         TelsamSendSMS,
@@ -12,6 +12,8 @@
         AddLineToTextFile,
         OpenWebsiteOnWindow,
         ShowGoogleMapsDirections,
-        RunScript
+        RunScript,
+        LogoutUser,
+        Wait
     }
 }

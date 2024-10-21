@@ -11,7 +11,7 @@ namespace LiwaPOS.BLL.Factories
         {
             { ActionType.ShowPopup, typeof(ShowPopupAction) },
             { ActionType.LoginUser, typeof(LoginUserAction) },
-            { ActionType.POSPageOpen, typeof(OpenPOSPageAction) },
+            { ActionType.OpenPage, typeof(OpenPageAction) },
             { ActionType.CloseTheApplication, typeof(CloseTheApplicationAction) },
             { ActionType.SendEmail, typeof(SendEmailAction) },
             { ActionType.TelsamSendSMS, typeof(TelsamSendSmsAction) },
@@ -20,6 +20,8 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.OpenWebsiteOnWindow, typeof(OpenWebsiteOnWindowAction) },
             { ActionType.ShowGoogleMapsDirections, typeof(ShowGoogleMapsDirectionsAction) },
             { ActionType.RunScript, typeof(RunScriptAction) },
+            { ActionType.LogoutUser, typeof(LogoutUserAction) },
+            { ActionType.Wait, typeof(WaitAction) }
         };
 
         private readonly IServiceProvider _serviceProvider;

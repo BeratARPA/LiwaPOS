@@ -88,6 +88,7 @@ namespace LiwaPOS.BLL.Managers
                 if (action != null)
                 {
                     await action.Execute(appAction.Properties);
+                    await Task.Delay(250);
                 }
                 else
                 {

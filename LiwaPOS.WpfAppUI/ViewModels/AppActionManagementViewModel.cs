@@ -85,12 +85,12 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 case ActionType.LoginUser:
                     _currentActionModel = new LoginUserDTO();
-                    break;
+                    break;               
                 case ActionType.ShowPopup:
                     _currentActionModel = new NotificationDTO();
                     break;
-                case ActionType.POSPageOpen:
-                    _currentActionModel = null;
+                case ActionType.OpenPage:
+                    _currentActionModel = new OpenPageDTO();
                     break;
                 case ActionType.CloseTheApplication:
                     _currentActionModel = null;
@@ -115,6 +115,12 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                     break;
                 case ActionType.RunScript:
                     _currentActionModel = new RunScriptDTO();
+                    break;
+                case ActionType.LogoutUser:
+                    _currentActionModel = null;
+                    break;
+                case ActionType.Wait:
+                    _currentActionModel = new WaitDTO();
                     break;
                 default:
                     _currentActionModel = null;
