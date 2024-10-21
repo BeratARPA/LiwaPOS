@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
              mc:Ignorable="d" 
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
              d:DesignHeight="600" d:DesignWidth="800" Background="White"
              DataContext="{Binding ManagementViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
@@ -19,30 +20,30 @@
                 <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" IsOverflowPanelVisible="False" MaxVisibleGroupCount="50" ExpandButtonMode="Normal" IsSplitterVisible="False"/>
             </dxn:NavBarControl.View>
 
-            <dxn:NavBarGroup Header="Ayarlar">
+            <dxn:NavBarGroup Header="{extension:Translator Settings}">
              
             </dxn:NavBarGroup>
-            
-            <dxn:NavBarGroup Header="Ürünler">
+
+            <dxn:NavBarGroup Header="{extension:Translator Products}">
 
             </dxn:NavBarGroup>
-            
-            <dxn:NavBarGroup Header="Yazdırma">
+
+            <dxn:NavBarGroup Header="{extension:Translator Printing}">
 
             </dxn:NavBarGroup>
-            
-            <dxn:NavBarGroup Header="Raporlar">
+
+            <dxn:NavBarGroup Header="{extension:Translator Reports}">
 
             </dxn:NavBarGroup>
-            
-            <dxn:NavBarGroup Header="Otomasyon">
-                <dxn:NavBarItem Content="Eylemler" Command="{Binding OpenAppActionsCommand}"/>
-                <dxn:NavBarItem Content="Kurallar" Command="{Binding OpenAppRulesCommand}"/>
-                <dxn:NavBarItem Content="Otomasyon Komutları"/>
-                <dxn:NavBarItem Content="Komutlar" Command="{Binding OpenScriptsCommand}"/>
+
+            <dxn:NavBarGroup Header="{extension:Translator Automation}">
+                <dxn:NavBarItem Content="{extension:Translator Actions}" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Rules}" Command="{Binding OpenAppRulesCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator AutomationCommands}"/>
+                <dxn:NavBarItem Content="{extension:Translator Scripts}" Command="{Binding OpenScriptsCommand}"/>
             </dxn:NavBarGroup>
-            
-            <dxn:NavBarGroup Header="Kullanıcılar">
+
+            <dxn:NavBarGroup Header="{extension:Translator Users}">
 
             </dxn:NavBarGroup>
         </dxn:NavBarControl>

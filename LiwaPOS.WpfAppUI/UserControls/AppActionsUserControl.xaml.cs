@@ -32,7 +32,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
             var viewModel = DataContext as AppActionsViewModel;
             if (viewModel?.SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate(typeof(AppActionManagementUserControl), viewModel.SelectedCommand);
+                GlobalVariables.Navigator.Navigate("AppActionManagement", viewModel.SelectedCommand);
             }
         }
     }

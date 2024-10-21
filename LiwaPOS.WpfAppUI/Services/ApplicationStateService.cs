@@ -1,5 +1,9 @@
-﻿using LiwaPOS.Shared.Models.Entities;
-using LiwaPOS.WpfAppUI.Interfaces;
+﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Models.Entities;
+using LiwaPOS.WpfAppUI.Converters;
+using LiwaPOS.WpfAppUI.Helpers;
+using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.Services
 {
@@ -18,5 +22,16 @@ namespace LiwaPOS.WpfAppUI.Services
 			get { return _isLocked; }
 			set { _isLocked = value; }
 		}
-	}
+       
+        public void SetTextBlockUsername()
+        {                   
+            GlobalVariables.Shell.TextBlockUsername.Text = CurrentLoggedInUser == null ? "-" : CurrentLoggedInUser.Name ?? "-"; ;
+        }
+
+        public void SetGridBottomBarVisibility(VisibilityState visibilityState)
+        {
+            Visibility visibility = VisibilityStateToVisibilityConverter.Convert(visibilityState);
+            GlobalVariables.Shell.GridBottomBar.Visibility = visibility;
+        }
+    }
 }

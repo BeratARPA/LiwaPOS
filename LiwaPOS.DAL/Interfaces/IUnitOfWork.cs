@@ -1,6 +1,6 @@
 ﻿namespace LiwaPOS.DAL.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable, IDisposable
     {
         IAppRuleRepository AppRules { get; }
         IAppActionRepository AppActions { get; }
@@ -8,6 +8,10 @@
         IUserRepository Users { get; }
         IScriptRepository Scripts { get; }
 
-        void Commit();
+        Task CommitAsync();
+        Task BeginTransactionAsync();
+        Task CommitTransactionAsync();
+        Task RollbackTransactionAsync();
+        Task ExecuteInTransactionAsync(Func<Task> action);
     }
 }

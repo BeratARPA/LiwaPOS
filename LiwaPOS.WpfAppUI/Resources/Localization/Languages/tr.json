@@ -78,5 +78,129 @@
   {
     "Key": "Keyboard",
     "Value": "Klavye"
+  },
+  {
+    "Key": "AddAction",
+    "Value": "Eylem Ekle"
+  },
+  {
+    "Key": "EditAction",
+    "Value": "Eylem Düzenle"
+  },
+  {
+    "Key": "DeleteAction",
+    "Value": "Eylem Sil"
+  },
+  {
+    "Key": "AddRule",
+    "Value": "Kural Ekle"
+  },
+  {
+    "Key": "EditRule",
+    "Value": "Kural Düzenle"
+  },
+  {
+    "Key": "DeleteRule",
+    "Value": "Kural Sil"
+  },
+  {
+    "Key": "AddScript",
+    "Value": "Komut Ekle"
+  },
+  {
+    "Key": "EditScript",
+    "Value": "Komut Düzenle"
+  },
+  {
+    "Key": "DeleteScript",
+    "Value": "Komut Sil"
+  },
+  {
+    "Key": "Sort",
+    "Value": "Sırala"
+  },
+  {
+    "Key": "Run",
+    "Value": "Çalıştır"
+  },
+  {
+    "Key": "Name",
+    "Value": "Ad"
+  },
+  {
+    "Key": "Automation",
+    "Value": "Otomasyon"
+  },
+  {
+    "Key": "Users",
+    "Value": "Kullanıcılar"
+  },
+  {
+    "Key": "Reports",
+    "Value": "Raporlar"
+  },
+  {
+    "Key": "Printing",
+    "Value": "Yazdırma"
+  },
+  {
+    "Key": "Products",
+    "Value": "Ürünler"
+  },
+  {
+    "Key": "Settings",
+    "Value": "Ayarlar"
+  },
+  {
+    "Key": "Actions",
+    "Value": "Eylemler"
+  },
+  {
+    "Key": "Rules",
+    "Value": "Kurallar"
+  },
+  {
+    "Key": "AutomationCommands",
+    "Value": "Otomasyon Komutları"
+  },
+  {
+    "Key": "Scripts",
+    "Value": "Komutlar"
+  },
+  {
+    "Key": "EventType",
+    "Value": "Olay Tipi"
+  },
+  {
+    "Key": "CustomConstraintList",
+    "Value": "Özel Kısıtlama Listesi"
+  },
+  {
+    "Key": "ExecuteRuleIf",
+    "Value": "Eğer Kural Çalışırsa"
+  },
+  {
+    "Key": "AddCustomConstraint",
+    "Value": "Özel Kısıtlama Ekle"
+  },
+  {
+    "Key": "SelectActions",
+    "Value": "Eylem Seç"
+  },
+  {
+    "Key": "Remove",
+    "Value": "Kaldır"
+  },
+  {
+    "Key": "ActionType",
+    "Value": "Olay Tipi"
+  },
+  {
+    "Key": "ActionList",
+    "Value": "Eylem Listesi"
+  },
+  {
+    "Key": "SelectedActions",
+    "Value": "Seçilen Eylemler"
   }
 ]

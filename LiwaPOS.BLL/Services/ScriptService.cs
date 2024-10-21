@@ -20,15 +20,21 @@ namespace LiwaPOS.BLL.Services
 
         public async Task AddScriptAsync(ScriptDTO scriptDto)
         {
-            var script = _mapper.Map<Script>(scriptDto);
-            await _unitOfWork.Scripts.AddAsync(script);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var script = _mapper.Map<Script>(scriptDto);
+                await _unitOfWork.Scripts.AddAsync(script);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task DeleteScriptAsync(int id)
         {
-            await _unitOfWork.Scripts.DeleteAsync(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.Scripts.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptsAsNoTrackingAsync(Expression<Func<Script, bool>> filter = null)
@@ -69,9 +75,12 @@ namespace LiwaPOS.BLL.Services
 
         public async Task UpdateScriptAsync(ScriptDTO scriptDto)
         {
-            var script = _mapper.Map<Script>(scriptDto);
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var script = _mapper.Map<Script>(scriptDto);
             await _unitOfWork.Scripts.UpdateAsync(script);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
+            });
         }
     }
 }

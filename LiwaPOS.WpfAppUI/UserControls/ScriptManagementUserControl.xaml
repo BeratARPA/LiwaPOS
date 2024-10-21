@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding ScriptManagementViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid Margin="10">
@@ -16,15 +17,15 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Adı:" VerticalAlignment="Center"/>
+            <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
             <TextBox Text="{Binding ScriptName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
         </StackPanel>
 
         <wpf:WebView2 x:Name="MonacoEditorWebView" Grid.Row="1" Margin="10"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
-            <Button Content="Kaydet" Width="100" Height="30" Command="{Binding SaveCommand}"/>
-            <Button Content="Çalıştır" Width="100" Height="30" Margin="10,0,0,0" Command="{Binding RunCommand}"/>
+            <Button Content="{extension:Translator Save}" Width="100" Height="30" Command="{Binding SaveCommand}"/>
+            <Button Content="{extension:Translator Run}" Width="100" Height="30" Margin="10,0,0,0" Command="{Binding RunCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

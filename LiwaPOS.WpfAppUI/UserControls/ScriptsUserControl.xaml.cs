@@ -32,7 +32,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
             var viewModel = DataContext as ScriptsViewModel;
             if (viewModel?.SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate(typeof(ScriptManagementUserControl), viewModel.SelectedCommand);
+                GlobalVariables.Navigator.Navigate("ScriptManagement", viewModel.SelectedCommand);
             }
         }
     }

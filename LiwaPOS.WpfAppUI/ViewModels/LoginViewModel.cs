@@ -1,7 +1,6 @@
-﻿using LiwaPOS.BLL.Managers;
+﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.BLL.Managers;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.Interfaces;
-using LiwaPOS.WpfAppUI.UserControls;
 using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
@@ -48,7 +47,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 GlobalVariables.Shell.TextBlockUsername.Text = _applicationStateService.CurrentLoggedInUser == null ? "-" : _applicationStateService.CurrentLoggedInUser.Name ?? "-";
 
                 GlobalVariables.Shell.GridBottomBar.Visibility = Visibility.Visible;
-                GlobalVariables.Navigator.Navigate(typeof(NavigationUserControl));
+                GlobalVariables.Navigator.Navigate("Navigation");
             }
         }       
     }

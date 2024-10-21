@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.Views"
+        xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
         mc:Ignorable="d" Height="500" Width="500"
         WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     
@@ -26,7 +27,7 @@
 
         <!-- Soldaki liste: Mevcut değerler -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-            <TextBlock Text="Mevcut Değerler:" FontWeight="Bold" />
+            <TextBlock Text="{extension:Translator ActionList}" FontWeight="Bold" />
             <ListBox ItemsSource="{Binding AvailableItems}" 
          SelectedItem="{Binding SelectedAvailableItem}" 
          SelectionMode="Extended"
@@ -41,7 +42,7 @@
 
         <!-- Sağdaki liste: Seçilen değerler -->
         <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
-            <TextBlock Text="Seçilen Değerler:" FontWeight="Bold" />
+            <TextBlock Text="{extension:Translator SelectedAction}" FontWeight="Bold" />
             <ListBox ItemsSource="{Binding SelectedItems}" 
          SelectedItem="{Binding SelectedAvailableItem}" 
          SelectionMode="Extended"
@@ -65,8 +66,8 @@
 
         <!-- Alt kısım: Onaylama ve İptal Butonları -->
         <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="ButtonOk" Margin="5" Width="100" Content="Tamam" Command="{Binding ConfirmCommand}" Click="ButtonOk_Click"/>
-            <Button x:Name="ButtonCancel" Margin="5" Width="100" Content="İptal" Command="{Binding CancelCommand}" Click="ButtonCancel_Click"/>
+            <Button x:Name="ButtonOk" Margin="5" Width="100" Content="{extension:Translator Ok}" Command="{Binding ConfirmCommand}" Click="ButtonOk_Click"/>
+            <Button x:Name="ButtonCancel" Margin="5" Width="100" Content="{extension:Translator Cancel}" Command="{Binding CancelCommand}" Click="ButtonCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

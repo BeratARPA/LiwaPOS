@@ -14,7 +14,7 @@ namespace LiwaPOS.WpfAppUI.UserControls
 
         private void Tile_Click(object sender, EventArgs e)
         {
-            GlobalVariables.Navigator.Navigate(typeof(ManagementUserControl));
+            GlobalVariables.Navigator.Navigate("Management");
         }
     }
 }

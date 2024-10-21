@@ -32,22 +32,31 @@ namespace LiwaPOS.BLL.Services
 
         public async Task AddAppRuleAsync(AppRuleDTO appRuleDto)
         {
-            var appRule = _mapper.Map<AppRule>(appRuleDto);
-            await _unitOfWork.AppRules.AddAsync(appRule);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var appRule = _mapper.Map<AppRule>(appRuleDto);
+                await _unitOfWork.AppRules.AddAsync(appRule);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task UpdateAppRuleAsync(AppRuleDTO appRuleDto)
         {
-            var appRule = _mapper.Map<AppRule>(appRuleDto);
-            await _unitOfWork.AppRules.UpdateAsync(appRule);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var appRule = _mapper.Map<AppRule>(appRuleDto);
+                await _unitOfWork.AppRules.UpdateAsync(appRule);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task DeleteAppRuleAsync(int id)
         {
-            await _unitOfWork.AppRules.DeleteAsync(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.AppRules.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task<AppRuleDTO> GetAppRuleByIdAsync(int id)

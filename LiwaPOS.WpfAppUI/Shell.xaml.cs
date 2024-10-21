@@ -1,7 +1,6 @@
-﻿using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.Interfaces;
+﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.Services;
-using LiwaPOS.WpfAppUI.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Windows;
@@ -27,9 +26,10 @@ namespace LiwaPOS.WpfAppUI
           
             GlobalVariables.Shell = this;
 
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
-
-            GlobalVariables.Navigator.Navigate(typeof(LoginUserControl));
+            GlobalVariables.Navigator = new NavigatorService(GlobalVariables.ServiceProvider);
+            
+            GlobalVariables.Navigator.SetFrame(FrameContent);
+            GlobalVariables.Navigator.Navigate("Login");
 
             _dispatcherTimerTime = new DispatcherTimer();
             _dispatcherTimerTime.Tick += DispatcherTimerTime_Tick;
@@ -43,7 +43,7 @@ namespace LiwaPOS.WpfAppUI
             {
                 scaleTransform.ScaleX = Properties.Settings.Default.WindowScale;
                 scaleTransform.ScaleY = Properties.Settings.Default.WindowScale;
-            }
+            }          
         }
 
         private void DispatcherTimerTime_Tick(object? sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace LiwaPOS.WpfAppUI
                 {
                     WindowStyle = WindowStyle.None;
                     WindowState = WindowState.Maximized;
-                }
+                }           
             }
         }
 
@@ -107,8 +107,8 @@ namespace LiwaPOS.WpfAppUI
 
         private void ButtonMainMenu_Click(object sender, RoutedEventArgs e)
         {
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
-            GlobalVariables.Navigator.Navigate(typeof(NavigationUserControl));
+            GlobalVariables.Navigator.SetFrame(FrameContent);
+            GlobalVariables.Navigator.Navigate("Navigation");
         }
     }
 }

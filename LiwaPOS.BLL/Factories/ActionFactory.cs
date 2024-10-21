@@ -19,6 +19,7 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.AddLineToTextFile, typeof(AddLineToTextFileAction) },
             { ActionType.OpenWebsiteOnWindow, typeof(OpenWebsiteOnWindowAction) },
             { ActionType.ShowGoogleMapsDirections, typeof(ShowGoogleMapsDirectionsAction) },
+            { ActionType.RunScript, typeof(RunScriptAction) },
         };
 
         private readonly IServiceProvider _serviceProvider;

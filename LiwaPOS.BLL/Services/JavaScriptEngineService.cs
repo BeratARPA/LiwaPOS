@@ -4,10 +4,8 @@ using LiwaPOS.BLL.Factories;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.DAL.Context;
 using LiwaPOS.Shared.Enums;
-using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LiwaPOS.BLL.Services
 {
@@ -110,7 +108,6 @@ namespace LiwaPOS.BLL.Services
         {
             var result = new List<Dictionary<string, object>>();
 
-            // Veritabanında sorguyu çalıştır ve sonucu al
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = sqlQuery;

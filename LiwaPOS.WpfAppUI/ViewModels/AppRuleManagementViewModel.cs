@@ -1,6 +1,7 @@
 ﻿using LiwaPOS.BLL.Helpers;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Models.Entities;
@@ -156,7 +157,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
 
             var dynamicSelectionViewModel = new DynamicSelectionViewModel<AppActionDTO>(availableActions, SelectedActions, OnActionsSelected);
-            dynamicSelectionViewModel.Title = "Eylem Seç";
+            dynamicSelectionViewModel.Title = await TranslatorExtension.Translate("SelectActions");
             var actionSelectionWindow = new DynamicSelectionWindow { DataContext = dynamicSelectionViewModel };
             actionSelectionWindow.ShowDialog();
         }
@@ -307,7 +308,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 }
             }
 
-            GlobalVariables.Navigator.Navigate(typeof(AppRulesUserControl));
+            GlobalVariables.Navigator.Navigate("AppRules");
         }
     }
 }

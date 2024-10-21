@@ -8,7 +8,7 @@ namespace LiwaPOS.Shared.Services
     public class LoggingService
     {
         private static readonly string _logDirectory = FolderLocationsHelper.LogsPath;
-        private static readonly string _logFileName = $"log_{DateTime.UtcNow:yyyyMMdd}.txt";
+        private static readonly string _logFileName = $"log_{DateTime.UtcNow:yyyyMMdd}.log";
 
         private static async Task<string> GetLogFilePathAsync()
         {

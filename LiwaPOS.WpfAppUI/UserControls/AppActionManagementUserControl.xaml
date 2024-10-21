@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls"
              mc:Ignorable="d" 
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding AppActionManagementViewModel,Source={StaticResource ViewModelLocator}}">
     <Grid Margin="10">
@@ -15,9 +16,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Eylem Adı:" VerticalAlignment="Center"/>
+            <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
             <TextBox Text="{Binding AppActionName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
-            <TextBlock Text="Eylem Tipi:" VerticalAlignment="Center"/>
+            <TextBlock Text="{extension:Translator ActionType, Suffix=':'}" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding ActionTypes}"
               SelectedItem="{Binding AppActionType, UpdateSourceTrigger=PropertyChanged}" 
               Width="200" HorizontalAlignment="Left"/>
@@ -37,7 +38,7 @@
         </ItemsControl>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
-            <Button Content="Kaydet" Width="100" Height="30" Command="{Binding SaveCommand}"/>
+            <Button Content="{extension:Translator Save}" Width="100" Height="30" Command="{Binding SaveCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -20,7 +20,7 @@ namespace LiwaPOS.BLL.Actions
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
 
-                File.AppendAllText(filePath, text + Environment.NewLine);
+                await File.AppendAllTextAsync(filePath, text + Environment.NewLine);
             }
             catch { }
         }

@@ -100,7 +100,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         // Yeni komut ekleme
         private void AddNewCommand(object obj)
         {
-            GlobalVariables.Navigator.Navigate(typeof(ScriptManagementUserControl));
+            GlobalVariables.Navigator.Navigate("ScriptManagement");
         }
 
         // Seçili komutu düzenleme
@@ -108,7 +108,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             if (SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate(typeof(ScriptManagementUserControl), SelectedCommand);
+                GlobalVariables.Navigator.Navigate("ScriptManagement", SelectedCommand);
             }
         }
 

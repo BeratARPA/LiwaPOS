@@ -108,7 +108,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         // Yeni komut ekleme
         private void AddNewCommand(object obj)
         {
-            GlobalVariables.Navigator.Navigate(typeof(AppActionManagementUserControl));
+            GlobalVariables.Navigator.Navigate("AppActionManagement");
         }
 
         // Seçili komutu düzenleme
@@ -116,7 +116,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             if (SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate(typeof(AppActionManagementUserControl), SelectedCommand);
+                GlobalVariables.Navigator.Navigate("AppActionManagement", SelectedCommand);
             }
         }
 

@@ -132,7 +132,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 await _scriptService.AddScriptAsync(script);
             }
 
-            GlobalVariables.Navigator.Navigate(typeof(ScriptsUserControl));
+            GlobalVariables.Navigator.Navigate("Scripts");
         }
 
         private async Task RunScript(object obj)

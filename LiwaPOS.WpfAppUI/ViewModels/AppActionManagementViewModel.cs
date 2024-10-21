@@ -5,7 +5,6 @@ using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -75,6 +74,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
             ActionTypes = new ObservableCollection<ActionType>(Enum.GetValues(typeof(ActionType)).Cast<ActionType>());
             SaveCommand = new AsyncRelayCommand(SaveScript);
+
+            UpdateDynamicProperties();
         }
 
         private void UpdateDynamicProperties()
@@ -83,7 +84,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             switch (AppActionType)
             {
                 case ActionType.LoginUser:
-                    _currentActionModel = null;
+                    _currentActionModel = new LoginUserDTO();
                     break;
                 case ActionType.ShowPopup:
                     _currentActionModel = new NotificationDTO();
@@ -111,6 +112,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                     break;
                 case ActionType.ShowGoogleMapsDirections:
                     _currentActionModel = new ShowGoogleMapsDirectionDTO();
+                    break;
+                case ActionType.RunScript:
+                    _currentActionModel = new RunScriptDTO();
                     break;
                 default:
                     _currentActionModel = null;
@@ -186,7 +190,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 await _appActionService.AddAppActionAsync(appAction);
             }
 
-            GlobalVariables.Navigator.Navigate(typeof(AppActionsUserControl));
+            GlobalVariables.Navigator.Navigate("AppActions");
         }
     }
 }

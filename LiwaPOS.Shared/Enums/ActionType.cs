@@ -11,6 +11,7 @@
         RunProcess,
         AddLineToTextFile,
         OpenWebsiteOnWindow,
-        ShowGoogleMapsDirections
+        ShowGoogleMapsDirections,
+        RunScript
     }
 }

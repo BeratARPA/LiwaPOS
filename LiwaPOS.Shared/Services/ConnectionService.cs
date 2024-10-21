@@ -13,14 +13,14 @@ namespace LiwaPOS.Shared.Services
             await FileExtension.WriteTextAsync(_connectionStringFilePath, JsonHelper.Serialize(new { ConnectionString = connectionString }));
         }
 
-        public async static Task<string> GetConnectionString()
+        public static string GetConnectionString()
         {
             if (!File.Exists(_connectionStringFilePath))
                 return Defaults.DefaultConnectionString;
 
             var fileContent = FileExtension.ReadText(_connectionStringFilePath);
-            var connectionData =  await JsonHelper.Deserialize<dynamic>(fileContent);
-            return connectionData?.ConnectionString;
+            var connectionData =  JsonHelper.Deserialize<dynamic>(fileContent);
+            return connectionData?.ConnectionString + " TrustServerCertificate=True; MultipleActiveResultSets=True;";
         }
     }
 }

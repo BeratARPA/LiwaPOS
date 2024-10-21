@@ -6,7 +6,6 @@ using LiwaPOS.Entities;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.Interfaces;
 using LiwaPOS.WpfAppUI.Locators;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.UserControls;
@@ -26,7 +25,7 @@ namespace LiwaPOS.WpfAppUI
 
         private void ConfigureServices(IServiceCollection services)
         {
-            //Entities servisleri
+            // Entities servisleri
             services.AddEntitiesLayer();
 
             // Data Access Layer servisleri
@@ -37,6 +36,7 @@ namespace LiwaPOS.WpfAppUI
 
             services.AddSingleton<ICustomNotificationService, CustomNotificationService>();
             services.AddSingleton<IApplicationStateService, ApplicationStateService>();
+            services.AddSingleton<INavigatorService, NavigatorService>();
             services.AddSingleton<IWebService, WebService>();
 
             // ViewModels
@@ -123,7 +123,7 @@ namespace LiwaPOS.WpfAppUI
             errorReportWindow.ShowDialog();
 
             // Uygulamayı sonlandırın
-            Environment.Exit(1);
+            //Environment.Exit(1);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.Services;
-using LiwaPOS.WpfAppUI.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -23,23 +21,20 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         private void OpenScripts(object obj)
         {
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
-
-            GlobalVariables.Navigator.Navigate(typeof(ScriptsUserControl));
+            GlobalVariables.Navigator.SetFrame(FrameContent);
+            GlobalVariables.Navigator.Navigate("Scripts");
         }
 
         private void OpenAppActions(object obj)
         {
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
-
-            GlobalVariables.Navigator.Navigate(typeof(AppActionsUserControl));
+            GlobalVariables.Navigator.SetFrame(FrameContent);
+            GlobalVariables.Navigator.Navigate("AppActions");
         }
 
         private void OpenAppRules(object obj)
         {
-            GlobalVariables.Navigator = new NavigatorService(FrameContent, GlobalVariables.ServiceProvider);
-
-            GlobalVariables.Navigator.Navigate(typeof(AppRulesUserControl));
+            GlobalVariables.Navigator.SetFrame(FrameContent);
+            GlobalVariables.Navigator.Navigate("AppRules");
         }
     }
 }

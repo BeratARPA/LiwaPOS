@@ -1,44 +1,64 @@
-﻿using LiwaPOS.Shared.Services;
+﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 
 namespace LiwaPOS.WpfAppUI.Services
 {
-    public class NavigatorService
+    public class NavigatorService : INavigatorService
     {
         private readonly IServiceProvider _serviceProvider;
         private Frame _frame;
 
-        public NavigatorService(Frame frame, IServiceProvider serviceProvider)
+        public NavigatorService(IServiceProvider serviceProvider)
         {
-            if (frame == null || serviceProvider == null)
-            {
-                LoggingService.LogErrorAsync("", typeof(NavigatorService).Name, "", new ArgumentNullException());
-                return;
-            }
-            _frame = frame;
-            _serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _frame = GlobalVariables.Shell.FrameContent;
         }
 
-        public void Navigate(Type pageType, object parameter = null)
+        public void SetFrame(Frame frame)
+        {
+            _frame = frame ?? GlobalVariables.Shell.FrameContent;
+        }
+
+        public void Navigate(string viewName, object? parameter = null)
         {
             if (_frame == null)
             {
-                LoggingService.LogErrorAsync("Frame is not initialized.", typeof(NavigatorService).Name, _frame.ToString(), new InvalidOperationException());
-                return;
+                throw new InvalidOperationException("Frame has not been set in NavigatorService.");
             }
 
+            Type pageType = viewName switch
+            {
+                "AppActionManagement" => typeof(AppActionManagementUserControl),
+                "AppActions" => typeof(AppActionsUserControl),
+                "AppRuleManagement" => typeof(AppRuleManagementUserControl),
+                "AppRules" => typeof(AppRulesUserControl),
+                "Login" => typeof(LoginUserControl),
+                "Management" => typeof(ManagementUserControl),
+                "Navigation" => typeof(NavigationUserControl),
+                "PINPad" => typeof(PINPadUserControl),
+                "ScriptManagement" => typeof(ScriptManagementUserControl),
+                "Scripts" => typeof(ScriptsUserControl),
+                _ => throw new InvalidOperationException($"No view found for {viewName}")
+            };
+
+            Navigate(pageType, parameter);
+        }
+
+        private void Navigate(Type pageType, object? parameter = null)
+        {
             var page = _serviceProvider.GetRequiredService(pageType) as System.Windows.Controls.UserControl;
             if (page == null)
             {
-                LoggingService.LogErrorAsync($"No service for type '{pageType}' has been registered.", typeof(NavigatorService).Name, pageType.ToString(), new InvalidOperationException());
-                return;
+                throw new InvalidOperationException($"Service for type '{pageType}' not registered.");
             }
 
-            var viewModel = page.DataContext as dynamic;
-            if (viewModel != null)
+            if (parameter != null)
             {
-                viewModel.SetParameter(parameter);
+                var viewModel = page.DataContext as dynamic;
+                viewModel?.SetParameter(parameter);
             }
 
             _frame.Navigate(page);
@@ -58,11 +78,6 @@ namespace LiwaPOS.WpfAppUI.Services
             {
                 _frame.GoForward();
             }
-        }
-
-        public void SetFrame(Frame frame)
-        {
-            _frame = frame;
         }
     }
 }

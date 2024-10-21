@@ -38,22 +38,31 @@ namespace LiwaPOS.BLL.Services
 
         public async Task AddAppActionAsync(AppActionDTO appActionDto)
         {
-            var appAction = _mapper.Map<AppAction>(appActionDto);
-            await _unitOfWork.AppActions.AddAsync(appAction);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var appAction = _mapper.Map<AppAction>(appActionDto);
+                await _unitOfWork.AppActions.AddAsync(appAction);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task UpdateAppActionAsync(AppActionDTO appActionDto)
         {
-            var appAction = _mapper.Map<AppAction>(appActionDto);
-            await _unitOfWork.AppActions.UpdateAsync(appAction);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var appAction = _mapper.Map<AppAction>(appActionDto);
+                await _unitOfWork.AppActions.UpdateAsync(appAction);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task DeleteAppActionAsync(int id)
         {
-            await _unitOfWork.AppActions.DeleteAsync(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.AppActions.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task<IEnumerable<AppActionDTO>> GetAllAppActionsAsNoTrackingAsync(Expression<Func<AppAction, bool>> filter = null)

@@ -20,15 +20,21 @@ namespace LiwaPOS.BLL.Services
 
         public async Task AddRuleActionMapAsync(RuleActionMapDTO ruleActionMapDto)
         {
-            var ruleActionMap = _mapper.Map<RuleActionMap>(ruleActionMapDto);
-            await _unitOfWork.RuleActionMaps.AddAsync(ruleActionMap);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var ruleActionMap = _mapper.Map<RuleActionMap>(ruleActionMapDto);
+                await _unitOfWork.RuleActionMaps.AddAsync(ruleActionMap);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task DeleteRuleActionMapAsync(int id)
         {
-            await _unitOfWork.RuleActionMaps.DeleteAsync(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.RuleActionMaps.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task<IEnumerable<RuleActionMapDTO>> GetAllRuleActionMapsAsNoTrackingAsync(Expression<Func<RuleActionMap, bool>> filter = null)
@@ -69,9 +75,12 @@ namespace LiwaPOS.BLL.Services
 
         public async Task UpdateRuleActionMapAsync(RuleActionMapDTO ruleActionMapDto)
         {
-            var ruleActionMap = _mapper.Map<RuleActionMap>(ruleActionMapDto);
-            await _unitOfWork.RuleActionMaps.UpdateAsync(ruleActionMap);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var ruleActionMap = _mapper.Map<RuleActionMap>(ruleActionMapDto);
+                await _unitOfWork.RuleActionMaps.UpdateAsync(ruleActionMap);
+                await _unitOfWork.CommitAsync();
+            });
         }
     }
 }

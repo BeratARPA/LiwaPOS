@@ -87,7 +87,7 @@ namespace LiwaPOS.BLL.Managers
                 var action = _actionFactory.GetAction(appAction.Type);
                 if (action != null)
                 {
-                    action.Execute(appAction.Properties);
+                    await action.Execute(appAction.Properties);
                 }
                 else
                 {

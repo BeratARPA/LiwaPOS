@@ -21,14 +21,20 @@ namespace LiwaPOS.BLL.Services
         public async Task AddUserAsync(UserDTO userDto)
         {
             var user = _mapper.Map<User>(userDto);
-            await _unitOfWork.Users.AddAsync(user);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.Users.AddAsync(user);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task DeleteUserAsync(int id)
         {
-            await _unitOfWork.Users.DeleteAsync(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.Users.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            });
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsNoTrackingAsync(Expression<Func<User, bool>> filter = null)
@@ -69,9 +75,12 @@ namespace LiwaPOS.BLL.Services
 
         public async Task UpdateUserAsync(UserDTO userDto)
         {
-            var user = _mapper.Map<User>(userDto);
-            await _unitOfWork.Users.UpdateAsync(user);
-            _unitOfWork.Commit();
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var user = _mapper.Map<User>(userDto);
+                await _unitOfWork.Users.UpdateAsync(user);
+                await _unitOfWork.CommitAsync();
+            });
         }
     }
 }
