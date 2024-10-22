@@ -21,7 +21,7 @@ namespace LiwaPOS.WpfAppUI.Services
 
         public void ShowNotification(NotificationDTO notification)
         {
-            var notificationWindow = new NotificationWindow(new NotificationViewModel(notification));         
+            var notificationWindow = new NotificationWindow(new NotificationViewModel(notification));
 
             notificationWindow.Loaded += (s, e) => ArrangeNotificationPosition(notificationWindow, notification.Position);
             notificationWindow.Closed += (s, e) =>
@@ -31,7 +31,11 @@ namespace LiwaPOS.WpfAppUI.Services
             };
 
             _activeNotificationsByPosition[notification.Position].Add(notificationWindow);
-            notificationWindow.Show();
+
+            if (notification.IsDialog)
+                notificationWindow.ShowDialog();
+            else
+                notificationWindow.Show();
         }
 
         private void ArrangeNotificationPosition(NotificationWindow notificationWindow, NotificationPosition position)

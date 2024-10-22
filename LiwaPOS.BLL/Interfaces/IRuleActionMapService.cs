@@ -15,5 +15,6 @@ namespace LiwaPOS.BLL.Interfaces
         Task AddRuleActionMapAsync(RuleActionMapDTO ruleActionMapDto);
         Task UpdateRuleActionMapAsync(RuleActionMapDTO ruleActionMapDto);
         Task DeleteRuleActionMapAsync(int id);
+        Task DeleteAllRuleActionMapsAsync(Expression<Func<RuleActionMap, bool>> filter = null, IEnumerable<RuleActionMap> entities = null);
     }
 }

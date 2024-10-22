@@ -15,5 +15,6 @@ namespace LiwaPOS.BLL.Interfaces
         Task AddScriptAsync(ScriptDTO scriptDto);
         Task UpdateScriptAsync(ScriptDTO scriptDto);
         Task DeleteScriptAsync(int id);
+        Task DeleteAllScriptsAsync(Expression<Func<Script, bool>> filter = null, IEnumerable<Script> entities = null);
     }
 }

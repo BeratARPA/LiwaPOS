@@ -85,7 +85,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 case ActionType.LoginUser:
                     _currentActionModel = new LoginUserDTO();
-                    break;               
+                    break;
                 case ActionType.ShowPopup:
                     _currentActionModel = new NotificationDTO();
                     break;
@@ -121,6 +121,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                     break;
                 case ActionType.Wait:
                     _currentActionModel = new WaitDTO();
+                    break;
+                case ActionType.SendHttpRequest:
+                    _currentActionModel = new SendHttpRequestDTO();
                     break;
                 default:
                     _currentActionModel = null;
@@ -192,7 +195,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                     Type = AppActionType,
                     Properties = AppActionProperties
                 };
-                
+
                 await _appActionService.AddAppActionAsync(appAction);
             }
 

@@ -17,6 +17,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         private ObservableCollection<AppRuleDTO> _commands;
         private ICollectionView _filteredCommands;
         private readonly IAppRuleService _appRuleService;
+        private readonly IRuleActionMapService _ruleActionMapService;
 
         public string SearchText
         {
@@ -63,9 +64,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public AppRulesViewModel(IAppRuleService appRuleService)
+        public AppRulesViewModel(IAppRuleService appRuleService, IRuleActionMapService ruleActionMapService)
         {
             _appRuleService = appRuleService;
+            _ruleActionMapService = ruleActionMapService;
 
             LoadAppRulesAsync();
 
@@ -126,6 +128,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             if (SelectedCommand != null)
             {
                 await _appRuleService.DeleteAppRuleAsync(SelectedCommand.Id);
+                await _ruleActionMapService.DeleteAllRuleActionMapsAsync(x => x.AppRuleId == SelectedCommand.Id);
                 Commands.Remove(SelectedCommand);
                 FilterCommands();
             }

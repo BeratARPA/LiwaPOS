@@ -28,6 +28,15 @@ namespace LiwaPOS.BLL.Services
             });
         }
 
+        public async Task DeleteAllScriptsAsync(Expression<Func<Script, bool>> filter = null, IEnumerable<Script> entities = null)
+        {
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.Scripts.DeleteAllAsync(filter,entities);
+                await _unitOfWork.CommitAsync();
+            });
+        }
+
         public async Task DeleteScriptAsync(int id)
         {
             await _unitOfWork.ExecuteInTransactionAsync(async () =>

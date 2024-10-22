@@ -9,6 +9,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
     public class NotificationViewModel : ViewModelBase
     {
         private NotificationDTO _notification;
+        public Action<bool> CloseAction { get; set; }
 
         public NotificationViewModel(NotificationDTO notification = null)
         {
@@ -28,7 +29,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public string Message => _notification.Message;
         public NotificationIcon Icon => _notification.Icon;
         public NotificationPosition Position => _notification.Position;
+        public NotificationButtonType Button => _notification.ButtonType;
         public int DisplayDurationInSecond => _notification.DisplayDurationInSecond;
+        public bool IsDialog => _notification.IsDialog;
 
         public ICommand YesCommand { get; }
         public ICommand NoCommand { get; }
@@ -107,7 +110,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                (System.Windows.Application.Current.MainWindow as NotificationWindow)?.SetDialogResult(true);
+                CloseAction?.Invoke(true);
             });
         }
 
@@ -115,7 +118,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                (System.Windows.Application.Current.MainWindow as NotificationWindow)?.SetDialogResult(false);
+                CloseAction?.Invoke(false);
             });
         }
 
@@ -123,7 +126,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                (System.Windows.Application.Current.MainWindow as NotificationWindow)?.SetDialogResult(true);
+                CloseAction?.Invoke(true);
             });
         }
 
@@ -131,7 +134,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                (System.Windows.Application.Current.MainWindow as NotificationWindow)?.SetDialogResult(false);
+                CloseAction?.Invoke(false);
             });
         }        
     }

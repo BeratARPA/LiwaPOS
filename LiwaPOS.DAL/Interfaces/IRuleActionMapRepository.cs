@@ -14,5 +14,6 @@ namespace LiwaPOS.DAL.Interfaces
         Task AddAsync(RuleActionMap entity);
         Task UpdateAsync(RuleActionMap entity);
         Task DeleteAsync(int id);
+        Task DeleteAllAsync(Expression<Func<RuleActionMap, bool>> filter = null, IEnumerable<RuleActionMap> entities = null);
     }
 }

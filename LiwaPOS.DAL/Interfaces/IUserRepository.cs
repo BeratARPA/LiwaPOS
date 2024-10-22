@@ -14,5 +14,6 @@ namespace LiwaPOS.DAL.Interfaces
         Task AddAsync(User entity);
         Task UpdateAsync(User entity);
         Task DeleteAsync(int id);
+        Task DeleteAllAsync(Expression<Func<User, bool>> filter = null, IEnumerable<User> entities = null);
     }
 }

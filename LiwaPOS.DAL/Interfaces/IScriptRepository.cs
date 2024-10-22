@@ -14,5 +14,6 @@ namespace LiwaPOS.DAL.Interfaces
         Task AddAsync(Script entity);
         Task UpdateAsync(Script entity);
         Task DeleteAsync(int id);
+        Task DeleteAllAsync(Expression<Func<Script, bool>> filter = null, IEnumerable<Script> entities = null);
     }
 }

@@ -21,7 +21,8 @@ namespace LiwaPOS.BLL.Factories
             { ActionType.ShowGoogleMapsDirections, typeof(ShowGoogleMapsDirectionsAction) },
             { ActionType.RunScript, typeof(RunScriptAction) },
             { ActionType.LogoutUser, typeof(LogoutUserAction) },
-            { ActionType.Wait, typeof(WaitAction) }
+            { ActionType.Wait, typeof(WaitAction) },
+            { ActionType.SendHttpRequest, typeof(SendHttpRequestAction) }
         };
 
         private readonly IServiceProvider _serviceProvider;

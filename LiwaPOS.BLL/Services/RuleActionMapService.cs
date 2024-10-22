@@ -28,6 +28,15 @@ namespace LiwaPOS.BLL.Services
             });
         }
 
+        public async Task DeleteAllRuleActionMapsAsync(Expression<Func<RuleActionMap, bool>> filter = null, IEnumerable<RuleActionMap> entities = null)
+        {
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.RuleActionMaps.DeleteAllAsync(filter,entities);
+                await _unitOfWork.CommitAsync();
+            });
+        }
+
         public async Task DeleteRuleActionMapAsync(int id)
         {
             await _unitOfWork.ExecuteInTransactionAsync(async () =>

@@ -40,15 +40,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         public async Task LoginAsync()
         {
-            bool isSuccessful = await _userManager.Login(PinCode);
-            if (isSuccessful)
-            {
-                _applicationStateService.CurrentLoggedInUser = await _userManager.GetUserByPinCode(PinCode);
-                GlobalVariables.Shell.TextBlockUsername.Text = _applicationStateService.CurrentLoggedInUser == null ? "-" : _applicationStateService.CurrentLoggedInUser.Name ?? "-";
-
-                GlobalVariables.Shell.GridBottomBar.Visibility = Visibility.Visible;
-                GlobalVariables.Navigator.Navigate("Navigation");
-            }
+            bool isSuccessful = await _userManager.Login(PinCode);            
         }       
     }
 }

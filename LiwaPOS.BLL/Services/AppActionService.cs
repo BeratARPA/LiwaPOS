@@ -82,5 +82,14 @@ namespace LiwaPOS.BLL.Services
             var appAction = await _unitOfWork.AppActions.GetByIdAsNoTrackingAsync(id);
             return _mapper.Map<AppActionDTO>(appAction);
         }
+
+        public async Task DeleteAllAppActionsAsync(Expression<Func<AppAction, bool>> filter = null, IEnumerable<AppAction> entities = null)
+        {
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.AppActions.DeleteAllAsync(filter,entities);
+                await _unitOfWork.CommitAsync();
+            });
+        }
     }
 }

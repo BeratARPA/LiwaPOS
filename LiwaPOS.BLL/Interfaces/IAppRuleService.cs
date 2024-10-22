@@ -15,5 +15,6 @@ namespace LiwaPOS.BLL.Interfaces
         Task AddAppRuleAsync(AppRuleDTO appRuleDto);
         Task UpdateAppRuleAsync(AppRuleDTO appRuleDto);
         Task DeleteAppRuleAsync(int id);
+        Task DeleteAllAppRulesAsync(Expression<Func<AppRule, bool>> filter = null, IEnumerable<AppRule> entities = null);
     }
 }

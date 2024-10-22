@@ -175,5 +175,42 @@ namespace LiwaPOS.DAL.Repositories
                 throw;
             }
         }
+
+        public async Task DeleteAllAsync(Expression<Func<TEntity, bool>> filter = null, IEnumerable<TEntity> entities = null)
+        {
+            try
+            {
+                // Eğer filter != null ve entities == null ise, filter'a uygun olan verileri sil
+                if (filter != null && entities == null)
+                {
+                    var itemsToDelete = await _dbSet.Where(filter).ToListAsync();
+                    if (itemsToDelete.Any())
+                    {
+                        _dbSet.RemoveRange(itemsToDelete);
+                    }
+                }
+                // Eğer filter == null ve entities != null ise, entities içindeki verileri sil
+                else if (filter == null && entities != null)
+                {
+                    _dbSet.RemoveRange(entities);
+                }
+                // Eğer filter != null ve entities != null ise, entities'deki verileri filter'a göre sil
+                else if (filter != null && entities != null)
+                {
+                    var itemsToDelete = entities.Where(filter.Compile()).ToList();
+                    if (itemsToDelete.Any())
+                    {
+                        _dbSet.RemoveRange(itemsToDelete);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception exception)
+            {
+                await LoggingService.LogErrorAsync("Error occurred while deleting data.", typeof(GenericRepository<TEntity>).ToString(), "Filter: " + filter?.ToString(), exception);
+                throw;
+            }
+        }
     }
 }

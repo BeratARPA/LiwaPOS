@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Width="350" 
-        Height="200"
+        SizeToContent="Height"
         ShowInTaskbar="False"
         WindowStyle="None" 
         AllowsTransparency="True"
@@ -42,14 +42,16 @@
     <Border Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="1">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0">
                 <Image Source="{Binding Icon}" Width="50" Height="50" VerticalAlignment="Top"/>
                 <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="15"/>
-                <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+                <ScrollViewer Height="50" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                </ScrollViewer>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1">

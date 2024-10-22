@@ -28,6 +28,15 @@ namespace LiwaPOS.BLL.Services
             });
         }
 
+        public async Task DeleteAllUsersAsync(Expression<Func<User, bool>> filter = null, IEnumerable<User> entities = null)
+        {
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                await _unitOfWork.Users.DeleteAllAsync(filter,entities);
+                await _unitOfWork.CommitAsync();
+            });
+        }
+
         public async Task DeleteUserAsync(int id)
         {
             await _unitOfWork.ExecuteInTransactionAsync(async () =>

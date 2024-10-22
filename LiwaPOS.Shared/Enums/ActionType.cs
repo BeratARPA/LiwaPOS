@@ -14,6 +14,7 @@
         ShowGoogleMapsDirections,
         RunScript,
         LogoutUser,
-        Wait
+        Wait,
+        SendHttpRequest
     }
 }

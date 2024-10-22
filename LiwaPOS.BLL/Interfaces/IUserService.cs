@@ -15,5 +15,6 @@ namespace LiwaPOS.BLL.Interfaces
         Task AddUserAsync(UserDTO appRuleDto);
         Task UpdateUserAsync(UserDTO appRuleDto);
         Task DeleteUserAsync(int id);
+        Task DeleteAllUsersAsync(Expression<Func<User, bool>> filter = null, IEnumerable<User> entities = null);
     }
 }

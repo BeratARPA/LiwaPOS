@@ -12,26 +12,23 @@ namespace LiwaPOS.BLL
     {
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<UserManager>();
-
-            services.AddScoped<IAppRuleService, AppRuleService>();
             services.AddScoped<AppRuleManager>();
 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAppRuleService, AppRuleService>();
             services.AddScoped<IAppActionService, AppActionService>();
-
             services.AddScoped<IRuleActionMapService, RuleActionMapService>();
-
             services.AddScoped<IScriptService, ScriptService>();
-
             services.AddSingleton<IEmailService, EmailService>();
+            services.AddSingleton<IHttpService, HttpService>();
             services.AddSingleton<IGoogleMapService, GoogleMapService>();
             services.AddSingleton<ISmsService, TelsamSmsService>();
+            services.AddSingleton<LocalizationService>();
+            services.AddSingleton<JavaScriptEngineService>();
 
             services.AddSingleton<EventFactory>();
             services.AddSingleton<ActionFactory>();
-            services.AddSingleton<LocalizationService>();
-            services.AddSingleton<JavaScriptEngineService>();
 
             services.AddTransient<CloseTheApplicationAction>();
             services.AddTransient<LoginUserAction>();
@@ -46,6 +43,7 @@ namespace LiwaPOS.BLL
             services.AddTransient<ShowGoogleMapsDirectionsAction>();
             services.AddTransient<RunScriptAction>();
             services.AddTransient<WaitAction>();
+            services.AddTransient<SendHttpRequestAction>();
 
             services.AddTransient<POSPageOpenedEventHandler>();
             services.AddTransient<UserLoggedInEventHandler>();

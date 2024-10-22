@@ -15,5 +15,6 @@ namespace LiwaPOS.BLL.Interfaces
         Task AddAppActionAsync(AppActionDTO appActionDto);
         Task UpdateAppActionAsync(AppActionDTO appActionDto);
         Task DeleteAppActionAsync(int id);
+        Task DeleteAllAppActionsAsync(Expression<Func<AppAction, bool>> filter = null, IEnumerable<AppAction> entities = null);
     }
 }

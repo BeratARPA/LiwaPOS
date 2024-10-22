@@ -14,5 +14,6 @@ namespace LiwaPOS.DAL.Interfaces
         Task AddAsync(AppRule entity);
         Task UpdateAsync(AppRule entity);
         Task DeleteAsync(int id);
+        Task DeleteAllAsync(Expression<Func<AppRule, bool>> filter = null, IEnumerable<AppRule> entities = null);
     }
 }

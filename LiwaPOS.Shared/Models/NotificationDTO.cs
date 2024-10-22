@@ -10,5 +10,6 @@ namespace LiwaPOS.Shared.Models
         public NotificationPosition Position { get; set; } = 0;
         public NotificationIcon Icon { get; set; } = 0;
         public int DisplayDurationInSecond { get; set; } = 5;
+        public bool IsDialog { get; set; } = false;
     }
 }
