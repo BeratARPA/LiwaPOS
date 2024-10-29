@@ -67,6 +67,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         }
 
         public ICommand SaveCommand { get; }
+        public ICommand CloseCommand { get; }
 
         public AppActionManagementViewModel(IAppActionService appActionService)
         {
@@ -74,8 +75,14 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
             ActionTypes = new ObservableCollection<ActionType>(Enum.GetValues(typeof(ActionType)).Cast<ActionType>());
             SaveCommand = new AsyncRelayCommand(SaveScript);
+            CloseCommand = new AsyncRelayCommand(ClosePage);
 
             UpdateDynamicProperties();
+        }
+
+        private async Task ClosePage(object arg)
+        {
+            GlobalVariables.Navigator.Navigate("AppActions");
         }
 
         private void UpdateDynamicProperties()

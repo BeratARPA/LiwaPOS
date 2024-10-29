@@ -1,6 +1,5 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Windows;
@@ -24,9 +23,7 @@ namespace LiwaPOS.WpfAppUI
 
             _applicationState = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
           
-            GlobalVariables.Shell = this;
-
-            GlobalVariables.Navigator = new NavigatorService(GlobalVariables.ServiceProvider);
+            GlobalVariables.Shell = this;           
             
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Login");

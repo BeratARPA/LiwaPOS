@@ -12,8 +12,8 @@ namespace LiwaPOS.BLL.Interfaces
         Task<UserDTO> GetUserAsNoTrackingAsync(Expression<Func<User, bool>> filter = null);
         Task<UserDTO> GetUserByIdAsync(int id);
         Task<UserDTO> GetUserByIdAsNoTrackingAsync(int id);
-        Task AddUserAsync(UserDTO appRuleDto);
-        Task UpdateUserAsync(UserDTO appRuleDto);
+        Task AddUserAsync(UserDTO userDto);
+        Task UpdateUserAsync(UserDTO userDto);
         Task DeleteUserAsync(int id);
         Task DeleteAllUsersAsync(Expression<Func<User, bool>> filter = null, IEnumerable<User> entities = null);
     }

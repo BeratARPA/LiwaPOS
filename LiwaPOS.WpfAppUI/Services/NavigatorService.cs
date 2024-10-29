@@ -1,4 +1,7 @@
 ﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.BLL.Managers;
+using LiwaPOS.Shared.Enums;
+using LiwaPOS.Shared.Models;
 using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.UserControls;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,13 +11,15 @@ namespace LiwaPOS.WpfAppUI.Services
 {
     public class NavigatorService : INavigatorService
     {
+        private readonly AppRuleManager _appRuleManager;
         private readonly IServiceProvider _serviceProvider;
         private Frame _frame;
 
-        public NavigatorService(IServiceProvider serviceProvider)
+        public NavigatorService(IServiceProvider serviceProvider, AppRuleManager appRuleManager)
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            _frame = GlobalVariables.Shell.FrameContent;
+            _frame = GlobalVariables.Shell?.FrameContent ?? null;
+            _appRuleManager = appRuleManager;
         }
 
         public void SetFrame(Frame frame)
@@ -41,13 +46,15 @@ namespace LiwaPOS.WpfAppUI.Services
                 "PINPad" => typeof(PINPadUserControl),
                 "ScriptManagement" => typeof(ScriptManagementUserControl),
                 "Scripts" => typeof(ScriptsUserControl),
+                "AutomationCommands" => typeof(AutomationCommandsUserControl),
+                "AutomationCommandManagement" => typeof(AutomationCommandManagementUserControl),
                 _ => throw new InvalidOperationException($"No view found for {viewName}")
             };
 
-            Navigate(pageType, parameter);
+            Navigate(pageType, parameter, viewName);
         }
 
-        private void Navigate(Type pageType, object? parameter = null)
+        private async Task Navigate(Type pageType, object? parameter = null, string viewName = null)
         {
             var page = _serviceProvider.GetRequiredService(pageType) as System.Windows.Controls.UserControl;
             if (page == null)
@@ -62,6 +69,11 @@ namespace LiwaPOS.WpfAppUI.Services
             }
 
             _frame.Navigate(page);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var appRuleManager = scope.ServiceProvider.GetRequiredService<AppRuleManager>();
+                await appRuleManager.ExecuteAppRulesForEventAsync(EventType.PageOpened, new PageOpenedDTO { ViewName = viewName });
+            }
         }
 
         public void GoBack()

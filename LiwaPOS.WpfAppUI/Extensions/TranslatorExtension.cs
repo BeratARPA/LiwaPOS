@@ -1,4 +1,5 @@
 ﻿using LiwaPOS.BLL.Services;
+using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Services;
@@ -32,12 +33,8 @@ namespace LiwaPOS.WpfAppUI.Extensions
                 return Key; // Eğer servis yoksa yine anahtarı göster
             }
 
-            // Default dil kodunu al
-            string defaultLanguageJson = localizationService.LoadDefaultLanguageaAsync().GetAwaiter().GetResult();
-
-            // JSON formatını çöz ve sadece 'Language' değerini al
-            var defaultLanguageObj = JsonHelper.Deserialize<Dictionary<string, string>>(defaultLanguageJson);
-            string defaultLanguage = defaultLanguageObj != null && defaultLanguageObj.TryGetValue("Language", out var lang) ? lang : "en";
+            // Default dil kodunu al          
+            string defaultLanguage = Properties.Settings.Default.CurrentLanguage;
 
             // İlgili dil dosyasını yükle
             string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
@@ -86,12 +83,8 @@ namespace LiwaPOS.WpfAppUI.Extensions
                 return string.Empty;
             }
 
-            // Default dil kodunu al
-            string defaultLanguageJson = localizationService.LoadDefaultLanguageaAsync().GetAwaiter().GetResult();
-
-            // JSON formatını çöz ve sadece 'Language' değerini al
-            var defaultLanguageObj = JsonHelper.Deserialize<Dictionary<string, string>>(defaultLanguageJson);
-            string defaultLanguage = defaultLanguageObj != null && defaultLanguageObj.TryGetValue("Language", out var lang) ? lang : "en";
+            // Default dil kodunu al           
+            string defaultLanguage = Properties.Settings.Default.CurrentLanguage;
 
             // İlgili dil dosyasını yükle
             string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
@@ -103,6 +96,29 @@ namespace LiwaPOS.WpfAppUI.Extensions
 
             return $"{translatedText}{suffix}";
         }
-    }
 
+        public async static Task<string> TranslateUI(string key, string suffix = "")
+        {
+            var localizationService = _staticServiceProvider?.GetService<LocalizationService>();
+
+            if (localizationService == null)
+            {
+                LoggingService.LogErrorAsync("LocalizationService is not registered in the service provider.", typeof(TranslatorExtension).Name, key, new InvalidOperationException());
+                return string.Empty;
+            }
+
+            // Default dil kodunu al       
+            string defaultLanguage = Properties.Settings.Default.CurrentLanguage;
+
+            // İlgili dil dosyasını yükle          
+            string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
+
+            var translations = JsonHelper.Deserialize<List<LanguageDTO>>(translationContent);
+
+            var translation = translations?.FirstOrDefault(t => t.Key == key);
+            string translatedText = translation != null ? translation.Value : key;
+
+            return $"{translatedText}{suffix}";
+        }
+    }
 }

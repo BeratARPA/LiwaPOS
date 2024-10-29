@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LiwaPOS.WpfAppUI.UserControls.ManagementUserControl"
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  x:Class="LiwaPOS.WpfAppUI.UserControls.ManagementUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <dxn:NavBarControl Grid.Column="0">
+        <dxn:NavBarControl Grid.Column="0" Width="200">
             <dxn:NavBarControl.View>
                 <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" IsOverflowPanelVisible="False" MaxVisibleGroupCount="50" ExpandButtonMode="Normal" IsSplitterVisible="False"/>
             </dxn:NavBarControl.View>
@@ -39,7 +39,7 @@
             <dxn:NavBarGroup Header="{extension:Translator Automation}">
                 <dxn:NavBarItem Content="{extension:Translator Actions}" Command="{Binding OpenAppActionsCommand}"/>
                 <dxn:NavBarItem Content="{extension:Translator Rules}" Command="{Binding OpenAppRulesCommand}"/>
-                <dxn:NavBarItem Content="{extension:Translator AutomationCommands}"/>
+                <dxn:NavBarItem Content="{extension:Translator AutomationCommands}" Command="{Binding OpenAutomationCommandsCommand}"/>
                 <dxn:NavBarItem Content="{extension:Translator Scripts}" Command="{Binding OpenScriptsCommand}"/>
             </dxn:NavBarGroup>
 
@@ -48,6 +48,29 @@
             </dxn:NavBarGroup>
         </dxn:NavBarControl>
 
-        <Frame x:Name="FrameContent" NavigationUIVisibility="Hidden" Grid.Column="1"/>
+         <!-- Tab Control -->
+        <dx:DXTabControl x:Name="MainTabControl" Grid.Column="1"
+                         ItemsSource="{Binding TabItems}"
+                         SelectedItem="{Binding SelectedTabItem}">
+            <dx:DXTabControl.ItemContainerStyle>
+                <Style TargetType="dx:DXTabItem">
+                    <Setter Property="Header" Value="{Binding Header}"/>
+                    <Setter Property="AllowHide" Value="{Binding AllowHide}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                    <Setter Property="CloseCommand" Value="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=dx:DXTabControl}}"/>
+                    <Setter Property="CloseCommandParameter" Value="{Binding}"/>
+                </Style>
+            </dx:DXTabControl.ItemContainerStyle>
+
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView DragDropMode="ReorderOnly" HeaderLocation="Top"/>
+            </dx:DXTabControl.View>
+
+            <dx:DXTabControl.ItemTemplate>
+                <DataTemplate>
+                    <Frame Content="{Binding Content.Content}" NavigationUIVisibility="Hidden"/>
+                </DataTemplate>
+            </dx:DXTabControl.ItemTemplate>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

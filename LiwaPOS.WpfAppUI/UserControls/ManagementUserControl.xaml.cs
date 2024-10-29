@@ -1,6 +1,4 @@
-﻿using LiwaPOS.WpfAppUI.ViewModels;
-
-namespace LiwaPOS.WpfAppUI.UserControls
+﻿namespace LiwaPOS.WpfAppUI.UserControls
 {
     /// <summary>
     /// Interaction logic for ManagementUserControl.xaml
@@ -10,11 +8,6 @@ namespace LiwaPOS.WpfAppUI.UserControls
         public ManagementUserControl()
         {
             InitializeComponent();
-            
-            if(DataContext is ManagementViewModel viewModel)
-            {
-                viewModel.FrameContent = FrameContent;
-            }
         }
     }
 }

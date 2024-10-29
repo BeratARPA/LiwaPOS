@@ -1,7 +1,6 @@
 ﻿using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.WpfAppUI.Commands;
-using LiwaPOS.WpfAppUI.Views;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels

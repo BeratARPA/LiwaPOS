@@ -2,7 +2,6 @@
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -77,8 +76,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         private async void LoadScriptsAsync()
         {
-            var scripts = await GetScripts();
-            Commands = new ObservableCollection<ScriptDTO>(scripts);
+            var data = await GetScripts();
+            Commands = new ObservableCollection<ScriptDTO>(data);
             FilteredCommands = new ObservableCollection<ScriptDTO>(Commands);
         }
 
@@ -119,7 +118,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 await _scriptService.DeleteScriptAsync(SelectedCommand.Id);
                 Commands.Remove(SelectedCommand);
-                FilterCommands();                   
+                FilterCommands();
             }
         }
 

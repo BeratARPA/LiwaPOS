@@ -1,6 +1,7 @@
 ﻿using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Services;
 using LiwaPOS.WpfAppUI.Commands;
+using LiwaPOS.WpfAppUI.Extensions;
 using System.Management;
 using System.Text;
 using System.Windows.Input;
@@ -300,7 +301,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 catch (Exception exception)
                 {
                     await LoggingService.LogErrorAsync(string.Format("Unable to save file '{0}' : {1}", saveFileDialog.FileName, exception.Message), "ErrorReportViewModel", "", exception);
-                    MessageBox.Show(string.Format(await TranslatorExtension.Translate("UnableToSaveFile_ph"), saveFileDialog.FileName, exception.Message));
+                    MessageBox.Show(string.Format(await TranslatorExtension.TranslateUI("UnableToSaveFile_ph"), saveFileDialog.FileName, exception.Message));
                 }
             }
         }        

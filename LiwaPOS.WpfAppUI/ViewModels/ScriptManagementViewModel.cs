@@ -3,7 +3,6 @@ using LiwaPOS.BLL.Services;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
 using Microsoft.Web.WebView2.Wpf;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -62,6 +61,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         }
 
         public ICommand SaveCommand { get; }
+        public ICommand CloseCommand { get; }
         public ICommand RunCommand { get; }
 
         public ScriptManagementViewModel(IScriptService scriptService, JavaScriptEngineService javaScriptEngineService)
@@ -70,6 +70,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             _javaScriptEngineService = javaScriptEngineService;
 
             SaveCommand = new AsyncRelayCommand(SaveScript);
+            CloseCommand = new AsyncRelayCommand(ClosePage);
             RunCommand = new AsyncRelayCommand(RunScript);
 
             // HTML file path for Monaco Editor
@@ -92,6 +93,11 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 // Başka tipte bir veri geldiyse ona göre işlem yapılabilir
             }
+        }
+
+        private async Task ClosePage(object arg)
+        {
+            GlobalVariables.Navigator.Navigate("Scripts");
         }
 
         private async Task SaveScript(object obj)

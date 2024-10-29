@@ -1,7 +1,5 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.Managers;
-using LiwaPOS.WpfAppUI.Helpers;
-using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {

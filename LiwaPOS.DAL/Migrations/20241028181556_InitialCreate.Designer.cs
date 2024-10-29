@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241021050514_InitialCreate")]
+    [Migration("20241028181556_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -78,6 +78,107 @@ namespace LiwaPOS.DAL.Migrations
                     b.ToTable("AppRules");
                 });
 
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.AutomationCommand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AskNumericInput")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AskTextInput")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("AutoRefresh")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ButtonHeader")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ClearSelection")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConfirmationType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContentTemplate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("ExecuteOnce")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FontSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NavigationModule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TileCacheLifetime")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ToggleValues")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Values")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AutomationCommands");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.AutomationCommandMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AutomationCommandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AutomationCommandMaps");
+                });
+
             modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
                 {
                     b.Property<int>("Id")
@@ -92,10 +193,22 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<int>("AppRuleId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("EntityGuid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserRoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -6,7 +6,7 @@
         UserLoggedOut,
         UserFailedToLogin,
         PopupDisplayed,
-        POSPageOpened,
+        PageOpened,
         ShellInitialized
     }
 }

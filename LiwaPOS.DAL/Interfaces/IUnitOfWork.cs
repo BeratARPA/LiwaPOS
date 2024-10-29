@@ -4,9 +4,11 @@
     {
         IAppRuleRepository AppRules { get; }
         IAppActionRepository AppActions { get; }
+        IAutomationCommandRepository AutomationCommands { get; }
+        IAutomationCommandMapRepository AutomationCommandMaps { get; }
         IRuleActionMapRepository RuleActionMaps { get; }
-        IUserRepository Users { get; }
         IScriptRepository Scripts { get; }
+        IUserRepository Users { get; }
 
         Task CommitAsync();
         Task BeginTransactionAsync();

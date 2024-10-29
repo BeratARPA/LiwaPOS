@@ -2,7 +2,6 @@
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -77,8 +76,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         private async void LoadAppActionsAsync()
         {
-            var appActions = await GetAppActions();
-            Commands = new ObservableCollection<AppActionDTO>(appActions);
+            var data = await GetAppActions();
+            Commands = new ObservableCollection<AppActionDTO>(data);
 
             // ICollectionView ile gruplama ve sıralama işlemleri
             FilteredCommands = CollectionViewSource.GetDefaultView(Commands);

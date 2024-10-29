@@ -20,10 +20,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs/loader.js"></script>
     <script>
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs' } });
-        require(['vs/editor/editor.main'], function () {                        
+        require(['vs/editor/editor.main'], function () {
+
+            // Temel IntelliSense önerileri
+            monaco.languages.registerCompletionItemProvider('javascript', {
+                provideCompletionItems: function () {
+                    var suggestions = [
+                        {
+                            label: 'showMessage',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'showMessage(message)'
+                        },
+                        {
+                            label: 'runAction',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'runAction()'
+                        },
+                        {
+                            label: 'executeSql',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'executeSql(command)'
+                        }, 
+                        {
+                            label: 'httpGet',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'httpGet(url)'
+                        },
+                        {
+                            label: 'httpPost',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'httpPost(url, body)'
+                        },
+                        {
+                            label: 'httpPut',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'httpPut(url, body)'
+                        },
+                        {
+                            label: 'httpDelete',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'httpDelete(url)'
+                        },
+                    ];
+                    return { suggestions: suggestions };
+                }
+            });
+
             // Editörü başlat
             window.editor = monaco.editor.create(document.getElementById('container'), {
-                value: '// Yazmaya başlayın..',
+                value: '',
                 language: 'javascript', // Arpa dilini burada seçiyoruz
                 theme: 'vs-light', // 'vs-light' for light theme
                 automaticLayout: true,

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using LiwaPOS.WpfAppUI.Extensions;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,7 +18,7 @@ namespace LiwaPOS.WpfAppUI.Helpers
             // "Parametreler:" başlıklı TextBlock ekle
             var paramLabel = new TextBlock
             {
-                Text = "Parametreler:",
+                Text = TranslatorExtension.TranslateUI("Parameters",":").Result,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(0, 10, 0, 10),
                 FontSize = 14

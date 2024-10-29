@@ -20,6 +20,8 @@ namespace LiwaPOS.BLL
             services.AddScoped<IAppActionService, AppActionService>();
             services.AddScoped<IRuleActionMapService, RuleActionMapService>();
             services.AddScoped<IScriptService, ScriptService>();
+            services.AddScoped<IAutomationCommandMapService, AutomationCommandMapService>();
+            services.AddScoped<IAutomationCommandService, AutomationCommandService>();
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<IHttpService, HttpService>();
             services.AddSingleton<IGoogleMapService, GoogleMapService>();
@@ -45,7 +47,7 @@ namespace LiwaPOS.BLL
             services.AddTransient<WaitAction>();
             services.AddTransient<SendHttpRequestAction>();
 
-            services.AddTransient<POSPageOpenedEventHandler>();
+            services.AddTransient<PageOpenedEventHandler>();
             services.AddTransient<UserLoggedInEventHandler>();
             services.AddTransient<PopupDisplayedEventHandler>();
             services.AddTransient<UserFailedToLoginEventHandler>();

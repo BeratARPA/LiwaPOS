@@ -9,14 +9,14 @@ using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
-    public class AppRulesViewModel : ViewModelBase
+    public class AutomationCommandsViewModel : ViewModelBase
     {
         private string _searchText;
-        private AppRuleDTO _selectedCommand;
-        private ObservableCollection<AppRuleDTO> _commands;
+        private AutomationCommandDTO _selectedCommand;
+        private ObservableCollection<AutomationCommandDTO> _commands;
         private ICollectionView _filteredCommands;
-        private readonly IAppRuleService _appRuleService;
-        private readonly IRuleActionMapService _ruleActionMapService;
+        private readonly IAutomationCommandService _automationCommandService;
+        private readonly IAutomationCommandMapService _automationCommandMapService;
 
         public string SearchText
         {
@@ -29,7 +29,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
         }
 
-        public AppRuleDTO SelectedCommand
+        public AutomationCommandDTO SelectedCommand
         {
             get => _selectedCommand;
             set
@@ -39,7 +39,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
         }
 
-        public ObservableCollection<AppRuleDTO> Commands
+        public ObservableCollection<AutomationCommandDTO> Commands
         {
             get => _commands;
             set
@@ -63,12 +63,12 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public AppRulesViewModel(IAppRuleService appRuleService, IRuleActionMapService ruleActionMapService)
+        public AutomationCommandsViewModel(IAutomationCommandService automationCommandService, IAutomationCommandMapService automationCommandMapService)
         {
-            _appRuleService = appRuleService;
-            _ruleActionMapService = ruleActionMapService;
+            _automationCommandService = automationCommandService;
+            _automationCommandMapService = automationCommandMapService;
 
-            LoadAppRulesAsync();
+            LoadAutomationCommandsAsync();
 
             // Komutları tanımlama
             AddCommand = new RelayCommand(AddNewCommand);
@@ -76,10 +76,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             DeleteCommand = new RelayCommand(DeleteSelectedCommand, CanEditOrDelete);
         }
 
-        private async void LoadAppRulesAsync()
+        private async void LoadAutomationCommandsAsync()
         {
-            var data = await GetAppRules();
-            Commands = new ObservableCollection<AppRuleDTO>(data);
+            var data = await GetAutomationCommands();
+            Commands = new ObservableCollection<AutomationCommandDTO>(data);
 
             // ICollectionView ile gruplama ve sıralama işlemleri
             FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
@@ -99,7 +99,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 FilteredCommands.Filter = obj =>
                 {
-                    var command = obj as AppRuleDTO;
+                    var command = obj as AutomationCommandDTO;
                     return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
                 };
             }
@@ -109,7 +109,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         // Yeni komut ekleme
         private void AddNewCommand(object obj)
         {
-            GlobalVariables.Navigator.Navigate("AppRuleManagement");
+            GlobalVariables.Navigator.Navigate("AutomationCommandManagement");
         }
 
         // Seçili komutu düzenleme
@@ -117,7 +117,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             if (SelectedCommand != null)
             {
-                GlobalVariables.Navigator.Navigate("AppRuleManagement", SelectedCommand);
+                GlobalVariables.Navigator.Navigate("AutomationCommandManagement", SelectedCommand);
             }
         }
 
@@ -126,16 +126,16 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         {
             if (SelectedCommand != null)
             {
-                await _appRuleService.DeleteAppRuleAsync(SelectedCommand.Id);
-                await _ruleActionMapService.DeleteAllRuleActionMapsAsync(x => x.AppRuleId == SelectedCommand.Id);
+                await _automationCommandService.DeleteAutomationCommandAsync(SelectedCommand.Id);
+                await _automationCommandMapService.DeleteAllAutomationCommandMapsAsync(x => x.AutomationCommandId == SelectedCommand.Id);
                 Commands.Remove(SelectedCommand);
                 FilterCommands();
             }
         }
 
-        private async Task<IEnumerable<AppRuleDTO>> GetAppRules()
+        private async Task<IEnumerable<AutomationCommandDTO>> GetAutomationCommands()
         {
-            return await _appRuleService.GetAllAppRulesAsync();
+            return await _automationCommandService.GetAllAutomationCommandsAsync();
         }
 
         // Komutun düzenlenip silinebilmesi için seçili komut var mı kontrolü

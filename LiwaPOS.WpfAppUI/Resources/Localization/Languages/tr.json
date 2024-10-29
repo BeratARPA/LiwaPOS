@@ -202,5 +202,21 @@
   {
     "Key": "SelectedActions",
     "Value": "Seçilen Eylemler"
+  },
+  {
+    "Key": "Parameters",
+    "Value": "Parametreler"
+  },
+  {
+    "Key": "AddAutomationCommand",
+    "Value": "Otomasyon Komutu Ekle"
+  },
+  {
+    "Key": "EditAutomationCommand",
+    "Value": "Otomasyon Komutu Düzenle"
+  },
+  {
+    "Key": "DeleteAutomationCommand",
+    "Value": "Otomasyon Komutu Sil"
   }
 ]

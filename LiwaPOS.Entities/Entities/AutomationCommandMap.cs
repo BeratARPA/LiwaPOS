@@ -1,13 +1,11 @@
 ﻿namespace LiwaPOS.Entities.Entities
 {
-    public class RuleActionMap : BaseEntity
+    public class AutomationCommandMap : BaseEntity
     {
         public int TerminalId { get; set; }
         public int DepartmentId { get; set; }
         public int UserRoleId { get; set; }
         public int TicketTypeId { get; set; }
-        public int AppRuleId { get; set; }
-        public int AppActionId { get; set; }
-        public int SortOrder { get; set; }  
+        public int AutomationCommandId { get; set; }
     }
 }

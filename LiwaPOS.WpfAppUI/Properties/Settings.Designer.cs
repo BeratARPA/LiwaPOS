@@ -34,5 +34,41 @@ namespace LiwaPOS.WpfAppUI.Properties {
                 this["WindowScale"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseDarkMode {
+            get {
+                return ((bool)(this["UseDarkMode"]));
+            }
+            set {
+                this["UseDarkMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomNavigation {
+            get {
+                return ((bool)(this["UseCustomNavigation"]));
+            }
+            set {
+                this["UseCustomNavigation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tr")]
+        public string CurrentLanguage {
+            get {
+                return ((string)(this["CurrentLanguage"]));
+            }
+            set {
+                this["CurrentLanguage"] = value;
+            }
+        }
     }
 }

@@ -10,9 +10,11 @@ namespace LiwaPOS.DAL.Services
 
         private IAppRuleRepository _appRules;
         private IAppActionRepository _appActions;
+        private IAutomationCommandRepository _automationCommands;
+        private IAutomationCommandMapRepository _automationCommandMaps;
         private IRuleActionMapRepository _ruleActionMaps;
-        private IUserRepository _users;
         private IScriptRepository _scripts;
+        private IUserRepository _users;
 
         public UnitOfWork(DataContext context)
         {
@@ -21,9 +23,11 @@ namespace LiwaPOS.DAL.Services
 
         public IAppRuleRepository AppRules => _appRules ??= new AppRuleRepository(_context);
         public IAppActionRepository AppActions => _appActions ??= new AppActionRepository(_context);
+        public IAutomationCommandRepository AutomationCommands => _automationCommands ??= new AutomationCommandRepository(_context);
+        public IAutomationCommandMapRepository AutomationCommandMaps => _automationCommandMaps ??= new AutomationCommandMapRepository(_context);
         public IRuleActionMapRepository RuleActionMaps => _ruleActionMaps ??= new RuleActionMapRepository(_context);
-        public IUserRepository Users => _users ??= new UserRepository(_context);
         public IScriptRepository Scripts => _scripts ??= new ScriptRepository(_context);
+        public IUserRepository Users => _users ??= new UserRepository(_context);
 
         public async Task CommitAsync()
         {

@@ -39,7 +39,9 @@ namespace LiwaPOS.WpfAppUI
             services.AddSingleton<INavigatorService, NavigatorService>();
             services.AddSingleton<IWebService, WebService>();
 
-            // ViewModels
+            // ViewModels      
+            services.AddTransient<AutomationCommandManagementViewModel>();
+            services.AddTransient<AutomationCommandsViewModel>();
             services.AddTransient<AppActionManagementViewModel>();
             services.AddTransient<AppActionsViewModel>();
             services.AddTransient<AppRuleManagementViewModel>();
@@ -53,7 +55,9 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<ScriptsViewModel>();
             services.AddTransient<ShellViewModel>();
 
-            // Views
+            // Views       
+            services.AddTransient<AutomationCommandManagementUserControl>();
+            services.AddTransient<AutomationCommandsUserControl>();
             services.AddTransient<AppActionManagementUserControl>();
             services.AddTransient<AppActionsUserControl>();
             services.AddTransient<AppRuleManagementUserControl>();
@@ -87,15 +91,17 @@ namespace LiwaPOS.WpfAppUI
                 // TranslatorExtension'ı başlat
                 TranslatorExtension.Initialize(_serviceProvider);
 
+                var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
+                GlobalVariables.Navigator = new NavigatorService(_serviceProvider, appRuleManager);
                 // Uygulamayı başlat
                 var shell = _serviceProvider.GetRequiredService<Shell>();
                 shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
                 shell.Show();
-
-                var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
+             
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
 
                 GlobalVariables.CustomNotificationService = _serviceProvider.GetRequiredService<ICustomNotificationService>();
+           
             }
             catch (Exception ex)
             {

@@ -10,17 +10,7 @@ namespace LiwaPOS.BLL.Services
         {
             _localizationRepository = localizationRepository;
         }
-
-        public async Task SaveDefaultLanguageAsync(string languageCode)
-        {
-            await _localizationRepository.SaveDefaultLanguageAsync(languageCode);
-        }
-
-        public async Task<string> LoadDefaultLanguageaAsync()
-        {
-            return await _localizationRepository.LoadDefaultLanguage();
-        }
-
+     
         public async Task SaveLanguageFileAsync(string languageCode, string content)
         {
             await _localizationRepository.SaveLanguageFileAsync(languageCode, content);

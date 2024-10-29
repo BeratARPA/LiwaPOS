@@ -1,13 +1,12 @@
 ﻿using LiwaPOS.BLL.Helpers;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
-using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
+using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -74,6 +73,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         }
 
         public ICommand SaveCommand { get; }
+        public ICommand CloseCommand { get; }
         public ICommand OpenActionSelectionCommand { get; }
         public ICommand AddConstraintCommand { get; }
         public ICommand RemoveConstraintCommand { get; }
@@ -91,11 +91,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             DataObjectProperties = new ObservableCollection<string>();
 
             SaveCommand = new AsyncRelayCommand(SaveScript);
+            CloseCommand = new AsyncRelayCommand(ClosePage);
             OpenActionSelectionCommand = new RelayCommand(OpenActionSelectionWindow);
             AddConstraintCommand = new RelayCommand(AddConstraint);
             RemoveConstraintCommand = new RelayCommand(RemoveConstraint);
 
             UpdateDataObjectProperties();
+        }
+
+        private async Task ClosePage(object arg)
+        {
+            GlobalVariables.Navigator.Navigate("AppRules");
         }
 
         private void UpdateDataObjectProperties()
@@ -157,7 +163,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             }
 
             var dynamicSelectionViewModel = new DynamicSelectionViewModel<AppActionDTO>(availableActions, SelectedActions, OnActionsSelected);
-            dynamicSelectionViewModel.Title = await TranslatorExtension.Translate("SelectActions");
+            dynamicSelectionViewModel.Title = await TranslatorExtension.TranslateUI("SelectActions");
             var actionSelectionWindow = new DynamicSelectionWindow { DataContext = dynamicSelectionViewModel };
             actionSelectionWindow.ShowDialog();
         }

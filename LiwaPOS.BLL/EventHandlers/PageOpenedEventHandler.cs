@@ -2,7 +2,7 @@
 
 namespace LiwaPOS.BLL.EventHandlers
 {
-    public class POSPageOpenedEventHandler : IEventHandler
+    public class PageOpenedEventHandler : IEventHandler
     {
         public Task HandleEventAsync(string eventData, dynamic dataObject)
         {

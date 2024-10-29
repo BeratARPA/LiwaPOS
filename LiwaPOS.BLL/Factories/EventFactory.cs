@@ -9,7 +9,7 @@ namespace LiwaPOS.BLL.Factories
     {
         private readonly Dictionary<EventType, Type> _eventHandlers = new Dictionary<EventType, Type>
         {
-            { EventType.POSPageOpened, typeof(POSPageOpenedEventHandler) },
+            { EventType.PageOpened, typeof(PageOpenedEventHandler) },
             { EventType.UserLoggedIn, typeof(UserLoggedInEventHandler) },
             { EventType.PopupDisplayed, typeof(PopupDisplayedEventHandler) },
             { EventType.UserFailedToLogin, typeof(UserFailedToLoginEventHandler) },
