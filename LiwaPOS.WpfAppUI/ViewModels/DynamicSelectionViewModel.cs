@@ -87,9 +87,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 AvailableItems.Clear();
                 foreach (var item in filteredItems)
                 {
-                    AvailableItems.Add(item);
-                }
-            }
+                _allItems.Add(item);
         }
 
         private void ConfirmSelection(object obj)
