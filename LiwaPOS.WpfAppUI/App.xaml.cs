@@ -1,4 +1,5 @@
-﻿using LiwaPOS.BLL;
+﻿using DevExpress.Xpf.Core;
+using LiwaPOS.BLL;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.Managers;
 using LiwaPOS.DAL;
@@ -73,6 +74,7 @@ namespace LiwaPOS.WpfAppUI
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
             base.OnStartup(e);
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException; ;

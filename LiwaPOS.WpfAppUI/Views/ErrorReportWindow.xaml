@@ -6,7 +6,7 @@
         xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
         xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.Views"
         mc:Ignorable="d"
-        Title="{extension:Translator LiwaPOSReporter}"
+        Title="{extension:Translator LiwaPOSReporter}" Style="{DynamicResource CustomWindowStyle}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow" Height="350" Width="550" Icon="\Resources\Images\warning.ico" Topmost="True">
     <Grid>

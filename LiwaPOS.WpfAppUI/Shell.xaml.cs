@@ -1,4 +1,5 @@
-﻿using LiwaPOS.BLL.Interfaces;
+﻿using DevExpress.Xpf.Core;
+using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.WpfAppUI.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace LiwaPOS.WpfAppUI
 
             _applicationState = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
           
-            GlobalVariables.Shell = this;           
+            GlobalVariables.Shell = this;
             
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Login");
@@ -40,7 +41,7 @@ namespace LiwaPOS.WpfAppUI
             {
                 scaleTransform.ScaleX = Properties.Settings.Default.WindowScale;
                 scaleTransform.ScaleY = Properties.Settings.Default.WindowScale;
-            }          
+            }
         }
 
         private void DispatcherTimerTime_Tick(object? sender, EventArgs e)

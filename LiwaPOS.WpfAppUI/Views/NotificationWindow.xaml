@@ -15,7 +15,7 @@
         Background="Transparent"
         Topmost="True"
         MouseDown="Window_MouseDown" 
-        Loaded="Window_Loaded"
+        Loaded="Window_Loaded" Style="{DynamicResource CustomWindowStyle}"
         DataContext="{Binding NotificationViewModel, Source={StaticResource ViewModelLocator}}">
 
     <Window.Resources>

@@ -151,19 +151,26 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 Constraints.Remove(constraint);
             }
         }
-
         private async void OpenActionSelectionWindow(object obj)
         {
-            // Eylem seçimi için dinamik pencereyi aç
-            var availableActions = new ObservableCollection<AppActionDTO>();
-            var actions = await _appActionService.GetAllAppActionsAsync();
-            foreach (var action in actions)
-            {
-                availableActions.Add(action);
-            }
+            // Verileri async olarak yüklemek için gerekli fonksiyonu sağlayın
+            var dynamicSelectionViewModel = new DynamicSelectionViewModel<AppActionDTO>(
+                new ObservableCollection<AppActionDTO>(),
+                SelectedActions,
+                OnActionsSelected
+            );
 
-            var dynamicSelectionViewModel = new DynamicSelectionViewModel<AppActionDTO>(availableActions, SelectedActions, OnActionsSelected);
+            // Başlık ayarla
             dynamicSelectionViewModel.Title = await TranslatorExtension.TranslateUI("SelectActions");
+
+            // Async olarak itemleri yükleyin
+            await dynamicSelectionViewModel.LoadItemsAsync(async () =>
+            {
+                var actions = await _appActionService.GetAllAppActionsAsync();
+                return new ObservableCollection<AppActionDTO>(actions);
+            });
+
+            // Pencereyi aç ve DataContext olarak ayarla
             var actionSelectionWindow = new DynamicSelectionWindow { DataContext = dynamicSelectionViewModel };
             actionSelectionWindow.ShowDialog();
         }

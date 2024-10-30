@@ -33,7 +33,7 @@ namespace LiwaPOS.BLL.Actions
             var script = await _scriptService.GetScriptAsNoTrackingAsync(x => x.Name == scriptProperties.Name);
             if (script == null)
             {            
-                await LoggingService.LogErrorAsync($"No script found with name {scriptProperties.Name}.", typeof(RunScriptAction).Name, script.ToString(), new ArgumentNullException());
+                await LoggingService.LogErrorAsync($"No script found with name {scriptProperties.Name}.", typeof(RunScriptAction).Name, script?.ToString(), new ArgumentNullException());
                 return;
             }
 

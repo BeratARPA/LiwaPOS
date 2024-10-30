@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
-        xmlns:local="clr-namespace:LiwaPOS.WpfAppUI"
+        xmlns:local="clr-namespace:LiwaPOS.WpfAppUI" Style="{DynamicResource CustomWindowStyle}"
         mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Title="Liwa POS Shell" SnapsToDevicePixels="True" Height="600" Width="800" FontFamily="Segoe UI" FontSize="20" Icon="logo.ico" Closing="Window_Closing">
+        Title="LiwaPOS" SnapsToDevicePixels="True" Height="600" Width="800" FontFamily="Segoe UI" FontSize="20" Icon="logo.ico" Closing="Window_Closing">
 
     <Grid x:Name="GridMain">
         <Grid.LayoutTransform>
