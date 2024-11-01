@@ -48,6 +48,7 @@ namespace LiwaPOS.WpfAppUI.Services
                 "Scripts" => typeof(ScriptsUserControl),
                 "AutomationCommands" => typeof(AutomationCommandsUserControl),
                 "AutomationCommandManagement" => typeof(AutomationCommandManagementUserControl),
+                "LocalSettingsManagement" => typeof(LocalSettingsManagementUserControl),
                 _ => throw new InvalidOperationException($"No view found for {viewName}")
             };
 

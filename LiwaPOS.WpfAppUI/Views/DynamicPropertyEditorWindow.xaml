@@ -1,0 +1,31 @@
+﻿<Window x:Class="LiwaPOS.WpfAppUI.Views.DynamicPropertyEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.Views"
+        xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d" Style="{DynamicResource CustomWindowStyle}"
+        Title="Özellik Düzenleyici" Height="500" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding DynamicInputs}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <dx:SimpleButton Grid.Row="1" HorizontalAlignment="Right" Content="{extension:Translator Ok}" Height="30" Width="100" Command="{Binding SaveCommand}"/>
+    </Grid>
+</Window>

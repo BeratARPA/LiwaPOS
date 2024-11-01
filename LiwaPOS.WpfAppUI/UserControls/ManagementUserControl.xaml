@@ -27,7 +27,16 @@
             </dxn:NavBarControl.View>
 
             <dxn:NavBarGroup Header="{extension:Translator Settings}">
-                <dxn:NavBarItem Content="Yerel Ayarlar" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Departmanlar" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Terminaller" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Durumlar" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Yerel Ayarlar" Command="{Binding OpenLocalSettingsManagementCommand}"/>
+                <dxn:NavBarItem Content="Program Ayarları" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="LiwaPOS Haberler" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Veritabanı Yedekleri" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Veritabanı Araçları" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Hakkımızda" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Legal" Command="{Binding OpenAppActionsCommand}"/>
             </dxn:NavBarGroup>
 
             <dxn:NavBarGroup Header="{extension:Translator Products}">

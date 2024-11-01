@@ -8,7 +8,9 @@ using LiwaPOS.Shared.Enums;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
 using LiwaPOS.WpfAppUI.Locators;
+using LiwaPOS.WpfAppUI.Properties;
 using LiwaPOS.WpfAppUI.Services;
+using LiwaPOS.WpfAppUI.Themes;
 using LiwaPOS.WpfAppUI.UserControls;
 using LiwaPOS.WpfAppUI.ViewModels;
 using LiwaPOS.WpfAppUI.Views;
@@ -44,6 +46,7 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<AutomationCommandManagementViewModel>();
             services.AddTransient<AutomationCommandsViewModel>();
             services.AddTransient<AppActionManagementViewModel>();
+            services.AddTransient<LocalSettingsManagementViewModel>();
             services.AddTransient<AppActionsViewModel>();
             services.AddTransient<AppRuleManagementViewModel>();
             services.AddTransient<AppRulesViewModel>();
@@ -60,9 +63,9 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<AutomationCommandManagementUserControl>();
             services.AddTransient<AutomationCommandsUserControl>();
             services.AddTransient<AppActionManagementUserControl>();
+            services.AddTransient<LocalSettingsManagementUserControl>();
             services.AddTransient<AppActionsUserControl>();
             services.AddTransient<AppRuleManagementUserControl>();
-            services.AddTransient<AppRulesUserControl>();
             services.AddTransient<AppRulesUserControl>();
             services.AddTransient<LoginUserControl>();
             services.AddTransient<NavigationUserControl>();
@@ -74,10 +77,20 @@ namespace LiwaPOS.WpfAppUI
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
+            if (Settings.Default.UseDarkMode)
+            {
+                ThemesController.SetTheme(ThemeType.SoftDark);
+                ApplicationThemeHelper.ApplicationThemeName = Theme.Win11DarkName;
+            }
+            else
+            {
+                ThemesController.SetTheme(ThemeType.LightTheme);
+                ApplicationThemeHelper.ApplicationThemeName = Theme.Win11LightName;
+            }
+
             base.OnStartup(e);
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException; ;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try
             {
                 // DI Container'ı oluştur
@@ -99,11 +112,11 @@ namespace LiwaPOS.WpfAppUI
                 var shell = _serviceProvider.GetRequiredService<Shell>();
                 shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
                 shell.Show();
-             
+
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
 
                 GlobalVariables.CustomNotificationService = _serviceProvider.GetRequiredService<ICustomNotificationService>();
-           
+
             }
             catch (Exception ex)
             {

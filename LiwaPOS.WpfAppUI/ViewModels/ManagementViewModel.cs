@@ -17,6 +17,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ICommand OpenAppActionsCommand { get; }
         public ICommand OpenAppRulesCommand { get; }
         public ICommand OpenAutomationCommandsCommand { get; }
+        public ICommand OpenLocalSettingsManagementCommand { get; }
         public ICommand CloseTabCommand { get; }
 
         // Selected tab
@@ -41,6 +42,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             OpenAppActionsCommand = new RelayCommand(OpenAppActions);
             OpenAppRulesCommand = new RelayCommand(OpenAppRules);
             OpenAutomationCommandsCommand = new RelayCommand(OpenAutomationCommands);
+            OpenLocalSettingsManagementCommand = new RelayCommand(OpenLocalSettingsManagement);
             CloseTabCommand = new RelayCommand(CloseTab);
         }
 
@@ -95,5 +97,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         private void OpenAppRules(object obj) => AddNewTab("App Rules", "AppRules");
 
         private void OpenAutomationCommands(object obj) => AddNewTab("Automation Commands", "AutomationCommands");
+
+        private void OpenLocalSettingsManagement(object obj) => AddNewTab("Local Settings", "LocalSettingsManagement");
     }
 }

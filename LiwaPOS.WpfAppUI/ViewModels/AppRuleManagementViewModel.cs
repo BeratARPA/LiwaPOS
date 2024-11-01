@@ -151,6 +151,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 Constraints.Remove(constraint);
             }
         }
+
         private async void OpenActionSelectionWindow(object obj)
         {
             // Verileri async olarak yüklemek için gerekli fonksiyonu sağlayın
