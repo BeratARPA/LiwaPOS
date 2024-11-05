@@ -22,7 +22,14 @@ namespace LiwaPOS.WpfAppUI.Services
 			get { return _isLocked; }
 			set { _isLocked = value; }
 		}
-       
+
+        private AppScreenType _activeAppScreen;
+        public AppScreenType ActiveAppScreen
+        {
+            get { return _activeAppScreen; }
+            set { _activeAppScreen = value; }
+        }
+
         public void SetTextBlockUsername()
         {                   
             GlobalVariables.Shell.TextBlockUsername.Text = CurrentLoggedInUser == null ? "-" : CurrentLoggedInUser.Name ?? "-"; ;

@@ -22,6 +22,11 @@ namespace LiwaPOS.WpfAppUI.ViewModels
 
         private void SavePropery(object obj)
         {
+            UpdateModel(_model);
+        }
+
+        public void UpdateModel(dynamic model)
+        {
             DynamicInputGenerator.UpdateModelFromInputs(_model, DynamicInputs);
         }
     }

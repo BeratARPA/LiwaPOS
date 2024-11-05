@@ -28,6 +28,7 @@ namespace LiwaPOS.BLL
             services.AddSingleton<ISmsService, TelsamSmsService>();
             services.AddSingleton<LocalizationService>();
             services.AddSingleton<JavaScriptEngineService>();
+            services.AddSingleton<DatabaseInitializerService>();
 
             services.AddSingleton<EventFactory>();
             services.AddSingleton<ActionFactory>();

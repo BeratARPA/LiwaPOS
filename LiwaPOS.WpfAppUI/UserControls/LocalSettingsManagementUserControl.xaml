@@ -39,7 +39,7 @@
                     <TextBlock Text="Veritabanı Bağlantısı:" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}" Width="500" HorizontalAlignment="Left"/>
                     <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                        <Button Grid.Column="2" Margin="0 0 5 0" Content="Bağlantı Düzenle" Height="30" Command="{Binding SaveCommand}"/>
+                        <Button Grid.Column="2" Margin="0 0 5 0" Content="Bağlantı Düzenle" Height="30" Command="{Binding OpenDynamicProperyEditorWindowCommand}"/>
                         <Button Grid.Column="2" Content="Uygula" Height="30" Command="{Binding SaveCommand}"/>
                     </StackPanel>
                 </StackPanel>
@@ -48,21 +48,21 @@
             <dx:DXTabItem Header="Mesaj Sunucusu">
                 <StackPanel>
                     <TextBlock Text="Mesaj Sunucusu Adı:" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding ServerName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
                     <TextBlock Text="Mesaj Sunucusu Portu:" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
                     <CheckBox Margin="0 5 0 0" Content="Başlangıçta İştemciyi Başlat" HorizontalAlignment="Left"/>
                     <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                        <Button Grid.Column="2" Margin="0 0 5 0" Content="Test et" Height="30" Command="{Binding SaveCommand}"/>
-                        <Button Grid.Column="2" Content="Mesaj Sunucusu Ara" Height="30" Command="{Binding SaveCommand}"/>
+                        <Button Grid.Column="2" Margin="0 0 5 0" Content="Test et" Height="30" Command="{Binding ServerTestCommand}"/>
+                        <Button Grid.Column="2" Content="Mesaj Sunucusu Ara" Height="30" Command="{Binding ServerSearchCommand}"/>
                     </StackPanel>
                 </StackPanel>
             </dx:DXTabItem>
 
             <dx:DXTabItem Header="Görüntüle">
                 <StackPanel>
-                    <CheckBox Margin="0 5 0 0" Content="Koyu Tema Kullan" HorizontalAlignment="Left"/>
-                    <CheckBox Margin="0 5 0 0" Content="Özel Navigasyon'a İzin Ver" HorizontalAlignment="Left"/>
+                    <CheckBox Margin="0 5 0 0" Content="Koyu Tema Kullan" HorizontalAlignment="Left" IsChecked="{Binding UseDarkMode, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Margin="0 5 0 0" Content="Özel Navigasyon'a İzin Ver" HorizontalAlignment="Left" IsChecked="{Binding UseCustomNavigation, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </dx:DXTabItem>
         </dx:DXTabControl>

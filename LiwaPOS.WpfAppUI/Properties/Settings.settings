@@ -6,13 +6,13 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="UseDarkMode" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UseCustomNavigation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CurrentLanguage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">tr</Value>
+      <Value Profile="(Default)">en</Value>
     </Setting>
   </Settings>
 </SettingsFile>

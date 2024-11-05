@@ -12,6 +12,7 @@ namespace LiwaPOS.DAL
         public static IServiceCollection AddDataAccessLayer(this IServiceCollection services)
         {      
             services.AddScoped<DataContext>();
+            services.AddTransient<DatabaseInitializer>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Generic Repository Tanımlamaları

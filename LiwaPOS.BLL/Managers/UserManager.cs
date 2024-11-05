@@ -30,7 +30,7 @@ namespace LiwaPOS.BLL.Managers
             var user = await _userService.GetUserAsync(x => x.PinCode == pinCode);
             if (user != null)
             {
-                _applicationStateService.CurrentLoggedInUser =user;
+                _applicationStateService.CurrentLoggedInUser = user;
                 _applicationStateService.SetTextBlockUsername();
 
                 _applicationStateService.SetGridBottomBarVisibility(VisibilityState.Visible);

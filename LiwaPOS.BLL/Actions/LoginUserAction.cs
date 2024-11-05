@@ -1,6 +1,5 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.Managers;
-using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
 
@@ -25,15 +24,7 @@ namespace LiwaPOS.BLL.Actions
             if (loginUserProperties == null)
                 return;
 
-            bool isSuccessful = await _userManager.Login(loginUserProperties.PinCode);
-            if (isSuccessful)
-            {
-                _applicationStateService.CurrentLoggedInUser = await _userManager.GetUserByPinCode(loginUserProperties.PinCode);
-                _applicationStateService.SetTextBlockUsername();
-
-                _applicationStateService.SetGridBottomBarVisibility(VisibilityState.Visible);
-                _navigatorService.Navigate("Navigation");
-            }
+            bool isSuccessful = await _userManager.Login(loginUserProperties.PinCode);            
         }
     }
 }

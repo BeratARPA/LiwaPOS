@@ -39,6 +39,9 @@ namespace LiwaPOS.WpfAppUI.Extensions
             // İlgili dil dosyasını yükle
             string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
 
+            if (string.IsNullOrEmpty(translationContent))
+                translationContent = localizationService.LoadLanguageFileAsync("tr").GetAwaiter().GetResult();
+
             // JSON formatında ise deserialize edebilirsin
             var translations = JsonHelper.Deserialize<List<LanguageDTO>>(translationContent);
 
@@ -89,6 +92,9 @@ namespace LiwaPOS.WpfAppUI.Extensions
             // İlgili dil dosyasını yükle
             string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
 
+            if (string.IsNullOrEmpty(translationContent))
+                translationContent = localizationService.LoadLanguageFileAsync("tr").GetAwaiter().GetResult();
+
             var translations = JsonHelper.Deserialize<List<LanguageDTO>>(translationContent);
 
             var translation = translations?.FirstOrDefault(t => t.Key == key);
@@ -112,6 +118,9 @@ namespace LiwaPOS.WpfAppUI.Extensions
 
             // İlgili dil dosyasını yükle          
             string translationContent = localizationService.LoadLanguageFileAsync(defaultLanguage).GetAwaiter().GetResult();
+
+            if (string.IsNullOrEmpty(translationContent))
+                translationContent = localizationService.LoadLanguageFileAsync("tr").GetAwaiter().GetResult();
 
             var translations = JsonHelper.Deserialize<List<LanguageDTO>>(translationContent);
 

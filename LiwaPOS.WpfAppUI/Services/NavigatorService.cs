@@ -13,13 +13,15 @@ namespace LiwaPOS.WpfAppUI.Services
     {
         private readonly AppRuleManager _appRuleManager;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IApplicationStateService _applicationStateService;
         private Frame _frame;
 
-        public NavigatorService(IServiceProvider serviceProvider, AppRuleManager appRuleManager)
+        public NavigatorService(IServiceProvider serviceProvider, IApplicationStateService applicationStateService, AppRuleManager appRuleManager)
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             _frame = GlobalVariables.Shell?.FrameContent ?? null;
             _appRuleManager = appRuleManager;
+            _applicationStateService = applicationStateService;
         }
 
         public void SetFrame(Frame frame)
@@ -70,11 +72,27 @@ namespace LiwaPOS.WpfAppUI.Services
             }
 
             _frame.Navigate(page);
+
             using (var scope = _serviceProvider.CreateScope())
             {
                 var appRuleManager = scope.ServiceProvider.GetRequiredService<AppRuleManager>();
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.PageOpened, new PageOpenedDTO { ViewName = viewName });
             }
+
+           _applicationStateService.ActiveAppScreen = viewName switch
+            {
+                "Login" => AppScreenType.LoginScreen,
+                "Navigation" => AppScreenType.NavigationScreen,
+                "WorkPeriods" => AppScreenType.WorkPeriodsScreen,
+                "POS" => AppScreenType.POSScreen,
+                "Tickets" => AppScreenType.TicketsScreen,
+                "Accounts" => AppScreenType.AccountsScreen,
+                "Inventories" => AppScreenType.InventoriesScreen,
+                "Market" => AppScreenType.MarketScreen,
+                "Report" => AppScreenType.ReportScreen,
+                "Management" => AppScreenType.LoginScreen,
+                _ => AppScreenType.Nothing
+            };
         }
 
         public void GoBack()

@@ -8,13 +8,14 @@ namespace LiwaPOS.DAL.Context
     {
         public DataContext() : base()
         {
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer(ConnectionService.GetConnectionString());
+            optionsBuilder.UseSqlServer(ConnectionService.GetFullConnectionString());
         }
 
         public DbSet<AppAction> AppActions { get; set; }

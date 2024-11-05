@@ -1,4 +1,5 @@
-﻿using LiwaPOS.WpfAppUI.Extensions;
+﻿using DevExpress.XtraExport.Xls;
+using LiwaPOS.WpfAppUI.Extensions;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +8,31 @@ namespace LiwaPOS.WpfAppUI.Helpers
 {
     public class DynamicInputGenerator
     {
-        // Verilen bir modelin özelliklerine göre dinamik inputlar oluşturur
+        public static double MaxLabelWidth(object model)
+        {
+            if (model == null)
+                return 0;
+
+            double maxLabelWidth = 0;
+            var properties = model.GetType().GetProperties();
+
+            foreach (var prop in properties)
+            {
+                var label = new TextBlock
+                {
+                    Text = prop.Name + ":",
+                    FontWeight = FontWeights.Normal,
+                    Margin = new Thickness(0, 5, 10, 5)
+                };
+
+                // Boyut ölçümünü yap
+                label.Measure(new System.Windows.Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                maxLabelWidth = Math.Max(maxLabelWidth, label.DesiredSize.Width); // En büyük genişliği bul
+            }
+
+            return maxLabelWidth;
+        }
+
         public static List<UIElement> GenerateInputs(object model)
         {
             var inputs = new List<UIElement>();
@@ -18,33 +43,35 @@ namespace LiwaPOS.WpfAppUI.Helpers
             // "Parametreler:" başlıklı TextBlock ekle
             var paramLabel = new TextBlock
             {
-                Text = TranslatorExtension.TranslateUI("Parameters",":").Result,
+                Text = TranslatorExtension.TranslateUI("Parameters", ":").Result,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(0, 10, 0, 10),
-                FontSize = 14
+                FontSize = 16 // Responsive için büyükçe bir boyut
             };
             inputs.Add(paramLabel);
+
+            double maxLabelWidth = MaxLabelWidth(model);
 
             var properties = model.GetType().GetProperties();
             foreach (var prop in properties)
             {
-                // Grid yapısını oluştur
+                // Responsive Grid yapısını oluştur
                 var grid = new Grid
                 {
                     Margin = new Thickness(5),
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch // Stretch kullanarak genişlik ayarlaması
                 };
 
-                // İki sütun tanımla (Label ve Input için)
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) }); // Label genişliği
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) }); // Input genişliği
+                // İki sütun tanımla (Label ve Input için), Responsive genişlik için ayarlar
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(maxLabelWidth, GridUnitType.Pixel) }); // Label genişliği en uzun olan
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Input genişliği dinamik
 
                 // Property için Label oluştur (TextBlock)
                 var label = new TextBlock
                 {
                     Text = prop.Name + ":",
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(0, 5, 0, 5)
+                    Margin = new Thickness(0, 5, 10, 5)
                 };
 
                 // Label'ı Grid'in ilk sütununa ekle
@@ -56,11 +83,18 @@ namespace LiwaPOS.WpfAppUI.Helpers
 
                 if (inputControl != null)
                 {
+                    // Responsive için genişliği otomatik yap
+                    if (inputControl is System.Windows.Controls.Control control)
+                    {
+                        control.MinWidth = 100; // Minimum genişlik ayarı
+                        control.Width = Double.NaN; // Otomatik genişlik için NaN atanır
+                        control.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+                    }
+
                     // Input kontrolünü Grid'in ikinci sütununa ekle
                     Grid.SetColumn(inputControl, 1);
                     grid.Children.Add(inputControl);
 
-                    // Oluşturulan Grid yapısını listeye ekle
                     inputs.Add(grid);
                 }
             }

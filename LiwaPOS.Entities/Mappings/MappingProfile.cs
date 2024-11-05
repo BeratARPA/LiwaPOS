@@ -12,6 +12,8 @@ namespace LiwaPOS.Entities.Mappings
             CreateMap<AppAction, AppActionDTO>().ReverseMap();
             CreateMap<AppRule, AppRuleDTO>().ReverseMap();
             CreateMap<RuleActionMap, RuleActionMapDTO>().ReverseMap();
+            CreateMap<AutomationCommandMap, AutomationCommandMapDTO>().ReverseMap();
+            CreateMap<AutomationCommand, AutomationCommandDTO>().ReverseMap();
 
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserRole, UserRoleDTO>().ReverseMap();

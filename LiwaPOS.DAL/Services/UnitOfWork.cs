@@ -20,7 +20,7 @@ namespace LiwaPOS.DAL.Services
         {
             _context = context;
         }
-
+  
         public IAppRuleRepository AppRules => _appRules ??= new AppRuleRepository(_context);
         public IAppActionRepository AppActions => _appActions ??= new AppActionRepository(_context);
         public IAutomationCommandRepository AutomationCommands => _automationCommands ??= new AutomationCommandRepository(_context);

@@ -7,6 +7,7 @@ namespace LiwaPOS.BLL.Interfaces
     {
         UserDTO CurrentLoggedInUser { get; set; }
         bool IsLocked { get; set; }
+        AppScreenType ActiveAppScreen { get; set; }
         void SetTextBlockUsername();
         void SetGridBottomBarVisibility(VisibilityState visibilityState);
     }

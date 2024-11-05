@@ -37,7 +37,7 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseDarkMode {
             get {
                 return ((bool)(this["UseDarkMode"]));
@@ -49,7 +49,7 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseCustomNavigation {
             get {
                 return ((bool)(this["UseCustomNavigation"]));
@@ -61,7 +61,7 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tr")]
+        [global::System.Configuration.DefaultSettingValueAttribute("en")]
         public string CurrentLanguage {
             get {
                 return ((string)(this["CurrentLanguage"]));

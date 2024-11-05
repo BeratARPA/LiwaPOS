@@ -2,6 +2,6 @@
 {
     public class Defaults
     {
-        public static string DefaultConnectionString => @"Data Source=.\SQLEXPRESS; User Id=sa; Password=liwapos; Database=LiwaPOS; TrustServerCertificate=True; MultipleActiveResultSets=True;";
+        public static string DefaultConnectionString => @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LiwaPOS;Integrated Security=True;";
     }
 }

@@ -2,6 +2,7 @@
 using LiwaPOS.BLL;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.Managers;
+using LiwaPOS.BLL.Services;
 using LiwaPOS.DAL;
 using LiwaPOS.Entities;
 using LiwaPOS.Shared.Enums;
@@ -87,7 +88,7 @@ namespace LiwaPOS.WpfAppUI
                 ThemesController.SetTheme(ThemeType.LightTheme);
                 ApplicationThemeHelper.ApplicationThemeName = Theme.Win11LightName;
             }
-
+            
             base.OnStartup(e);
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -96,9 +97,12 @@ namespace LiwaPOS.WpfAppUI
                 // DI Container'ı oluştur
                 var serviceCollection = new ServiceCollection();
                 ConfigureServices(serviceCollection);
-
+              
                 _serviceProvider = serviceCollection.BuildServiceProvider();
                 GlobalVariables.ServiceProvider = _serviceProvider;
+
+                var databaseInitializerService = _serviceProvider.GetRequiredService<DatabaseInitializerService>();
+                await databaseInitializerService.Initialize();
 
                 var viewModelLocator = new ViewModelLocator();
                 Resources.Add("ViewModelLocator", viewModelLocator);
@@ -107,7 +111,8 @@ namespace LiwaPOS.WpfAppUI
                 TranslatorExtension.Initialize(_serviceProvider);
 
                 var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
-                GlobalVariables.Navigator = new NavigatorService(_serviceProvider, appRuleManager);
+                var applicationStateService = _serviceProvider.GetRequiredService<IApplicationStateService>();
+                GlobalVariables.Navigator = new NavigatorService(_serviceProvider, applicationStateService, appRuleManager);
                 // Uygulamayı başlat
                 var shell = _serviceProvider.GetRequiredService<Shell>();
                 shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
