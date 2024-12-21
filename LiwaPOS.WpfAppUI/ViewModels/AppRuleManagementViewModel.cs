@@ -188,8 +188,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 AppRuleId = appRule.Id;
                 AppRuleName = appRule.Name;
-                SelectedConditionMatchType = appRule.ConditionMatch;
-                AppRuleType = appRule.Type;
+                SelectedConditionMatchType = appRule.ConditionMatchTypeId;
+                AppRuleType = appRule.EventTypeId;
 
                 // Constraints JSON verisini deseralize ediyoruz.
                 if (!string.IsNullOrEmpty(appRule.Constraints))
@@ -270,9 +270,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             if (existingAppRule != null)
             {
                 existingAppRule.Name = AppRuleName;
-                existingAppRule.ConditionMatch = SelectedConditionMatchType;
+                existingAppRule.ConditionMatchTypeId = SelectedConditionMatchType;
                 existingAppRule.Constraints = constraints;
-                existingAppRule.Type = AppRuleType;
+                existingAppRule.EventTypeId = AppRuleType;
 
                 await _appRuleService.UpdateAppRuleAsync(existingAppRule);
 
@@ -300,9 +300,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 {
                     EntityGuid = Guid.NewGuid(),
                     Name = AppRuleName,
-                    ConditionMatch = SelectedConditionMatchType,
+                    ConditionMatchTypeId = SelectedConditionMatchType,
                     Constraints = constraints,
-                    Type = AppRuleType,
+                    EventTypeId = AppRuleType,
                 };
 
                 await _appRuleService.AddAppRuleAsync(appRule);

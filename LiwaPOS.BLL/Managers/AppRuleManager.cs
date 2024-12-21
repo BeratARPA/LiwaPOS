@@ -31,7 +31,7 @@ namespace LiwaPOS.BLL.Managers
             await HandleEventAsync(eventType, dataObject);
 
             // İlgili kuralları çalıştırın
-            var appRules = await _appRuleService.GetAllAppRulesAsync(r => r.Type == eventType);
+            var appRules = await _appRuleService.GetAllAppRulesAsync(r => r.EventTypeId == eventType);
             if (appRules != null)
             {
                 foreach (var appRule in appRules)
@@ -84,7 +84,7 @@ namespace LiwaPOS.BLL.Managers
             var appAction = await _appActionService.GetAppActionByIdAsync(rulesActionMap.AppActionId);
             if (appAction != null)
             {
-                var action = _actionFactory.GetAction(appAction.Type);
+                var action = _actionFactory.GetAction(appAction.ActionTypeId);
                 if (action != null)
                 {
                     await action.Execute(appAction.Properties);
@@ -92,7 +92,7 @@ namespace LiwaPOS.BLL.Managers
                 else
                 {
                     // Hata loglama veya farklı bir hata yönetimi eklenebilir
-                    await LoggingService.LogErrorAsync($"No action found for action type {appAction.Type}.", typeof(ActionFactory).Name, appAction.Type.ToString(), new InvalidOperationException());
+                    await LoggingService.LogErrorAsync($"No action found for action type {appAction.ActionTypeId}.", typeof(ActionFactory).Name, appAction.ActionTypeId.ToString(), new InvalidOperationException());
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace LiwaPOS.BLL.Managers
             var constraints = JsonHelper.Deserialize<List<RuleConstraintDTO>>(appRule.Constraints);
             if (constraints == null || !constraints.Any()) return true; // Kısıtlama yoksa, true döndür
 
-            switch (appRule.ConditionMatch)
+            switch (appRule.ConditionMatchTypeId)
             {
                 case ConditionMatchType.Matches:
                     return constraints.All(c => c.Satisfies(dataObject));

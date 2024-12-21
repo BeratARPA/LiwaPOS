@@ -13,6 +13,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public ObservableCollection<TabContainer> TabItems { get; set; }
 
         // Commands
+        public ICommand OpenDepartmentsCommand { get; }
+        public ICommand OpenTerminalsCommand { get; }
         public ICommand OpenScriptsCommand { get; }
         public ICommand OpenAppActionsCommand { get; }
         public ICommand OpenAppRulesCommand { get; }
@@ -38,6 +40,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             TabItems = new ObservableCollection<TabContainer>();
 
             // Command initializations
+            OpenDepartmentsCommand = new RelayCommand(OpenDepartments);
+            OpenTerminalsCommand = new RelayCommand(OpenTerminals);
             OpenScriptsCommand = new RelayCommand(OpenScripts);
             OpenAppActionsCommand = new RelayCommand(OpenAppActions);
             OpenAppRulesCommand = new RelayCommand(OpenAppRules);
@@ -89,6 +93,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             TabItems.Add(newTab);
             SelectedTabItem = newTab;
         }
+
+        private void OpenDepartments(object obj) => AddNewTab("Departments", "Departments");
+
+        private void OpenTerminals(object obj) => AddNewTab("Terminals", "Terminals");
 
         private void OpenScripts(object obj) => AddNewTab("Scripts", "Scripts");
 

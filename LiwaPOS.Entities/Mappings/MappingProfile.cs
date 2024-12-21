@@ -18,6 +18,8 @@ namespace LiwaPOS.Entities.Mappings
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserRole, UserRoleDTO>().ReverseMap();
             CreateMap<Script, ScriptDTO>().ReverseMap();
+            CreateMap<Terminal, TerminalDTO>().ReverseMap();
+            CreateMap<Department, DepartmentDTO>().ReverseMap();
         }
     }
 }

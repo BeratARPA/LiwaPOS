@@ -9,28 +9,56 @@
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding NavigationViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding UseCustomNavigation}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding UseCustomNavigation}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <dx:SimpleButton Grid.Row="0" Grid.Column="0" Content="Gün İşlemleri" Command="{Binding OpenWorkPeriodsCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="0" Grid.Column="1" Content="POS" Command="{Binding OpenPOSCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="0" Grid.Column="2" Content="Adisyonlar" Command="{Binding OpenTicketsCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="1" Grid.Column="0" Content="Hesaplar" Command="{Binding OpenAccountsCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="1" Grid.Column="1" Content="Depolar" Command="{Binding OpenWarehousesCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="1" Grid.Column="2" Content="Liwa Market" Command="{Binding OpenLiwaMarketCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="2" Grid.Column="0" Content="Raporlar" Command="{Binding OpenReportsCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="2" Grid.Column="1" Content="Yönetim" Command="{Binding OpenManageCommand}" Margin="10" FontSize="25"/>
-        <dx:SimpleButton Grid.Row="2" Grid.Column="2" Content="Çıkış" Command="{Binding OpenLogoutCommand}" Margin="10" FontSize="25"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <dxlc:TileLayoutControl x:Name="TileLayoutControlNavigation" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <dx:SimpleButton Grid.Row="0" Grid.Column="0" Content="Gün İşlemleri" Command="{Binding OpenWorkPeriodsCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="0" Grid.Column="1" Content="POS" Command="{Binding OpenPOSCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="0" Grid.Column="2" Content="Adisyonlar" Command="{Binding OpenTicketsCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="1" Grid.Column="0" Content="Hesaplar" Command="{Binding OpenAccountsCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="1" Grid.Column="1" Content="Depolar" Command="{Binding OpenWarehousesCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="1" Grid.Column="2" Content="Liwa Market" Command="{Binding OpenLiwaMarketCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="2" Grid.Column="0" Content="Raporlar" Command="{Binding OpenReportsCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="2" Grid.Column="1" Content="Yönetim" Command="{Binding OpenManageCommand}" Margin="10" FontSize="25"/>
+            <dx:SimpleButton Grid.Row="2" Grid.Column="2" Content="Çıkış" Command="{Binding OpenLogoutCommand}" Margin="10" FontSize="25"/>
+        </Grid>
+
+        <dxlc:TileLayoutControl x:Name="TileLayoutControlNavigation">
+            <dxlc:TileLayoutControl.Style>
+                <Style TargetType="dxlc:TileLayoutControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding UseCustomNavigation}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding UseCustomNavigation}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </dxlc:TileLayoutControl.Style>
+
             <dxlc:Tile Header="Tile" Size="ExtraSmall"/>
             <dxlc:Tile Header="Tile" Size="Small"/>
             <dxlc:Tile Header="Tile" Size="Large" VerticalHeaderAlignment="Center" HorizontalHeaderAlignment="Center"/>

@@ -8,7 +8,7 @@ namespace LiwaPOS.Shared.Models.Entities
         public Guid EntityGuid { get; set; }
         public string? Name { get; set; }
         public string? Constraints { get; set; }
-        public ConditionMatchType ConditionMatch { get; set; }
-        public EventType Type { get; set; }
+        public ConditionMatchType ConditionMatchTypeId { get; set; }
+        public EventType EventTypeId { get; set; }
     }
 }

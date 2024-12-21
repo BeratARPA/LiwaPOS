@@ -6,7 +6,7 @@ namespace LiwaPOS.Entities.Entities
     {
         public string? Name { get; set; }
         public string? Constraints { get; set; }
-        public ConditionMatchType ConditionMatch { get; set; }
-        public EventType Type { get; set; }
+        public ConditionMatchType ConditionMatchTypeId { get; set; }
+        public EventType EventTypeId { get; set; }
     }
 }

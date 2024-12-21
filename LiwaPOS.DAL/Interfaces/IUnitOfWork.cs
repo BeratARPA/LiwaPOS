@@ -9,6 +9,8 @@
         IRuleActionMapRepository RuleActionMaps { get; }
         IScriptRepository Scripts { get; }
         IUserRepository Users { get; }
+        ITerminalRepository Terminals { get; }
+        IDepartmentRepository Departments { get; }
 
         Task CommitAsync();
         Task BeginTransactionAsync();

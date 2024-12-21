@@ -45,8 +45,16 @@ namespace LiwaPOS.WpfAppUI.UserControls
             if (button == null)
                 return;
 
-            PIN += button.Content;
-            PasswordBoxPIN.Password = PIN;
+            PasswordBoxPIN.Password += button.Content.ToString();
+        }
+
+        private void PasswordBoxPIN_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = sender as System.Windows.Controls.PasswordBox;
+            if (passwordBox == null)
+                return;
+
+            PIN = passwordBox.Password;
         }
     }
 }

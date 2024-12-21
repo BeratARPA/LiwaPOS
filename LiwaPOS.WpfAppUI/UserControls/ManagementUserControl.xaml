@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls" 
              xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
              mc:Ignorable="d" 
-             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" 
+             xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
              d:DesignHeight="600" d:DesignWidth="800" 
              DataContext="{Binding ManagementViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
@@ -27,16 +28,16 @@
             </dxn:NavBarControl.View>
 
             <dxn:NavBarGroup Header="{extension:Translator Settings}">
-                <dxn:NavBarItem Content="Departmanlar" Command="{Binding OpenAppActionsCommand}"/>
-                <dxn:NavBarItem Content="Terminaller" Command="{Binding OpenAppActionsCommand}"/>
-                <dxn:NavBarItem Content="Durumlar" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Departments}" Command="{Binding OpenDepartmentsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Terminals}" Command="{Binding OpenTerminalsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator States}" Command="{Binding OpenStatesCommand}"/>
                 <dxn:NavBarItem Content="Yerel Ayarlar" Command="{Binding OpenLocalSettingsManagementCommand}"/>
                 <dxn:NavBarItem Content="Program Ayarları" Command="{Binding OpenAppActionsCommand}"/>
                 <dxn:NavBarItem Content="LiwaPOS Haberler" Command="{Binding OpenAppActionsCommand}"/>
                 <dxn:NavBarItem Content="Veritabanı Yedekleri" Command="{Binding OpenAppActionsCommand}"/>
                 <dxn:NavBarItem Content="Veritabanı Araçları" Command="{Binding OpenAppActionsCommand}"/>
-                <dxn:NavBarItem Content="Hakkımızda" Command="{Binding OpenAppActionsCommand}"/>
-                <dxn:NavBarItem Content="Legal" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="Hakkımızda" Command="{Binding OpenAboutMeCommand}"/>
+                <dxn:NavBarItem Content="Legal" Command="{Binding OpenLegalCommand}"/>
             </dxn:NavBarGroup>
 
             <dxn:NavBarGroup Header="{extension:Translator Products}">

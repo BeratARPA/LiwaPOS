@@ -21,7 +21,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <PasswordBox x:Name="PasswordBoxPIN" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" FontSize="20" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Height="50"/>
+        <PasswordBox x:Name="PasswordBoxPIN" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" FontSize="20" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Height="50" PasswordChanged="PasswordBoxPIN_PasswordChanged"/>
 
         <Button x:Name="ButtonOne" Grid.Column="0" Grid.Row="1" Margin="5" Content="1" Click="Numbers" FontSize="25"/>
         <Button x:Name="ButtonTwo" Grid.Column="1" Grid.Row="1" Margin="5" Content="2" Click="Numbers" FontSize="25"/>
@@ -32,8 +32,8 @@
         <Button x:Name="ButtonSeven" Grid.Column="0" Grid.Row="3" Margin="5" Content="7" Click="Numbers" FontSize="25"/>
         <Button x:Name="ButtonEight" Grid.Column="1" Grid.Row="3" Margin="5" Content="8" Click="Numbers" FontSize="25"/>
         <Button x:Name="ButtonNine" Grid.Column="2" Grid.Row="3" Margin="5" Content="9" Click="Numbers" FontSize="25"/>
-        <Button x:Name="ButtonClean" Grid.Column="0" Grid.Row="4" Margin="5" Content="" Click="ButtonClean_Click" FontSize="20" FontFamily="Segoe UI Symbol"/>
+        <Button x:Name="ButtonClean" Grid.Column="0" Grid.Row="4" Margin="5" Content="" Click="ButtonClean_Click" FontSize="20" FontFamily="Segoe UI Symbol" IsCancel="True"/>
         <Button x:Name="ButtonZero" Grid.Column="1" Grid.Row="4" Margin="5" Content="0" Click="Numbers" FontSize="25"/>
-        <Button x:Name="ButtonOk" Grid.Column="2" Grid.Row="4" Margin="5" Content="" Click="ButtonOk_Click" FontSize="25" FontFamily="Segoe UI Symbol"/>
+        <Button x:Name="ButtonOk" Grid.Column="2" Grid.Row="4" Margin="5" Content="" Click="ButtonOk_Click" FontSize="25" FontFamily="Segoe UI Symbol" IsDefault="True"/>
     </Grid>
 </UserControl>

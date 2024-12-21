@@ -48,6 +48,10 @@ namespace LiwaPOS.WpfAppUI.Services
                 "PINPad" => typeof(PINPadUserControl),
                 "ScriptManagement" => typeof(ScriptManagementUserControl),
                 "Scripts" => typeof(ScriptsUserControl),
+                "Terminals" => typeof(TerminalsUserControl),
+                "TerminalManagement" => typeof(TerminalManagementUserControl),
+                "Departments" => typeof(DepartmentsUserControl),
+                "DepartmentManagement" => typeof(DepartmentManagementUserControl),
                 "AutomationCommands" => typeof(AutomationCommandsUserControl),
                 "AutomationCommandManagement" => typeof(AutomationCommandManagementUserControl),
                 "LocalSettingsManagement" => typeof(LocalSettingsManagementUserControl),
@@ -79,7 +83,7 @@ namespace LiwaPOS.WpfAppUI.Services
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.PageOpened, new PageOpenedDTO { ViewName = viewName });
             }
 
-           _applicationStateService.ActiveAppScreen = viewName switch
+            _applicationStateService.ActiveAppScreen = viewName switch
             {
                 "Login" => AppScreenType.LoginScreen,
                 "Navigation" => AppScreenType.NavigationScreen,

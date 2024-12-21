@@ -27,5 +27,9 @@ namespace LiwaPOS.WpfAppUI.Locators
         public NotificationViewModel NotificationViewModel => _viewModelFactory.CreateViewModel<NotificationViewModel>();
         public ScriptManagementViewModel ScriptManagementViewModel => _viewModelFactory.CreateViewModel<ScriptManagementViewModel>();
         public ScriptsViewModel ScriptsViewModel => _viewModelFactory.CreateViewModel<ScriptsViewModel>();
+        public TerminalsViewModel TerminalsViewModel => _viewModelFactory.CreateViewModel<TerminalsViewModel>();
+        public TerminalManagementViewModel TerminalManagementViewModel => _viewModelFactory.CreateViewModel<TerminalManagementViewModel>();
+        public DepartmentsViewModel DepartmentsViewModel => _viewModelFactory.CreateViewModel<DepartmentsViewModel>();
+        public DepartmentManagementViewModel DepartmentManagementViewModel => _viewModelFactory.CreateViewModel<DepartmentManagementViewModel>();
     }
 }

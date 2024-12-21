@@ -147,7 +147,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 AppActionId = appAction.Id;
                 AppActionName = appAction.Name;
-                AppActionType = appAction.Type;
+                AppActionType = appAction.ActionTypeId;
                 AppActionProperties = appAction.Properties;
             }
         }
@@ -188,7 +188,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             if (existingAppAction != null)
             {
                 existingAppAction.Name = AppActionName;
-                existingAppAction.Type = AppActionType;
+                existingAppAction.ActionTypeId = AppActionType;
                 existingAppAction.Properties = AppActionProperties;
 
                 await _appActionService.UpdateAppActionAsync(existingAppAction);
@@ -199,7 +199,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
                 {
                     EntityGuid = Guid.NewGuid(),
                     Name = AppActionName,
-                    Type = AppActionType,
+                    ActionTypeId = AppActionType,
                     Properties = AppActionProperties
                 };
 

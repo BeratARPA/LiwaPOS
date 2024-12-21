@@ -144,7 +144,7 @@ namespace LiwaPOS.BLL.Services
             var appAction = await _appActionService.GetAppActionAsync(x => x.Name == actionName);
             if (appAction != null)
             {
-                var action = _actionFactory.GetAction(appAction.Type);
+                var action = _actionFactory.GetAction(appAction.ActionTypeId);
                 if (action != null)
                 {
                    await action?.Execute(appAction.Properties);

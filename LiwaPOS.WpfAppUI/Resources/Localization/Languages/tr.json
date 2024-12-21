@@ -218,5 +218,41 @@
   {
     "Key": "DeleteAutomationCommand",
     "Value": "Otomasyon Komutu Sil"
+  },
+  {
+    "Key": "AddDepartment",
+    "Value": "Departman Ekle"
+  },
+  {
+    "Key": "EditDepartment",
+    "Value": "Departman Düzenle"
+  },
+  {
+    "Key": "DeleteDepartment",
+    "Value": "Departman Sil"
+  },
+  {
+    "Key": "Departments",
+    "Value": "Departmanlar"
+  },
+  {
+    "Key": "Terminals",
+    "Value": "Terminaller"
+  },
+  {
+    "Key": "States",
+    "Value": "Durumlar"
+  },
+  {
+    "Key": "AddTerminal",
+    "Value": "Terminal Ekle"
+  },
+  {
+    "Key": "EditTerminal",
+    "Value": "Terminal Düzenle"
+  },
+  {
+    "Key": "DeleteTerminal",
+    "Value": "Terminal Sil"
   }
 ]

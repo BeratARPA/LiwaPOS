@@ -29,7 +29,6 @@ namespace LiwaPOS.WpfAppUI.UserControls
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             var viewModel = DataContext as AppRulesViewModel;
             if (viewModel?.SelectedCommand != null)
             {

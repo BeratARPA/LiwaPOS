@@ -58,6 +58,10 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<ManagementViewModel>();
             services.AddTransient<ScriptManagementViewModel>();
             services.AddTransient<ScriptsViewModel>();
+            services.AddTransient<TerminalsViewModel>();
+            services.AddTransient<TerminalManagementViewModel>();
+            services.AddTransient<DepartmentsViewModel>();
+            services.AddTransient<DepartmentManagementViewModel>();
             services.AddTransient<ShellViewModel>();
 
             // Views       
@@ -73,6 +77,10 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<ManagementUserControl>();
             services.AddTransient<ScriptManagementUserControl>();
             services.AddTransient<ScriptsUserControl>();
+            services.AddTransient<TerminalsUserControl>();
+            services.AddTransient<TerminalManagementUserControl>();
+            services.AddTransient<DepartmentsUserControl>();
+            services.AddTransient<DepartmentManagementUserControl>();
             services.AddTransient<Shell>();
         }
 
@@ -88,7 +96,7 @@ namespace LiwaPOS.WpfAppUI
                 ThemesController.SetTheme(ThemeType.LightTheme);
                 ApplicationThemeHelper.ApplicationThemeName = Theme.Win11LightName;
             }
-            
+
             base.OnStartup(e);
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -97,7 +105,7 @@ namespace LiwaPOS.WpfAppUI
                 // DI Container'ı oluştur
                 var serviceCollection = new ServiceCollection();
                 ConfigureServices(serviceCollection);
-              
+
                 _serviceProvider = serviceCollection.BuildServiceProvider();
                 GlobalVariables.ServiceProvider = _serviceProvider;
 

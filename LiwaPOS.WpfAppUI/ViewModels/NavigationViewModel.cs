@@ -1,14 +1,27 @@
 ﻿using LiwaPOS.BLL.Managers;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels
 {
     public class NavigationViewModel: ViewModelBase
     {
-        private readonly UserManager _userManager;       
+        private readonly UserManager _userManager;
+
+        private bool _useCustomNavigation;
+        public bool UseCustomNavigation
+        {
+            get => _useCustomNavigation;
+            set
+            {
+                if (_useCustomNavigation != value)
+                {
+                    _useCustomNavigation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ICommand OpenWorkPeriodsCommand { get; }
         public ICommand OpenPOSCommand { get; }
@@ -23,6 +36,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
         public NavigationViewModel(UserManager userManager)
         {
             _userManager = userManager;
+            UseCustomNavigation = Properties.Settings.Default.UseCustomNavigation;
 
             OpenWorkPeriodsCommand = new RelayCommand(OpenWorkPeriods);
             OpenPOSCommand = new RelayCommand(OpenPOS);
@@ -33,7 +47,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             OpenReportsCommand = new RelayCommand(OpenReports);
             OpenManageCommand = new RelayCommand(OpenManage);
             OpenLogoutCommand = new AsyncRelayCommand(OpenLogout);
-        }
+        }      
 
         private void OpenWorkPeriods(object obj)
         {       

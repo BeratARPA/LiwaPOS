@@ -20,6 +20,8 @@ namespace LiwaPOS.BLL
             services.AddScoped<IAppActionService, AppActionService>();
             services.AddScoped<IRuleActionMapService, RuleActionMapService>();
             services.AddScoped<IScriptService, ScriptService>();
+            services.AddScoped<ITerminalService, TerminalService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAutomationCommandMapService, AutomationCommandMapService>();
             services.AddScoped<IAutomationCommandService, AutomationCommandService>();
             services.AddSingleton<IEmailService, EmailService>();

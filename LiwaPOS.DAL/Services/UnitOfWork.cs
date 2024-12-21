@@ -14,6 +14,8 @@ namespace LiwaPOS.DAL.Services
         private IAutomationCommandMapRepository _automationCommandMaps;
         private IRuleActionMapRepository _ruleActionMaps;
         private IScriptRepository _scripts;
+        private ITerminalRepository _terminals;
+        private IDepartmentRepository _departments;
         private IUserRepository _users;
 
         public UnitOfWork(DataContext context)
@@ -28,6 +30,8 @@ namespace LiwaPOS.DAL.Services
         public IRuleActionMapRepository RuleActionMaps => _ruleActionMaps ??= new RuleActionMapRepository(_context);
         public IScriptRepository Scripts => _scripts ??= new ScriptRepository(_context);
         public IUserRepository Users => _users ??= new UserRepository(_context);
+        public ITerminalRepository Terminals => _terminals ??= new TerminalRepository(_context);
+        public IDepartmentRepository Departments => _departments ??= new DepartmentRepository(_context);
 
         public async Task CommitAsync()
         {

@@ -16,6 +16,7 @@ namespace LiwaPOS.DAL
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Generic Repository Tanımlamaları
+            services.AddScoped<IGenericRepository<Terminal>, GenericRepository<Terminal>>();
             services.AddScoped<IGenericRepository<Script>, GenericRepository<Script>>();
             services.AddScoped<IGenericRepository<AppRule>, GenericRepository<AppRule>>();
             services.AddScoped<IGenericRepository<AppAction>, GenericRepository<AppAction>>();
@@ -23,6 +24,8 @@ namespace LiwaPOS.DAL
             services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
 
             // Özel Repository Tanımlamaları
+            services.AddScoped<ITerminalRepository, TerminalRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IScriptRepository, ScriptRepository>();
             services.AddScoped<IAppRuleRepository, AppRuleRepository>();
             services.AddScoped<IAppActionRepository, AppActionRepository>();
