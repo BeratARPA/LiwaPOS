@@ -99,6 +99,69 @@ namespace LiwaPOS.DAL.Services
                 _context.Users.Add(user);
                 _context.SaveChanges();
             }
+
+            if (!_context.Departments.Any())
+            {
+                var department = new Department
+                {
+                    EntityGuid = Guid.NewGuid(),
+                    Name = "Restaurant",
+                    WarehouseId = 0,
+                    ScreenMenuId = 0
+                };
+
+                _context.Departments.Add(department);
+                _context.SaveChanges();
+            }
+
+            if (!_context.Terminals.Any())
+            {
+                var terminal = new Terminal
+                {
+                    EntityGuid = Guid.NewGuid(),
+                    Name = "Server",
+                    IsDefault = true,
+                    ReportPrinterId = 0,
+                    TransactionPrinterId = 0
+                };
+
+                _context.Terminals.Add(terminal);
+                _context.SaveChanges();
+            }
+
+            if (!_context.Printers.Any())
+            {
+                var printers = new List<Printer>
+                {
+                    new Printer
+                    {
+                        EntityGuid = Guid.NewGuid(),
+                        Name = "Ticket Printer",
+                        ShareName = "",
+                        RTLMode = false,
+                        CharReplacement = ""
+                    }, 
+                    new Printer
+                    {
+                        EntityGuid = Guid.NewGuid(),
+                        Name = "Kitchen Printer",
+                        ShareName = "",
+                        RTLMode = false,
+                        CharReplacement = ""
+                    },
+                    new Printer
+                    {
+                        EntityGuid = Guid.NewGuid(),
+                        Name = "Invoice Printer",
+                        ShareName = "",
+                        RTLMode = false,
+                        CharReplacement = ""
+                    },
+                };               
+
+                _context.Printers.AddRange(printers);
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -55,6 +55,7 @@ namespace LiwaPOS.DAL.Migrations
                     UserRoleId = table.Column<int>(type: "int", nullable: false),
                     TicketTypeId = table.Column<int>(type: "int", nullable: false),
                     AutomationCommandId = table.Column<int>(type: "int", nullable: false),
+                    DisplayOn = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -442,6 +443,22 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserRoleId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Warehouses",
                 columns: table => new
                 {
@@ -470,32 +487,6 @@ namespace LiwaPOS.DAL.Migrations
                 {
                     table.PrimaryKey("PK_WarehouseTypes", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserRoleId = table.Column<int>(type: "int", nullable: true),
-                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_UserRoles_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "UserRoles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserRoleId",
-                table: "Users",
-                column: "UserRoleId");
         }
 
         /// <inheritdoc />
@@ -574,6 +565,9 @@ namespace LiwaPOS.DAL.Migrations
                 name: "TicketTypes");
 
             migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
@@ -581,9 +575,6 @@ namespace LiwaPOS.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "WarehouseTypes");
-
-            migrationBuilder.DropTable(
-                name: "UserRoles");
         }
     }
 }

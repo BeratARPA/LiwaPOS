@@ -159,6 +159,9 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("DisplayOn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("EntityGuid")
                         .HasColumnType("uniqueidentifier");
 
@@ -735,12 +738,10 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<string>("PinCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserRoleId")
+                    b.Property<int>("UserRoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Users");
                 });
@@ -806,15 +807,6 @@ namespace LiwaPOS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WarehouseTypes");
-                });
-
-            modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>
-                {
-                    b.HasOne("LiwaPOS.Entities.Entities.UserRole", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleId");
-
-                    b.Navigation("UserRole");
                 });
 #pragma warning restore 612, 618
         }

@@ -532,11 +532,11 @@
     "Value": "Kullanıcı Ekle"
   },
   {
-    "Key": "EditScript",
+    "Key": "EditUser",
     "Value": "Kullanıcı Düzenle"
   },
   {
-    "Key": "DeleteScript",
+    "Key": "DeleteUser",
     "Value": "Kullanıcı Sil"
   },
   {
