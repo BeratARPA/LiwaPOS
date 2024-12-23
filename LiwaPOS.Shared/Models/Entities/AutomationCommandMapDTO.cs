@@ -9,5 +9,6 @@
         public int UserRoleId { get; set; }
         public int TicketTypeId { get; set; }
         public int AutomationCommandId { get; set; }
+        public string? DisplayOn { get; set; }
     }
 }

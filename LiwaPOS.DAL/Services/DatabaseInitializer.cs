@@ -2,6 +2,7 @@
 using LiwaPOS.Entities.Entities;
 using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Helpers;
+using LiwaPOS.Shared.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ namespace LiwaPOS.DAL.Services
             // mdf dosyasının mevcut olup olmadığını kontrol et
             if (!FileExtension.Exists(FolderLocationsHelper.LocalDBPath))
             {
-                Console.WriteLine("MDF dosyası bulunamadı. Mevcut veritabanı varsa siliniyor ve yeniden oluşturuluyor...");
+                LoggingService.LogInfoAsync("MDF dosyası bulunamadı. Mevcut veritabanı varsa siliniyor ve yeniden oluşturuluyor...").Wait();
                 RecreateDatabase();
             }
             else
@@ -33,7 +34,7 @@ namespace LiwaPOS.DAL.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Hata: {ex.Message}");
+                    LoggingService.LogInfoAsync($"Hata: {ex.Message}").Wait();
                     // Hata durumunda mdf dosyasını sil ve yeniden oluştur
                     if (!FileExtension.Exists(FolderLocationsHelper.LocalDBPath))
                     {
@@ -65,11 +66,13 @@ namespace LiwaPOS.DAL.Services
             if (_context.Database.EnsureCreated())
                 SeedData();
 
-            Console.WriteLine("Veritabanı başarıyla yeniden oluşturuldu.");
+            LoggingService.LogInfoAsync("Veritabanı başarıyla yeniden oluşturuldu.").Wait();
         }
 
         private void SeedData()
         {
+            int userRoleId = 0;
+
             if (!_context.UserRoles.Any())
             {
                 var userRole = new UserRole
@@ -78,7 +81,8 @@ namespace LiwaPOS.DAL.Services
                     Name = "Admin"
                 };
 
-                _context.UserRoles.Add(userRole);
+                var currentUserRole = _context.UserRoles.Add(userRole);
+                userRoleId = currentUserRole.Entity.Id;
                 _context.SaveChanges();
             }
 
@@ -89,7 +93,7 @@ namespace LiwaPOS.DAL.Services
                     EntityGuid = Guid.NewGuid(),
                     Name = "Admin",
                     PinCode = "1234",
-                    UserRole = _context.UserRoles.FirstOrDefault(x => x.Name == "Admin")
+                    UserRoleId = userRoleId
                 };
 
                 _context.Users.Add(user);

@@ -14,5 +14,8 @@
     <Setting Name="CurrentLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">en</Value>
     </Setting>
+    <Setting Name="TerminalName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

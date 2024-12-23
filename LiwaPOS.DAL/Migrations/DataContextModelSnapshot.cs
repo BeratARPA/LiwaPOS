@@ -391,6 +391,118 @@ namespace LiwaPOS.DAL.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.PrintJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PrintJobs");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.Printer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CharReplacement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RTLMode")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ShareName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Printers");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.PrinterMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MenuItemGroupCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrintJobId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrinterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrinterTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductTags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PrinterMaps");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.PrinterTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Template")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PrinterTemplates");
+                });
+
             modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
                 {
                     b.Property<int>("Id")

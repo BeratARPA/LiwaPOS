@@ -13,7 +13,12 @@ using LiwaPOS.WpfAppUI.Properties;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.Themes;
 using LiwaPOS.WpfAppUI.UserControls;
-using LiwaPOS.WpfAppUI.ViewModels;
+using LiwaPOS.WpfAppUI.ViewModels.General;
+using LiwaPOS.WpfAppUI.ViewModels.Management;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Automation;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Printing;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Settings;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Users;
 using LiwaPOS.WpfAppUI.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -62,6 +67,12 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<TerminalManagementViewModel>();
             services.AddTransient<DepartmentsViewModel>();
             services.AddTransient<DepartmentManagementViewModel>();
+            services.AddTransient<PrinterManagementViewModel>();
+            services.AddTransient<PrintersViewModel>();
+            services.AddTransient<UsersViewModel>();
+            services.AddTransient<UserManagementViewModel>();
+            services.AddTransient<UserRoleManagementViewModel>();
+            services.AddTransient<UserRolesViewModel>();
             services.AddTransient<ShellViewModel>();
 
             // Views       
@@ -81,6 +92,12 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<TerminalManagementUserControl>();
             services.AddTransient<DepartmentsUserControl>();
             services.AddTransient<DepartmentManagementUserControl>();
+            services.AddTransient<PrinterManagementUserControl>();
+            services.AddTransient<PrintersUserControl>();
+            services.AddTransient<UsersUserControl>();
+            services.AddTransient<UserRolesUserControl>();
+            services.AddTransient<UserManagementUserControl>();
+            services.AddTransient<UserRoleManagementUserControl>();
             services.AddTransient<Shell>();
         }
 

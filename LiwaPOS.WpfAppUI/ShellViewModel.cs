@@ -2,8 +2,7 @@
 
 namespace LiwaPOS.WpfAppUI
 {
-    public class ShellViewModel :ViewModelBase
-    {     
+    public class ShellViewModel : ViewModelBase
+    {
     }
 }
- 

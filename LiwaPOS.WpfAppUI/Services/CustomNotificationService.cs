@@ -1,7 +1,7 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
-using LiwaPOS.WpfAppUI.ViewModels;
+using LiwaPOS.WpfAppUI.ViewModels.General;
 using LiwaPOS.WpfAppUI.Views;
 using System.Windows;
 

@@ -1,5 +1,4 @@
-﻿using DevExpress.Xpf.Core;
-using LiwaPOS.BLL.Interfaces;
+﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.WpfAppUI.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
@@ -16,6 +15,7 @@ namespace LiwaPOS.WpfAppUI
     public partial class Shell : Window
     {
         private readonly DispatcherTimer _dispatcherTimerTime;
+        private readonly IDepartmentService _departmentService;
         private readonly IApplicationStateService _applicationState;
 
         public Shell()
@@ -23,9 +23,10 @@ namespace LiwaPOS.WpfAppUI
             InitializeComponent();
 
             _applicationState = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
-          
+            _departmentService = GlobalVariables.ServiceProvider.GetRequiredService<IDepartmentService>();
+
             GlobalVariables.Shell = this;
-            
+
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Login");
 
@@ -42,6 +43,8 @@ namespace LiwaPOS.WpfAppUI
                 scaleTransform.ScaleX = Properties.Settings.Default.WindowScale;
                 scaleTransform.ScaleY = Properties.Settings.Default.WindowScale;
             }
+
+            _ = UpdateDepartmentButtonsVisibilityAsync();
         }
 
         private void DispatcherTimerTime_Tick(object? sender, EventArgs e)
@@ -87,7 +90,46 @@ namespace LiwaPOS.WpfAppUI
                 {
                     WindowStyle = WindowStyle.None;
                     WindowState = WindowState.Maximized;
-                }           
+                }
+            }
+        }
+
+        private async Task UpdateDepartmentButtonsVisibilityAsync()
+        {
+            var departments = await _departmentService.GetAllDepartmentsAsync();
+
+            if (departments.Count() > 1)
+            {
+                StackPanelButtons.Visibility = Visibility.Visible;
+
+                // Mevcut butonları temizle
+                StackPanelButtons.Children.Clear();
+
+                foreach (var department in departments)
+                {
+                    var button = new System.Windows.Controls.Button
+                    {
+                        Content = department.Name,
+                        Margin = new Thickness(0, 5, 10, 5),
+                        Tag = department.Id // İleride kullanılabilir
+                    };
+
+                    button.Click += ButtonDepartment_Click;
+                    StackPanelButtons.Children.Add(button);
+                }
+            }
+            else
+            {
+                StackPanelButtons.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ButtonDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button && button.Tag is int departmentId)
+            {
+                // Departman ID'sine göre işlemleri yapabilirsiniz
+                System.Windows.MessageBox.Show($"Departman seçildi: {button.Content} (ID: {departmentId})");
             }
         }
 
@@ -98,7 +140,7 @@ namespace LiwaPOS.WpfAppUI
                 e.Cancel = true;
                 return;
             }
-          
+
             Properties.Settings.Default.WindowScale = (GridMain.LayoutTransform as ScaleTransform).ScaleX;
             Properties.Settings.Default.Save();
         }
@@ -107,6 +149,11 @@ namespace LiwaPOS.WpfAppUI
         {
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Navigation");
+        }
+
+        private void ButtonKeyboard_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

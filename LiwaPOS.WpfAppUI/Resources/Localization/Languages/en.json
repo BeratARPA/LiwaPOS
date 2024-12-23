@@ -1,0 +1,554 @@
+[
+  {
+    "Key": "Ok",
+    "Value": "Ok"
+  },
+  {
+    "Key": "Clear",
+    "Value": "Clear"
+  },
+  {
+    "Key": "Yes",
+    "Value": "Yes"
+  },
+  {
+    "Key": "No",
+    "Value": "No"
+  },
+  {
+    "Key": "Cancel",
+    "Value": "Cancel"
+  },
+  {
+    "Key": "Information",
+    "Value": "Information"
+  },
+  {
+    "Key": "Warning",
+    "Value": "Warning"
+  },
+  {
+    "Key": "Error",
+    "Value": "Error"
+  },
+  {
+    "Key": "Question",
+    "Value": "Question"
+  },
+  {
+    "Key": "ErrorMessage",
+    "Value": "Error Message"
+  },
+  {
+    "Key": "PleaseEnterABriefExplanationOfTheActionThatCausedThisError",
+    "Value": "Please enter a brief explanation of the action that caused this error"
+  },
+  {
+    "Key": "DetailedReport",
+    "Value": "Detailed Report"
+  },
+  {
+    "Key": "Close",
+    "Value": "Close"
+  },
+  {
+    "Key": "LiwaPOSReporter",
+    "Value": "LiwaPOS Reporter"
+  },
+  {
+    "Key": "UnableToSaveFile_ph",
+    "Value": "Unable to save file '{0}': {1}"
+  },
+  {
+    "Key": "Copy",
+    "Value": "Copy"
+  },
+  {
+    "Key": "Save",
+    "Value": "Save"
+  },
+  {
+    "Key": "Submit",
+    "Value": "Submit"
+  },
+  {
+    "Key": "MainMenu",
+    "Value": "Main Menu"
+  },
+  {
+    "Key": "Keyboard",
+    "Value": "Keyboard"
+  },
+  {
+    "Key": "AddAction",
+    "Value": "Add Action"
+  },
+  {
+    "Key": "EditAction",
+    "Value": "Edit Action"
+  },
+  {
+    "Key": "DeleteAction",
+    "Value": "Delete Action"
+  },
+  {
+    "Key": "AddRule",
+    "Value": "Add Rule"
+  },
+  {
+    "Key": "EditRule",
+    "Value": "Edit Rule"
+  },
+  {
+    "Key": "DeleteRule",
+    "Value": "Delete Rule"
+  },
+  {
+    "Key": "AddScript",
+    "Value": "Add Script"
+  },
+  {
+    "Key": "EditScript",
+    "Value": "Edit Script"
+  },
+  {
+    "Key": "DeleteScript",
+    "Value": "Delete Script"
+  },
+  {
+    "Key": "Sort",
+    "Value": "Sort"
+  },
+  {
+    "Key": "Run",
+    "Value": "Run"
+  },
+  {
+    "Key": "Name",
+    "Value": "Name"
+  },
+  {
+    "Key": "Automation",
+    "Value": "Automation"
+  },
+  {
+    "Key": "Users",
+    "Value": "Users"
+  },
+  {
+    "Key": "Reports",
+    "Value": "Reports"
+  },
+  {
+    "Key": "Printing",
+    "Value": "Printing"
+  },
+  {
+    "Key": "Products",
+    "Value": "Products"
+  },
+  {
+    "Key": "Settings",
+    "Value": "Settings"
+  },
+  {
+    "Key": "Actions",
+    "Value": "Actions"
+  },
+  {
+    "Key": "Rules",
+    "Value": "Rules"
+  },
+  {
+    "Key": "AutomationCommands",
+    "Value": "Automation Commands"
+  },
+  {
+    "Key": "Scripts",
+    "Value": "Scripts"
+  },
+  {
+    "Key": "EventType",
+    "Value": "Event Type"
+  },
+  {
+    "Key": "CustomConstraintList",
+    "Value": "Custom Constraint List"
+  },
+  {
+    "Key": "ExecuteRuleIf",
+    "Value": "Execute Rule If"
+  },
+  {
+    "Key": "AddCustomConstraint",
+    "Value": "Add Custom Constraint"
+  },
+  {
+    "Key": "SelectActions",
+    "Value": "Select Actions"
+  },
+  {
+    "Key": "Remove",
+    "Value": "Remove"
+  },
+  {
+    "Key": "ActionType",
+    "Value": "Action Type"
+  },
+  {
+    "Key": "ActionList",
+    "Value": "Action List"
+  },
+  {
+    "Key": "SelectedActions",
+    "Value": "Selected Actions"
+  },
+  {
+    "Key": "Parameters",
+    "Value": "Parameters"
+  },
+  {
+    "Key": "AddAutomationCommand",
+    "Value": "Add Automation Command"
+  },
+  {
+    "Key": "EditAutomationCommand",
+    "Value": "Edit Automation Command"
+  },
+  {
+    "Key": "DeleteAutomationCommand",
+    "Value": "Delete Automation Command"
+  },
+  {
+    "Key": "AddDepartment",
+    "Value": "Add Department"
+  },
+  {
+    "Key": "EditDepartment",
+    "Value": "Edit Department"
+  },
+  {
+    "Key": "DeleteDepartment",
+    "Value": "Delete Department"
+  },
+  {
+    "Key": "Departments",
+    "Value": "Departments"
+  },
+  {
+    "Key": "Terminals",
+    "Value": "Terminals"
+  },
+  {
+    "Key": "States",
+    "Value": "States"
+  },
+  {
+    "Key": "AddTerminal",
+    "Value": "Add Terminal"
+  },
+  {
+    "Key": "EditTerminal",
+    "Value": "Edit Terminal"
+  },
+  {
+    "Key": "DeleteTerminal",
+    "Value": "Delete Terminal"
+  },
+  {
+    "Key": "AddPrinter",
+    "Value": "Add Printer"
+  },
+  {
+    "Key": "EditPrinter",
+    "Value": "Edit Printer"
+  },
+  {
+    "Key": "DeletePrinter",
+    "Value": "Delete Printer"
+  },
+  {
+    "Key": "Printers",
+    "Value": "Printers"
+  },
+  {
+    "Key": "LocalSettings",
+    "Value": "Local Settings"
+  },
+  {
+    "Key": "Database",
+    "Value": "Database"
+  },
+  {
+    "Key": "General",
+    "Value": "General"
+  },
+  {
+    "Key": "MessageServer",
+    "Value": "Message Server"
+  },
+  {
+    "Key": "ProgramSettings",
+    "Value": "Program Settings"
+  },
+  {
+    "Key": "LiwaPOSNews",
+    "Value": "LiwaPOS News"
+  },
+  {
+    "Key": "DatabaseBackups",
+    "Value": "Veritabanı Backups"
+  },
+  {
+    "Key": "DatabaseTools",
+    "Value": "Veritabanı Tools"
+  },
+  {
+    "Key": "AboutUs",
+    "Value": "About Us"
+  },
+  {
+    "Key": "Legal",
+    "Value": "Legal"
+  },
+  {
+    "Key": "PrintJobs",
+    "Value": "Print Jobs"
+  },
+  {
+    "Key": "PrinterTemplates",
+    "Value": "Printer Templates"
+  },
+  {
+    "Key": "Category",
+    "Value": "Category"
+  },
+  {
+    "Key": "ButtonHeader",
+    "Value": "Button Header"
+  },
+  {
+    "Key": "Color",
+    "Value": "Color"
+  },
+  {
+    "Key": "FontSize",
+    "Value": "Font Size"
+  },
+  {
+    "Key": "Confirmation",
+    "Value": "Confirmation"
+  },
+  {
+    "Key": "ExecuteOnce",
+    "Value": "Execute once"
+  },
+  {
+    "Key": "ClearSelection",
+    "Value": "Clear selection"
+  },
+  {
+    "Key": "ToggleValues",
+    "Value": "Toggle values"
+  },
+  {
+    "Key": "AskTextInput",
+    "Value": "Ask text input"
+  },
+  {
+    "Key": "AskNumericInput",
+    "Value": "Ask numeric input"
+  },
+  {
+    "Key": "Values",
+    "Value": "Values"
+  },
+  {
+    "Key": "GeneralSettings",
+    "Value": "General Settings"
+  },
+  {
+    "Key": "NavigationSettings",
+    "Value": "Navigation Settings"
+  },
+  {
+    "Key": "Symbol",
+    "Value": "Symbol"
+  },
+  {
+    "Key": "Image",
+    "Value": "Image"
+  },
+  {
+    "Key": "AutoRefresh",
+    "Value": "Auto Refresh"
+  },
+  {
+    "Key": "TileCache",
+    "Value": "Tile Cache"
+  },
+  {
+    "Key": "NavigationModule",
+    "Value": "Navigation Module"
+  },
+  {
+    "Key": "Template",
+    "Value": "Template"
+  },
+  {
+    "Key": "Mapping",
+    "Value": "Mapping"
+  },
+  {
+    "Key": "Search",
+    "Value": "Search"
+  },
+  {
+    "Key": "PrinterShareNamePortName",
+    "Value": "Printer Share Name / Port Name"
+  },
+  {
+    "Key": "RTLSupport",
+    "Value": "RTL Support"
+  },
+  {
+    "Key": "CharReplacement",
+    "Value": "Char Replacement"
+  },
+  {
+    "Key": "Display",
+    "Value": "Display"
+  },
+  {
+    "Key": "TerminalName",
+    "Value": "Terminal Name"
+  },
+  {
+    "Key": "ProgramLanguage",
+    "Value": "Program Language"
+  },
+  {
+    "Key": "UILanguage",
+    "Value": "UI Language"
+  },
+  {
+    "Key": "DatabaseConnectionString",
+    "Value": "Database Connection String"
+  },
+  {
+    "Key": "EditConnection",
+    "Value": "Edit Connection"
+  },
+  {
+    "Key": "Apply",
+    "Value": "Apply"
+  },
+  {
+    "Key": "MessageServerName",
+    "Value": "Message Server Name"
+  },
+  {
+    "Key": "MessageServerPort",
+    "Value": "Message Server Port"
+  },
+  {
+    "Key": "AutoStartMessageClient",
+    "Value": "Auto Start Message Client"
+  },
+  {
+    "Key": "TestMessageServerConnection",
+    "Value": "Test"
+  },
+  {
+    "Key": "FindMessageServer",
+    "Value": "Find Message Server"
+  },
+  {
+    "Key": "UseDarkTheme",
+    "Value": "Use Dark Theme"
+  },
+  {
+    "Key": "AllowCustomNavigation",
+    "Value": "Allow Custom Navigation"
+  },
+  {
+    "Key": "DefaultTerminal",
+    "Value": "Default Terminal"
+  },
+  {
+    "Key": "ReportPrinter",
+    "Value": "Report Printer"
+  },
+  {
+    "Key": "TransactionPrinter",
+    "Value": "Transaction Printer"
+  },
+  {
+    "Key": "DefaultMenu",
+    "Value": "Default Menu"
+  },
+  {
+    "Key": "Warehouse",
+    "Value": "Warehouse"
+  },
+  {
+    "Key": "WorkPeriods",
+    "Value": "Work Periods"
+  },
+  {
+    "Key": "POS",
+    "Value": "POS"
+  },
+  {
+    "Key": "Tickets",
+    "Value": "Tickets"
+  },
+  {
+    "Key": "Accounts",
+    "Value": "Accounts"
+  },
+  {
+    "Key": "Warehouses",
+    "Value": "Warehouses"
+  },
+  {
+    "Key": "LiwaMarket",
+    "Value": "Liwa Market"
+  },
+  {
+    "Key": "Management",
+    "Value": "Manage"
+  },
+  {
+    "Key": "Logout",
+    "Value": "Logout"
+  },
+  {
+    "Key": "UserRoles",
+    "Value": "User Roles"
+  },
+  {
+    "Key": "AddUser",
+    "Value": "Add User"
+  },
+  {
+    "Key": "EditUser",
+    "Value": "Edit User"
+  },
+  {
+    "Key": "DeleteUser",
+    "Value": "Delete User"
+  },
+  {
+    "Key": "NotEmpty_ph",
+    "Value": "'{0}' cannot be empty!"
+  },
+  {
+    "Key": "AlreadyUse_ph",
+    "Value": "'{0}' is already in use!"
+  },
+  {
+    "Key": "PinCode",
+    "Value": "Pin Code"
+  }
+]

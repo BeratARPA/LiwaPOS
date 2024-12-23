@@ -30,6 +30,10 @@ namespace LiwaPOS.DAL.Context
         public DbSet<MenuItemPortion> MenuItemPortions { get; set; }
         public DbSet<MenuItemPrice> MenuItemPrices { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Printer> Printers { get; set; }
+        public DbSet<PrinterMap> PrinterMaps { get; set; }
+        public DbSet<PrinterTemplate> PrinterTemplates { get; set; }
+        public DbSet<PrintJob> PrintJobs { get; set; }
         public DbSet<RuleActionMap> RuleActionMaps { get; set; }
         public DbSet<ScreenMenu> ScreenMenus { get; set; }
         public DbSet<ScreenMenuCategory> ScreenMenuCategories { get; set; }

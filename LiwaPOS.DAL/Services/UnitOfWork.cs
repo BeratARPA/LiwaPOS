@@ -17,6 +17,8 @@ namespace LiwaPOS.DAL.Services
         private ITerminalRepository _terminals;
         private IDepartmentRepository _departments;
         private IUserRepository _users;
+        private IUserRoleRepository _userRoles;
+        private IPrinterRepository _printers;
 
         public UnitOfWork(DataContext context)
         {
@@ -30,8 +32,10 @@ namespace LiwaPOS.DAL.Services
         public IRuleActionMapRepository RuleActionMaps => _ruleActionMaps ??= new RuleActionMapRepository(_context);
         public IScriptRepository Scripts => _scripts ??= new ScriptRepository(_context);
         public IUserRepository Users => _users ??= new UserRepository(_context);
+        public IUserRoleRepository UserRoles => _userRoles ??= new UserRoleRepository(_context);
         public ITerminalRepository Terminals => _terminals ??= new TerminalRepository(_context);
         public IDepartmentRepository Departments => _departments ??= new DepartmentRepository(_context);
+        public IPrinterRepository Printers => _printers ??= new PrinterRepository(_context);
 
         public async Task CommitAsync()
         {

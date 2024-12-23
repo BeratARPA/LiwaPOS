@@ -1,6 +1,11 @@
 ﻿using LiwaPOS.WpfAppUI.Factories;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.ViewModels;
+using LiwaPOS.WpfAppUI.ViewModels.General;
+using LiwaPOS.WpfAppUI.ViewModels.Management;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Automation;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Printing;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Settings;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Users;
 
 namespace LiwaPOS.WpfAppUI.Locators
 {
@@ -31,5 +36,11 @@ namespace LiwaPOS.WpfAppUI.Locators
         public TerminalManagementViewModel TerminalManagementViewModel => _viewModelFactory.CreateViewModel<TerminalManagementViewModel>();
         public DepartmentsViewModel DepartmentsViewModel => _viewModelFactory.CreateViewModel<DepartmentsViewModel>();
         public DepartmentManagementViewModel DepartmentManagementViewModel => _viewModelFactory.CreateViewModel<DepartmentManagementViewModel>();
+        public PrinterManagementViewModel PrinterManagementViewModel => _viewModelFactory.CreateViewModel<PrinterManagementViewModel>();
+        public PrintersViewModel PrintersViewModel => _viewModelFactory.CreateViewModel<PrintersViewModel>();
+        public UsersViewModel UsersViewModel => _viewModelFactory.CreateViewModel<UsersViewModel>();
+        public UserManagementViewModel UserManagementViewModel => _viewModelFactory.CreateViewModel<UserManagementViewModel>();
+        public UserRoleManagementViewModel UserRoleManagementViewModel => _viewModelFactory.CreateViewModel<UserRoleManagementViewModel>();
+        public UserRolesViewModel UserRolesViewModel => _viewModelFactory.CreateViewModel<UserRolesViewModel>();
     }
 }

@@ -254,5 +254,301 @@
   {
     "Key": "DeleteTerminal",
     "Value": "Terminal Sil"
+  },
+  {
+    "Key": "AddPrinter",
+    "Value": "Yazıcı Ekle"
+  },
+  {
+    "Key": "EditPrinter",
+    "Value": "Yazıcı Düzenle"
+  },
+  {
+    "Key": "DeletePrinter",
+    "Value": "Yazıcı Sil"
+  },
+  {
+    "Key": "Printers",
+    "Value": "Yazıcılar"
+  },
+  {
+    "Key": "LocalSettings",
+    "Value": "Yerel Ayarlar"
+  },
+  {
+    "Key": "Database",
+    "Value": "Veritabanı"
+  },
+  {
+    "Key": "General",
+    "Value": "Genel"
+  },
+  {
+    "Key": "MessageServer",
+    "Value": "Mesaj Sunucusu"
+  },
+  {
+    "Key": "ProgramSettings",
+    "Value": "Program Ayarları"
+  },
+  {
+    "Key": "LiwaPOSNews",
+    "Value": "LiwaPOS Haberler"
+  },
+  {
+    "Key": "DatabaseBackups",
+    "Value": "Veritabanı Yedekleri"
+  },
+  {
+    "Key": "DatabaseTools",
+    "Value": "Veritabanı Araçları"
+  },
+  {
+    "Key": "AboutUs",
+    "Value": "Hakkımızda"
+  },
+  {
+    "Key": "Legal",
+    "Value": "Legal"
+  },
+  {
+    "Key": "PrintJobs",
+    "Value": "Yazdırma Görevleri"
+  },
+  {
+    "Key": "PrinterTemplates",
+    "Value": "Yazıcı Şablonları"
+  },
+  {
+    "Key": "Category",
+    "Value": "Kategori"
+  },
+  {
+    "Key": "ButtonHeader",
+    "Value": "Düğme Başlığı"
+  },
+  {
+    "Key": "Color",
+    "Value": "Renk"
+  },
+  {
+    "Key": "FontSize",
+    "Value": "Font Büyüklüğü"
+  },
+  {
+    "Key": "Confirmation",
+    "Value": "Onay"
+  },
+  {
+    "Key": "ExecuteOnce",
+    "Value": "Bire kere çalıştır"
+  },
+  {
+    "Key": "ClearSelection",
+    "Value": "Seçimi temizle"
+  },
+  {
+    "Key": "ToggleValues",
+    "Value": "Değerleri Değiştir"
+  },
+  {
+    "Key": "AskTextInput",
+    "Value": "Metin girişi sor"
+  },
+  {
+    "Key": "AskNumericInput",
+    "Value": "Sayısal girişi sor"
+  },
+  {
+    "Key": "Values",
+    "Value": "Değerler"
+  },
+  {
+    "Key": "GeneralSettings",
+    "Value": "Genel Ayarlar"
+  },
+  {
+    "Key": "NavigationSettings",
+    "Value": "Navigasyon Seçenekleri"
+  },
+  {
+    "Key": "Symbol",
+    "Value": "Sembol"
+  },
+  {
+    "Key": "Image",
+    "Value": "Resim"
+  },
+  {
+    "Key": "AutoRefresh",
+    "Value": "Otomatik Yenile"
+  },
+  {
+    "Key": "TileCache",
+    "Value": "Düğme Önbelleği"
+  },
+  {
+    "Key": "NavigationModule",
+    "Value": "Navigasyon Modülü"
+  },
+  {
+    "Key": "Template",
+    "Value": "Şablon"
+  },
+  {
+    "Key": "Mapping",
+    "Value": "İlişkiler"
+  },
+  {
+    "Key": "Search",
+    "Value": "Ara"
+  },
+  {
+    "Key": "PrinterShareNamePortName",
+    "Value": "Paylaşım Adı / Port Adı"
+  },
+  {
+    "Key": "RTLSupport",
+    "Value": "RTL Desteği"
+  },
+  {
+    "Key": "CharReplacement",
+    "Value": "Karakter Değişimi"
+  },
+  {
+    "Key": "Display",
+    "Value": "Görüntüle"
+  },
+  {
+    "Key": "TerminalName",
+    "Value": "Terminal Adı"
+  },
+  {
+    "Key": "ProgramLanguage",
+    "Value": "Program Dili"
+  },
+  {
+    "Key": "UILanguage",
+    "Value": "Program Arayüz Dili"
+  },
+  {
+    "Key": "DatabaseConnectionString",
+    "Value": "Veritabanı Bağlantısı"
+  },
+  {
+    "Key": "EditConnection",
+    "Value": "Bağlantı Düzenle"
+  },
+  {
+    "Key": "Apply",
+    "Value": "Uygula"
+  },
+  {
+    "Key": "MessageServerName",
+    "Value": "Mesaj Sunucusu Adı"
+  },
+  {
+    "Key": "MessageServerPort",
+    "Value": "Mesaj Sunucusu Portu"
+  },
+  {
+    "Key": "AutoStartMessageClient",
+    "Value": "Başlangıçta İştemciyi Başlat"
+  },
+  {
+    "Key": "TestMessageServerConnection",
+    "Value": "Test et"
+  },
+  {
+    "Key": "FindMessageServer",
+    "Value": "Mesaj Sunucusu Ara"
+  },
+  {
+    "Key": "UseDarkTheme",
+    "Value": "Koyu Tema Kullan"
+  },
+  {
+    "Key": "AllowCustomNavigation",
+    "Value": "Özel Navigasyon'a İzin Ver"
+  },
+  {
+    "Key": "DefaultTerminal",
+    "Value": "Varsayılan Terminal"
+  },
+  {
+    "Key": "ReportPrinter",
+    "Value": "Rapor Yazıcısı"
+  },
+  {
+    "Key": "TransactionPrinter",
+    "Value": "Hesap Hareket Yazıcısı"
+  },
+  {
+    "Key": "DefaultMenu",
+    "Value": "Varsayılan Menü"
+  },
+  {
+    "Key": "Warehouse",
+    "Value": "Depo"
+  },
+  {
+    "Key": "WorkPeriods",
+    "Value": "Gün İşlemleri"
+  },
+  {
+    "Key": "POS",
+    "Value": "POS"
+  },
+  {
+    "Key": "Tickets",
+    "Value": "Adisyonlar"
+  },
+  {
+    "Key": "Accounts",
+    "Value": "Hesaplar"
+  },
+  {
+    "Key": "Warehouses",
+    "Value": "Depolar"
+  },
+  {
+    "Key": "LiwaMarket",
+    "Value": "Liwa Market"
+  },
+  {
+    "Key": "Management",
+    "Value": "Yönetim"
+  },
+  {
+    "Key": "Logout",
+    "Value": "Çıkış"
+  },
+  {
+    "Key": "UserRoles",
+    "Value": "Kullanıcı Rolleri"
+  },
+  {
+    "Key": "AddUser",
+    "Value": "Kullanıcı Ekle"
+  },
+  {
+    "Key": "EditScript",
+    "Value": "Kullanıcı Düzenle"
+  },
+  {
+    "Key": "DeleteScript",
+    "Value": "Kullanıcı Sil"
+  },
+  {
+    "Key": "NotEmpty_ph",
+    "Value": "'{0}' boş olamaz!"
+  },
+  {
+    "Key": "AlreadyUse_ph",
+    "Value": "'{0}' zaten kullanılıyor!"
+  },
+  {
+    "Key": "PinCode",
+    "Value": "Pin Kodu"
   }
 ]
