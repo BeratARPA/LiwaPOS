@@ -114,7 +114,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         ),
         (
             nameof(ScriptName),
-            async () => !(await _scriptService.GetAllScriptsAsNoTrackingAsync(x => x.Name == ScriptName)).Any(),
+            async () => !(await _scriptService.GetAllScriptsAsNoTrackingAsync(x => x.Name == ScriptName&& x.Id != ScriptId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(ScriptName))
         )
     };

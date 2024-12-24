@@ -7,11 +7,11 @@ namespace LiwaPOS.BLL.Actions
 {
     public class RunProcessAction : IAction
     {
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var runProcessProperties = JsonHelper.Deserialize<RunProcessDTO>(properties);
             if (runProcessProperties == null)
-                return;
+                return false;
 
             var fileName = runProcessProperties.FileName;
             var arguments = runProcessProperties.Arguments;
@@ -27,9 +27,15 @@ namespace LiwaPOS.BLL.Actions
                 try
                 {
                     Process.Start(processStartInfo);
+                    return true;
                 }
-                catch { }
+                catch
+                {
+                    return false;
+                }
             }
+
+            return false;
         }
     }
 }

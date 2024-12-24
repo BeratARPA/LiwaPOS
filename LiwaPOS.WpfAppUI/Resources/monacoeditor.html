@@ -29,12 +29,17 @@
                         {
                             label: 'showMessage',
                             kind: monaco.languages.CompletionItemKind.Keyword,
-                            insertText: 'showMessage(message)'
+                            insertText: 'showMessage(title, message, icon, position, buttonType, duration, isDialog)'
                         },
                         {
                             label: 'runAction',
                             kind: monaco.languages.CompletionItemKind.Keyword,
-                            insertText: 'runAction()'
+                            insertText: 'runAction(actionType, actionParams)'
+                        },
+                        {
+                            label: 'runAction',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'runAction(actionName)'
                         },
                         {
                             label: 'executeSql',

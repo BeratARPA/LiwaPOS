@@ -28,8 +28,8 @@ namespace LiwaPOS.BLL.Services
             {
                 if (data != null)
                 {
-                    var json = JsonHelper.Serialize(data);
-                    request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                    //var json = JsonHelper.Serialize(data);
+                    request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
                 }
             }
 
@@ -71,13 +71,7 @@ namespace LiwaPOS.BLL.Services
                 return accept;
             }
         }
-
-        private void AddAcceptHeader(HttpRequestMessage request, string accept)
-        {
-            request.Headers.Accept.Clear();
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(accept));
-        }
-
+       
         private void AddHeaders(HttpRequestMessage request, IDictionary<string, string> headers)
         {
             if (headers != null)

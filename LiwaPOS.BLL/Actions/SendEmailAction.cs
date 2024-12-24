@@ -13,13 +13,14 @@ namespace LiwaPOS.BLL.Actions
             _emailService = emailService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var emailProperties = JsonHelper.Deserialize<EmailDTO>(properties);
             if (emailProperties == null)
-                return;
+                return false;
 
             await _emailService.SendEmailAsync(emailProperties);
+            return true;
         }
     }
 }

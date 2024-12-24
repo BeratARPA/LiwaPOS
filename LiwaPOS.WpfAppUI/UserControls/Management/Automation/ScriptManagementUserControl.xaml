@@ -16,10 +16,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding ScriptName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding ScriptName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <Button Content="{extension:Translator Run}" Width="100" Height="30" Command="{Binding RunCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        </Grid>
 
         <wpf:WebView2 x:Name="MonacoEditorWebView" Grid.Row="1" Margin="10"/>
 

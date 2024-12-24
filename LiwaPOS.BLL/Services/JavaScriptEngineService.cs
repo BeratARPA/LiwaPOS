@@ -6,8 +6,6 @@ using LiwaPOS.DAL.Context;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LiwaPOS.BLL.Services
 {
@@ -35,10 +33,11 @@ namespace LiwaPOS.BLL.Services
             var engine = new Engine(cfg =>
             {
                 cfg.AllowClr(); // .NET'te tanımlanan action'ları JavaScript içinde kullanmak için
-                cfg.TimeoutInterval(new System.TimeSpan(0, 1, 0)); // JavaScript kodunun çalışma süresini sınırlamak için
-                cfg.MaxStatements(1000); // JavaScript kodunun maksimum kaç satır olabileceğini belirlemek için                
+                cfg.TimeoutInterval(TimeSpan.FromMinutes(1)); // JavaScript kodunun çalışma süresini sınırlamak için
+                cfg.MaxStatements(1000); // JavaScript kodunun maksimum kaç satır olabileceğini belirlemek için
+                cfg.CatchClrExceptions(); // JavaScript kodunda hata oluştuğunda .NET tarafında da hata oluşmasını sağlamak için
             });
-            
+
             #region .NET'te tanımlanan action'ları JavaScript içinde kullanmak için tanıtıyoruz         
             engine.SetValue("console", new
             {
@@ -47,23 +46,26 @@ namespace LiwaPOS.BLL.Services
                 warn = new Action<object>(msg => Console.WriteLine($"Warning: {msg}"))
             });
 
-            engine.SetValue("showMessage", new Action<string>(msg =>
-            _customNotificationService.ShowNotification(new NotificationDTO
-            {
-                Title = "Notification",
-                Message = msg,
-                Icon = NotificationIcon.Information,
-                Position = NotificationPosition.Center,
-                ButtonType = NotificationButtonType.OK,
-                DisplayDurationInSecond = 0
-            })
-            ));
-  
-            engine.SetValue("runAction", new Action<string, string>(RunAction)); // Belirli bir action'ı tetiklemek için
-            engine.SetValue("runAction", new Action<string>(RunAction)); // Belirli bir action'ı tetiklemek için
+            engine.SetValue("showMessage", new Func<string, string, NotificationIcon, NotificationPosition, NotificationButtonType, int, bool, bool?>(
+                (title, message, iconType, position, buttonType, duration, isDialog) =>
+                {
+                    return _customNotificationService.ShowNotification(new NotificationDTO
+                    {
+                        Title = title,
+                        Message = message,
+                        Icon = iconType,
+                        Position = position,
+                        ButtonType = buttonType,
+                        DisplayDurationInSecond = duration,
+                        IsDialog = isDialog
+                    });
+                }));
+
+            engine.SetValue("runAction", new Func<string, string, Task<object>>(RunAction)); // Belirli bir action'ı tetiklemek için
+            engine.SetValue("runAction", new Func<string, Task<object>>(RunAction)); // Belirli bir action'ı tetiklemek için
 
             engine.SetValue("executeSql", new Func<string, List<Dictionary<string, object>>>(ExecuteSqlCommand)); // SQL komutlarını çalıştırmak için
-                                                                                                                  // 
+
             engine.SetValue("httpGet", new Func<string, string>((url) =>
             {
                 // Senkron işlemi Task.Run ile ayrı bir iş parçacığında çalıştırıyoruz
@@ -100,14 +102,13 @@ namespace LiwaPOS.BLL.Services
                     return result;
                 }).Result;
             }));
-
             #endregion
 
-            // Verilen JavaScript kodunu çalıştır ve sonucu al
             try
             {
-                var result = engine.Evaluate(script); // JavaScript kodunu değerlendir ve sonucu al
-                return result.ToObject(); // Sonucu .NET nesnesine dönüştür
+                // JavaScript kodunu değerlendir ve sonucu al sonra sonucu .NET nesnesine dönüştür
+                var result = engine.Evaluate(script).ToObject();
+                return result ?? new object();
             }
             catch (JavaScriptException ex)
             {
@@ -118,69 +119,127 @@ namespace LiwaPOS.BLL.Services
                     Icon = NotificationIcon.Error,
                     Position = NotificationPosition.Center,
                     ButtonType = NotificationButtonType.OK,
-                    DisplayDurationInSecond = 0
+                    DisplayDurationInSecond = 0,
+                    IsDialog = false,
                 });
-                return null;
+
+                return new object();
             }
         }
 
         // JavaScript'ten tetiklenecek olan action fonksiyonu
-        private async void RunAction(string actionType, string actionParams)
+        private async Task<object> RunAction(string actionType, string actionParams)
         {
-            if (Enum.TryParse(actionType, out ActionType actionEnum))
+            try
             {
-                // ActionFactory ile action'ı al ve execute et
-                var action = _actionFactory.GetAction(actionEnum);
-                if (action != null)
+                if (Enum.TryParse(actionType, out ActionType actionEnum))
                 {
-                    await action?.Execute(actionParams);
+                    // ActionFactory ile action'ı al ve execute et
+                    var action = _actionFactory.GetAction(actionEnum);
+                    if (action != null)
+                    {
+                        var result = await action?.Execute(actionParams);
+                        return result;
+                    }
                 }
             }
+            catch (JavaScriptException ex)
+            {
+                _customNotificationService.ShowNotification(new NotificationDTO
+                {
+                    Title = "JavaScript Error",
+                    Message = ex.Message,
+                    Icon = NotificationIcon.Error,
+                    Position = NotificationPosition.Center,
+                    ButtonType = NotificationButtonType.OK,
+                    DisplayDurationInSecond = 0,
+                    IsDialog = false,
+                });
+            }
+
+            return new object();
         }
 
         // JavaScript'ten tetiklenecek olan action fonksiyonu
-        private async void RunAction(string actionName)
+        private async Task<object> RunAction(string actionName)
         {
-            var appAction = await _appActionService.GetAppActionAsync(x => x.Name == actionName);
-            if (appAction != null)
+            try
             {
-                var action = _actionFactory.GetAction(appAction.ActionTypeId);
-                if (action != null)
+                var appAction = await _appActionService.GetAppActionAsync(x => x.Name == actionName);
+                if (appAction != null)
                 {
-                   await action?.Execute(appAction.Properties);
+                    var action = _actionFactory.GetAction(appAction.ActionTypeId);
+                    if (action != null)
+                    {
+                        var result = await action?.Execute(appAction.Properties);
+                        return result;
+                    }
                 }
             }
+            catch (JavaScriptException ex)
+            {
+                _customNotificationService.ShowNotification(new NotificationDTO
+                {
+                    Title = "JavaScript Error",
+                    Message = ex.Message,
+                    Icon = NotificationIcon.Error,
+                    Position = NotificationPosition.Center,
+                    ButtonType = NotificationButtonType.OK,
+                    DisplayDurationInSecond = 0,
+                    IsDialog = false,
+                });
+            }
+
+            return new object();
         }
 
         // SQL sorgularını çalıştıran method ve veri döndüren yeni method
         private List<Dictionary<string, object>> ExecuteSqlCommand(string sqlQuery)
         {
-            var result = new List<Dictionary<string, object>>();
-
-            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            try
             {
-                command.CommandText = sqlQuery;
-                _context.Database.OpenConnection();
+                var result = new List<Dictionary<string, object>>();
 
-                using (var reader = command.ExecuteReader())
+                using (var command = _context.Database.GetDbConnection().CreateCommand())
                 {
-                    while (reader.Read())
+                    command.CommandText = sqlQuery;
+                    _context.Database.OpenConnection();
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        var row = new Dictionary<string, object>();
-
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        while (reader.Read())
                         {
-                            row[reader.GetName(i)] = reader.GetValue(i);
-                        }
+                            var row = new Dictionary<string, object>();
 
-                        result.Add(row);
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                row[reader.GetName(i)] = reader.GetValue(i);
+                            }
+
+                            result.Add(row);
+                        }
                     }
+
+                    _context.Database.CloseConnection();
                 }
 
-                _context.Database.CloseConnection();
+                return result;
             }
+            catch (JavaScriptException ex)
+            {
+                _customNotificationService.ShowNotification(new NotificationDTO
+                {
+                    Title = "JavaScript Error",
+                    Message = ex.Message,
+                    Icon = NotificationIcon.Error,
+                    Position = NotificationPosition.Center,
+                    ButtonType = NotificationButtonType.OK,
+                    DisplayDurationInSecond = 0,
+                    IsDialog = false,
+                });
 
-            return result;
+                return default;
+            }
         }
     }
 }

@@ -192,7 +192,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         ),         
         (
             nameof(AppActionName),
-            async () => !(await _appActionService.GetAllAppActionsAsNoTrackingAsync(x => x.Name == AppActionName)).Any(),
+            async () => !(await _appActionService.GetAllAppActionsAsNoTrackingAsync(x => x.Name == AppActionName&& x.Id != AppActionId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(AppActionName))
         )
     };

@@ -58,7 +58,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             set
             {
                 _selectedTerminal = value;
-                TerminalName = value.Name ?? "";
+                TerminalName = value?.Name ?? "";
                 OnPropertyChanged();
             }
         }

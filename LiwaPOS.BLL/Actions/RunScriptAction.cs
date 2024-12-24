@@ -17,28 +17,29 @@ namespace LiwaPOS.BLL.Actions
             _javaScriptEngineService = javaScriptEngineService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var scriptProperties = JsonHelper.Deserialize<RunScriptDTO>(properties);
             if (scriptProperties == null)
-                return;
+                return new object();
 
             if (string.IsNullOrEmpty(scriptProperties.Name))
             {
                 await LoggingService.LogErrorAsync("Script name is null or empty.", typeof(RunScriptAction).Name, scriptProperties.ToString(), new ArgumentNullException());
-                return;
+                return new object();
             }
 
             // Veritabanından scripti al
             var script = await _scriptService.GetScriptAsNoTrackingAsync(x => x.Name == scriptProperties.Name);
             if (script == null)
-            {            
+            {
                 await LoggingService.LogErrorAsync($"No script found with name {scriptProperties.Name}.", typeof(RunScriptAction).Name, script?.ToString(), new ArgumentNullException());
-                return;
+                return new object();
             }
 
             // Script'i çalıştır
-            _javaScriptEngineService.ExecuteJavaScript(script.Code);
+            var result = _javaScriptEngineService.ExecuteJavaScript(script.Code);
+            return result;
         }
     }
 }

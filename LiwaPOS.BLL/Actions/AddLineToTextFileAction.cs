@@ -6,11 +6,11 @@ namespace LiwaPOS.BLL.Actions
 {
     public class AddLineToTextFileAction : IAction
     {
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var addLineToTextFileProperties = JsonHelper.Deserialize<AddLineToTextFileDTO>(properties);
             if (addLineToTextFileProperties == null)
-                return;
+                return false;
 
             var filePath = addLineToTextFileProperties.FilePath;
             var text = addLineToTextFileProperties.Text;
@@ -21,8 +21,13 @@ namespace LiwaPOS.BLL.Actions
                     Directory.CreateDirectory(dir);
 
                 await File.AppendAllTextAsync(filePath, text + Environment.NewLine);
+
+                return true;
             }
-            catch { }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -229,7 +229,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         ),
         (
             nameof(AutomationCommandName),
-            async () => !(await _automationCommandService.GetAllAutomationCommandsAsNoTrackingAsync(x => x.Name == AutomationCommandName)).Any(),
+            async () => !(await _automationCommandService.GetAllAutomationCommandsAsNoTrackingAsync(x => x.Name == AutomationCommandName&& x.Id != AutomationCommandId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(AutomationCommandName))
         )
     };

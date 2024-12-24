@@ -167,7 +167,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         ),       
         (
             nameof(TerminalName),
-            async () => !(await _terminalService.GetAllTerminalsAsNoTrackingAsync(x => x.Name == TerminalName)).Any(),
+            async () => !(await _terminalService.GetAllTerminalsAsNoTrackingAsync(x => x.Name == TerminalName&& x.Id != TerminalId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(TerminalName))
         )
     };

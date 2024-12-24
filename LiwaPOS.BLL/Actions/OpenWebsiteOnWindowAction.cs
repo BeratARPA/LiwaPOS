@@ -13,17 +13,19 @@ namespace LiwaPOS.BLL.Actions
             _webService = webService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var openWebsiteOnWindowProperties = JsonHelper.Deserialize<OpenWebsiteOnWindowDTO>(properties);
             if (openWebsiteOnWindowProperties == null)
-                return;
+                return false;
 
             string protocol = (bool)openWebsiteOnWindowProperties.UseHttps ? "https://{0}" : "http://{0}";
             string url = string.Format(protocol, openWebsiteOnWindowProperties.URL);
 
             _webService.OpenWebsiteOnWindow(openWebsiteOnWindowProperties.Title, (bool)openWebsiteOnWindowProperties.UseBorder, (bool)openWebsiteOnWindowProperties.UseFullscreen, (int)openWebsiteOnWindowProperties.Width, (int)openWebsiteOnWindowProperties.Height);
             await _webService.NavigateURL(url);
+
+            return true;
         }
     }
 }

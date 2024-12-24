@@ -1,6 +1,7 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
+using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.ViewModels.General;
 using LiwaPOS.WpfAppUI.Views;
 using System.Windows;
@@ -19,9 +20,10 @@ namespace LiwaPOS.WpfAppUI.Services
         { NotificationPosition.Center, new List<NotificationWindow>() }
     };
 
-        public void ShowNotification(NotificationDTO notification)
+        public bool ShowNotification(NotificationDTO notification)
         {
             var notificationWindow = new NotificationWindow(new NotificationViewModel(notification));
+            bool? result = false; // Geri dönecek sonuç
 
             notificationWindow.Loaded += (s, e) => ArrangeNotificationPosition(notificationWindow, notification.Position);
             notificationWindow.Closed += (s, e) =>
@@ -33,9 +35,11 @@ namespace LiwaPOS.WpfAppUI.Services
             _activeNotificationsByPosition[notification.Position].Add(notificationWindow);
 
             if (notification.IsDialog)
-                notificationWindow.ShowDialog();
+                result = notificationWindow.ShowDialog();
             else
                 notificationWindow.Show();
+
+            return result ?? false;
         }
 
         private void ArrangeNotificationPosition(NotificationWindow notificationWindow, NotificationPosition position)

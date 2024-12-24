@@ -13,11 +13,11 @@ namespace LiwaPOS.BLL.Actions
             _httpService = httpService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var sendHttpRequestProperties = JsonHelper.Deserialize<SendHttpRequestDTO>(properties);
             if (sendHttpRequestProperties == null)
-                return;
+                return "";
 
             HttpMethod httpMethod = HttpMethod.Get;
             switch (sendHttpRequestProperties.Method.ToUpper())
@@ -35,10 +35,12 @@ namespace LiwaPOS.BLL.Actions
                     httpMethod = HttpMethod.Delete;
                     break;
                 default:
-                    break;
+                    throw new ArgumentException($"Unsupported HTTP method: {sendHttpRequestProperties.Method}");                   
             }
 
-            await _httpService.SendAsync<string, string>(httpMethod, sendHttpRequestProperties.Url, sendHttpRequestProperties.Data, null, sendHttpRequestProperties.Accept);
+            var result = await _httpService.SendAsync<string, string>(httpMethod, sendHttpRequestProperties.Url, sendHttpRequestProperties.Data, null, sendHttpRequestProperties.Accept);
+
+            return result;
         }
     }
 }

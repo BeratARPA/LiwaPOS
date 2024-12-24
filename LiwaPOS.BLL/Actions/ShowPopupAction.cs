@@ -13,13 +13,14 @@ namespace LiwaPOS.BLL.Actions
             _customNotificationService = customNotificationService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var popupProperties = JsonHelper.Deserialize<NotificationDTO>(properties);
             if (popupProperties == null)
-                return;
+                return false;
 
-            _customNotificationService.ShowNotification(popupProperties);
+            var result = _customNotificationService.ShowNotification(popupProperties);
+            return result;
         }
     }
 }

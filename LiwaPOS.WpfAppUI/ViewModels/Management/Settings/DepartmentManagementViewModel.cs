@@ -99,7 +99,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         ),
         (
             nameof(DepartmentName),
-            async () => !(await _departmentService.GetAllDepartmentsAsNoTrackingAsync(x => x.Name == DepartmentName)).Any(),
+            async () => !(await _departmentService.GetAllDepartmentsAsNoTrackingAsync(x => x.Name == DepartmentName&& x.Id != DepartmentId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(DepartmentName))
         )
     };

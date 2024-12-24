@@ -138,6 +138,7 @@ namespace LiwaPOS.WpfAppUI
                 var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
                 var applicationStateService = _serviceProvider.GetRequiredService<IApplicationStateService>();
                 GlobalVariables.Navigator = new NavigatorService(_serviceProvider, applicationStateService, appRuleManager);
+
                 // Uygulamayı başlat
                 var shell = _serviceProvider.GetRequiredService<Shell>();
                 shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();

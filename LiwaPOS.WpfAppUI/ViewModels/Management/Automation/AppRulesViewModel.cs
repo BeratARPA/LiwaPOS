@@ -83,8 +83,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
 
             // ICollectionView ile gruplama ve sıralama işlemleri
             FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
-            FilteredCommands.GroupDescriptions.Add(new PropertyGroupDescription("Type"));
-            FilteredCommands.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
+            FilteredCommands.GroupDescriptions.Add(new PropertyGroupDescription("EventTypeId"));
+            FilteredCommands.SortDescriptions.Add(new SortDescription("EventTypeId", ListSortDirection.Ascending));
             FilteredCommands.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
         }
 

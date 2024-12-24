@@ -15,16 +15,18 @@ namespace LiwaPOS.BLL.Actions
             _googleMapService = googleMapService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var showGoogleMapsDirectionProperties = JsonHelper.Deserialize<ShowGoogleMapsDirectionDTO>(properties);
             if (showGoogleMapsDirectionProperties == null)
-                return;
+                return false;
 
             string content = await _googleMapService.GetDirectionAsync(showGoogleMapsDirectionProperties);
 
             _webService.OpenWebsiteOnWindow();
             _webService.NavigateHTMLContent(content);
+
+            return true;
         }
     }
 }

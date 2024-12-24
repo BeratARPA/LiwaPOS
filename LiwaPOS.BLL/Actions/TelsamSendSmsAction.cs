@@ -13,13 +13,14 @@ namespace LiwaPOS.BLL.Actions
             _smsService = smsService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var smsProperties = JsonHelper.Deserialize<TelsamSmsDTO>(properties);
             if (smsProperties == null)
-                return;
+                return false;
 
             await _smsService.SendSmsAsync(smsProperties);
+            return true;
         }
     }
 }

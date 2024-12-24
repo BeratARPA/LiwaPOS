@@ -24,6 +24,20 @@ namespace LiwaPOS.WpfAppUI.Views
             {
                 SetDialogResult(result); // Pencereyi kapatma işlemi
             };
+
+            ChangeColor();
+        }
+
+        private void ChangeColor()
+        {
+            if (_viewModel.Icon == NotificationIcon.Warning)
+                BorderOuter.Background = System.Windows.Media.Brushes.Orange;
+            else if (_viewModel.Icon == NotificationIcon.Error)
+                BorderOuter.Background = System.Windows.Media.Brushes.DarkRed;
+            else if (_viewModel.Icon == NotificationIcon.Information)
+                BorderOuter.Background = System.Windows.Media.Brushes.DodgerBlue;
+            else
+                BorderOuter.Background = System.Windows.Media.Brushes.LightSlateGray;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

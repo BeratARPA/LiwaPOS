@@ -9,12 +9,13 @@ namespace LiwaPOS.BLL.Actions
 
         public LogoutUserAction(UserManager userManager)
         {
-           _userManager = userManager;
+            _userManager = userManager;
         }
 
-        public async Task Execute(string properties)
-        {           
-           await _userManager.Logout();
+        public async Task<object> Execute(string properties)
+        {
+            bool isSuccessful = await _userManager.Logout();
+            return isSuccessful;
         }
     }
 }

@@ -8,23 +8,20 @@ namespace LiwaPOS.BLL.Actions
     public class LoginUserAction : IAction
     {
         private readonly UserManager _userManager;
-        private readonly INavigatorService _navigatorService;
-        private readonly IApplicationStateService _applicationStateService;
 
-        public LoginUserAction(UserManager userManager, INavigatorService navigatorService, IApplicationStateService applicationStateService)
+        public LoginUserAction(UserManager userManager)
         {
             _userManager = userManager;
-            _navigatorService = navigatorService;
-            _applicationStateService = applicationStateService;
         }
 
-        public async Task Execute(string properties)
+        public async Task<object> Execute(string properties)
         {
             var loginUserProperties = JsonHelper.Deserialize<LoginUserDTO>(properties);
             if (loginUserProperties == null)
-                return;
+                return false;
 
-            bool isSuccessful = await _userManager.Login(loginUserProperties.PinCode);            
+            bool isSuccessful = await _userManager.Login(loginUserProperties.PinCode);
+            return isSuccessful;
         }
     }
 }

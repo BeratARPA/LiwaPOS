@@ -31,7 +31,7 @@ namespace LiwaPOS.BLL.Factories
         {
             _serviceProvider = serviceProvider;
         }
-
+       
         public IAction GetAction(ActionType actionType)
         {
             if (_actions.TryGetValue(actionType, out var actionTypeInstance))

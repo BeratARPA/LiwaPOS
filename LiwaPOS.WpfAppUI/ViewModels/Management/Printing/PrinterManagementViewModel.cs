@@ -111,7 +111,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
         ),
         (
             nameof(PrinterName),
-            async () => !(await _printerService.GetAllPrintersAsNoTrackingAsync(x => x.Name == PrinterName)).Any(),
+            async () => !(await _printerService.GetAllPrintersAsNoTrackingAsync(x => x.Name == PrinterName&& x.Id != PrinterId)).Any(),
             string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(PrinterName))
         )
     };
