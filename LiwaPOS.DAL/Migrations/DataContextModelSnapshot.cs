@@ -22,6 +22,42 @@ namespace LiwaPOS.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ActionContainer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppActionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AppRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomConstraint")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsAsync")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParameterValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppRuleId");
+
+                    b.ToTable("ActionContainer");
+                });
+
             modelBuilder.Entity("LiwaPOS.Entities.Entities.AppAction", b =>
                 {
                     b.Property<int>("Id")
@@ -176,6 +212,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AutomationCommandId");
+
                     b.ToTable("AutomationCommandMaps");
                 });
 
@@ -263,6 +301,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EntityTypeId");
+
                     b.ToTable("EntityCustomFields");
                 });
 
@@ -344,6 +384,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MenuItemId");
+
                     b.ToTable("MenuItemPortions");
                 });
 
@@ -364,7 +406,12 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("PriceTag")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("MenuItemPortionId");
 
                     b.ToTable("MenuItemPrices");
                 });
@@ -390,6 +437,8 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Permissions");
                 });
@@ -481,6 +530,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PrintJobId");
+
                     b.ToTable("PrinterMaps");
                 });
 
@@ -540,6 +591,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppRuleId");
+
                     b.ToTable("RuleActionMaps");
                 });
 
@@ -590,6 +643,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ScreenMenuId");
+
                     b.ToTable("ScreenMenuCategories");
                 });
 
@@ -617,6 +672,8 @@ namespace LiwaPOS.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ScreenMenuCategoryId");
 
                     b.ToTable("ScreenMenuItems");
                 });
@@ -743,6 +800,8 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserRoleId");
+
                     b.ToTable("Users");
                 });
 
@@ -756,6 +815,9 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.Property<Guid>("EntityGuid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -807,6 +869,156 @@ namespace LiwaPOS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WarehouseTypes");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ActionContainer", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.AppRule", null)
+                        .WithMany("ActionContainers")
+                        .HasForeignKey("AppRuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.AutomationCommandMap", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.AutomationCommand", null)
+                        .WithMany("AutomationCommandMaps")
+                        .HasForeignKey("AutomationCommandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.EntityCustomField", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.EntityType", "EntityType")
+                        .WithMany("EntityCustomFields")
+                        .HasForeignKey("EntityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EntityType");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.MenuItemPortion", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.MenuItem", null)
+                        .WithMany("MenuItemPortions")
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.MenuItemPrice", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.MenuItemPortion", null)
+                        .WithMany("MenuItemPrices")
+                        .HasForeignKey("MenuItemPortionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.Permission", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.UserRole", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.PrinterMap", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.PrintJob", null)
+                        .WithMany("PrinterMaps")
+                        .HasForeignKey("PrintJobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.AppRule", null)
+                        .WithMany("RuleActionMaps")
+                        .HasForeignKey("AppRuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ScreenMenuCategory", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.ScreenMenu", null)
+                        .WithMany("ScreenMenuCategories")
+                        .HasForeignKey("ScreenMenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ScreenMenuItem", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.ScreenMenuCategory", null)
+                        .WithMany("ScreenMenuItems")
+                        .HasForeignKey("ScreenMenuCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.User", b =>
+                {
+                    b.HasOne("LiwaPOS.Entities.Entities.UserRole", "UserRole")
+                        .WithMany()
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.AppRule", b =>
+                {
+                    b.Navigation("ActionContainers");
+
+                    b.Navigation("RuleActionMaps");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.AutomationCommand", b =>
+                {
+                    b.Navigation("AutomationCommandMaps");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.EntityType", b =>
+                {
+                    b.Navigation("EntityCustomFields");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.MenuItem", b =>
+                {
+                    b.Navigation("MenuItemPortions");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.MenuItemPortion", b =>
+                {
+                    b.Navigation("MenuItemPrices");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.PrintJob", b =>
+                {
+                    b.Navigation("PrinterMaps");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ScreenMenu", b =>
+                {
+                    b.Navigation("ScreenMenuCategories");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ScreenMenuCategory", b =>
+                {
+                    b.Navigation("ScreenMenuItems");
+                });
+
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.UserRole", b =>
+                {
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }

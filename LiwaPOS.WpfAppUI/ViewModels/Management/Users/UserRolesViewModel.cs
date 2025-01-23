@@ -14,6 +14,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         private ObservableCollection<UserRoleDTO> _commands;
         private ObservableCollection<UserRoleDTO> _filteredCommands;
         private readonly IUserRoleService _userRoleService;
+        private readonly IPermissionService _permissionService;
 
         public string SearchText
         {
@@ -61,9 +62,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         public ICommand DeleteCommand { get; }
         public ICommand ReorderCommand { get; }
 
-        public UserRolesViewModel(IUserRoleService userRoleService)
+        public UserRolesViewModel(IUserRoleService userRoleService, IPermissionService permissionService)
         {
             _userRoleService = userRoleService;
+            _permissionService = permissionService;
 
             _ = LoadUserRolesAsync();
 
@@ -115,8 +117,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         private async void DeleteSelectedCommand(object obj)
         {
             if (SelectedCommand != null)
-            {
+            {               
                 await _userRoleService.DeleteUserRoleAsync(SelectedCommand.Id);
+                await _permissionService.DeleteAllPermissionsAsync(x => x.UserRoleId == SelectedCommand.Id);
                 Commands.Remove(SelectedCommand);
                 FilterCommands();
             }

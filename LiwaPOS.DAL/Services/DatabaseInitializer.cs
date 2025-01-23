@@ -71,18 +71,18 @@ namespace LiwaPOS.DAL.Services
 
         private void SeedData()
         {
-            int userRoleId = 0;
+            UserRole? currentUserRole = null;
 
             if (!_context.UserRoles.Any())
             {
                 var userRole = new UserRole
                 {
                     EntityGuid = Guid.NewGuid(),
-                    Name = "Admin"
+                    Name = "Admin",
+                    IsAdmin = true
                 };
 
-                var currentUserRole = _context.UserRoles.Add(userRole);
-                userRoleId = currentUserRole.Entity.Id;
+                currentUserRole = _context.UserRoles.Add(userRole).Entity;
                 _context.SaveChanges();
             }
 
@@ -91,9 +91,9 @@ namespace LiwaPOS.DAL.Services
                 var user = new User
                 {
                     EntityGuid = Guid.NewGuid(),
-                    Name = "Admin",
+                    Name = "Administrator",
                     PinCode = "1234",
-                    UserRoleId = userRoleId
+                    UserRole = currentUserRole
                 };
 
                 _context.Users.Add(user);
@@ -131,21 +131,23 @@ namespace LiwaPOS.DAL.Services
 
             if (!_context.Printers.Any())
             {
+                string defaultPrinterName = PrinterHelper.GetDefaultPrinter();
+
                 var printers = new List<Printer>
                 {
                     new Printer
                     {
                         EntityGuid = Guid.NewGuid(),
                         Name = "Ticket Printer",
-                        ShareName = "",
+                        ShareName = defaultPrinterName,
                         RTLMode = false,
                         CharReplacement = ""
-                    }, 
+                    },
                     new Printer
                     {
                         EntityGuid = Guid.NewGuid(),
                         Name = "Kitchen Printer",
-                        ShareName = "",
+                        ShareName = defaultPrinterName,
                         RTLMode = false,
                         CharReplacement = ""
                     },
@@ -153,11 +155,11 @@ namespace LiwaPOS.DAL.Services
                     {
                         EntityGuid = Guid.NewGuid(),
                         Name = "Invoice Printer",
-                        ShareName = "",
+                        ShareName = defaultPrinterName,
                         RTLMode = false,
                         CharReplacement = ""
                     },
-                };               
+                };
 
                 _context.Printers.AddRange(printers);
                 _context.SaveChanges();

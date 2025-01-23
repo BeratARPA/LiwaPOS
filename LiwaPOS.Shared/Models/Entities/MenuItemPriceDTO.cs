@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public Guid EntityGuid { get; set; }
         public int MenuItemPortionId { get; set; }
+        public string? PriceTag { get; set; }
         public double Price { get; set; }
     }
 }

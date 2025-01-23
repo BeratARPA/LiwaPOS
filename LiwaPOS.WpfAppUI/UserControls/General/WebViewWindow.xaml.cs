@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace LiwaPOS.WpfAppUI.Views
+namespace LiwaPOS.WpfAppUI.UserControls.General
 {
     /// <summary>
     /// Interaction logic for WebViewWindow.xaml

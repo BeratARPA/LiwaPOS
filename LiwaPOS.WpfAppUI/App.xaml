@@ -16,6 +16,9 @@
 
                 <!-- Contains all of the control styles (Button, ListBox, etc) -->
                 <ResourceDictionary Source="Themes/Controls.xaml"/>
+
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+                <ResourceDictionary Source="Resources/ManagementIcons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

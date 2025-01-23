@@ -20,5 +20,7 @@
         public bool AskTextInput { get; set; }
         public bool AskNumericInput { get; set; }
         public string? Name { get; set; }
+
+        public ICollection<AutomationCommandMap>? AutomationCommandMaps { get; set; }
     }
 }

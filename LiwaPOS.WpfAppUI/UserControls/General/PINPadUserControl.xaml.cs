@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace LiwaPOS.WpfAppUI.UserControls
+namespace LiwaPOS.WpfAppUI.UserControls.General
 {
     /// <summary>
     /// Interaction logic for PINPadUserControl.xaml

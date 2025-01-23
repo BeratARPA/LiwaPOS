@@ -2,6 +2,7 @@
 {
     public interface IUnitOfWork : IAsyncDisposable, IDisposable
     {
+        IActionContainerRepository ActionContainers { get; }
         IAppRuleRepository AppRules { get; }
         IAppActionRepository AppActions { get; }
         IAutomationCommandRepository AutomationCommands { get; }
@@ -13,6 +14,7 @@
         ITerminalRepository Terminals { get; }
         IDepartmentRepository Departments { get; }
         IPrinterRepository Printers { get; }
+        IPermissionRepository Permissions { get; }
 
         Task CommitAsync();
         Task BeginTransactionAsync();

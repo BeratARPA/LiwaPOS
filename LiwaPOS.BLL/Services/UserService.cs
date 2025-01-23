@@ -11,11 +11,13 @@ namespace LiwaPOS.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IRelationshipChecker _relationshipChecker;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IRelationshipChecker relationshipChecker)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _relationshipChecker = relationshipChecker;
         }
 
         public async Task AddUserAsync(UserDTO userDto)
@@ -30,15 +32,27 @@ namespace LiwaPOS.BLL.Services
 
         public async Task DeleteAllUsersAsync(Expression<Func<User, bool>> filter = null, IEnumerable<User> entities = null)
         {
+            var toDeleteEntities = entities?.ToList() ?? await _unitOfWork.Users.GetAllAsync(filter);
+            foreach (var user in toDeleteEntities)
+            {
+                var hasRelationship = await _relationshipChecker.HasRelationshipAsync<User>(user.Id, u => u.UserRoleId);
+                if (hasRelationship)
+                    throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+            }
+
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
-                await _unitOfWork.Users.DeleteAllAsync(filter,entities);
+                await _unitOfWork.Users.DeleteAllAsync(filter, entities);
                 await _unitOfWork.CommitAsync();
             });
         }
 
         public async Task DeleteUserAsync(int id)
         {
+            var hasRelationship = await _relationshipChecker.HasRelationshipAsync<User>(id, u => u.UserRoleId);
+            if (hasRelationship)
+                throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
                 await _unitOfWork.Users.DeleteAsync(id);

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
-namespace LiwaPOS.WpfAppUI.Themes {
+namespace LiwaPOS.WpfAppUI.Themes
+{
     public static class ThemesController {
         public static ThemeType CurrentTheme { get; set; }
 

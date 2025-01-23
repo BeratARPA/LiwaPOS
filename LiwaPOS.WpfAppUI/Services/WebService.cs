@@ -1,6 +1,6 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Services;
-using LiwaPOS.WpfAppUI.Views;
+using LiwaPOS.WpfAppUI.UserControls.General;
 using Microsoft.Web.WebView2.Wpf;
 using System.Windows;
 

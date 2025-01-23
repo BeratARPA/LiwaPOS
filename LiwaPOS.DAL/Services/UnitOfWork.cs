@@ -8,6 +8,7 @@ namespace LiwaPOS.DAL.Services
     {
         private readonly DataContext _context;
 
+        private IActionContainerRepository _actionContainers;
         private IAppRuleRepository _appRules;
         private IAppActionRepository _appActions;
         private IAutomationCommandRepository _automationCommands;
@@ -19,12 +20,14 @@ namespace LiwaPOS.DAL.Services
         private IUserRepository _users;
         private IUserRoleRepository _userRoles;
         private IPrinterRepository _printers;
+        private IPermissionRepository _permissions;
 
         public UnitOfWork(DataContext context)
         {
             _context = context;
         }
-  
+
+        public IActionContainerRepository ActionContainers => _actionContainers ??= new ActionContainerRepository(_context);
         public IAppRuleRepository AppRules => _appRules ??= new AppRuleRepository(_context);
         public IAppActionRepository AppActions => _appActions ??= new AppActionRepository(_context);
         public IAutomationCommandRepository AutomationCommands => _automationCommands ??= new AutomationCommandRepository(_context);
@@ -36,6 +39,7 @@ namespace LiwaPOS.DAL.Services
         public ITerminalRepository Terminals => _terminals ??= new TerminalRepository(_context);
         public IDepartmentRepository Departments => _departments ??= new DepartmentRepository(_context);
         public IPrinterRepository Printers => _printers ??= new PrinterRepository(_context);
+        public IPermissionRepository Permissions => _permissions ??= new PermissionRepository(_context);
 
         public async Task CommitAsync()
         {

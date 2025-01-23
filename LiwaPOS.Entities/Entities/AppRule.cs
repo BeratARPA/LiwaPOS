@@ -8,5 +8,8 @@ namespace LiwaPOS.Entities.Entities
         public string? Constraints { get; set; }
         public ConditionMatchType ConditionMatchTypeId { get; set; }
         public EventType EventTypeId { get; set; }
+
+        public ICollection<ActionContainer>? ActionContainers { get; set; }
+        public ICollection<RuleActionMap>? RuleActionMaps { get; set; }
     }
 }

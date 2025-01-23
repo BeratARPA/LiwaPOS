@@ -86,4 +86,10 @@
     <Folder Include="ViewModels\Management\Reports\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Resources\Icons.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+
 </Project>

@@ -12,14 +12,18 @@ using LiwaPOS.WpfAppUI.Locators;
 using LiwaPOS.WpfAppUI.Properties;
 using LiwaPOS.WpfAppUI.Services;
 using LiwaPOS.WpfAppUI.Themes;
-using LiwaPOS.WpfAppUI.UserControls;
+using LiwaPOS.WpfAppUI.UserControls.General;
+using LiwaPOS.WpfAppUI.UserControls.Management;
+using LiwaPOS.WpfAppUI.UserControls.Management.Automations;
+using LiwaPOS.WpfAppUI.UserControls.Management.Printing;
+using LiwaPOS.WpfAppUI.UserControls.Management.Settings;
+using LiwaPOS.WpfAppUI.UserControls.Management.Users;
 using LiwaPOS.WpfAppUI.ViewModels.General;
 using LiwaPOS.WpfAppUI.ViewModels.Management;
 using LiwaPOS.WpfAppUI.ViewModels.Management.Automation;
 using LiwaPOS.WpfAppUI.ViewModels.Management.Printing;
 using LiwaPOS.WpfAppUI.ViewModels.Management.Settings;
 using LiwaPOS.WpfAppUI.ViewModels.Management.Users;
-using LiwaPOS.WpfAppUI.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -34,15 +38,16 @@ namespace LiwaPOS.WpfAppUI
 
         private void ConfigureServices(IServiceCollection services)
         {
-            // Entities servisleri
+            // Entities services
             services.AddEntitiesLayer();
 
-            // Data Access Layer servisleri
+            // Data Access Layer services
             services.AddDataAccessLayer();
 
-            // Business Logic Layer servisleri
+            // Business Logic Layer services
             services.AddBusinessLogicLayer();
 
+            // Services
             services.AddSingleton<ICustomNotificationService, CustomNotificationService>();
             services.AddSingleton<IApplicationStateService, ApplicationStateService>();
             services.AddSingleton<INavigatorService, NavigatorService>();
@@ -68,7 +73,9 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<DepartmentsViewModel>();
             services.AddTransient<DepartmentManagementViewModel>();
             services.AddTransient<PrinterManagementViewModel>();
+            services.AddTransient<PrinterTemplateManagementViewModel>();
             services.AddTransient<PrintersViewModel>();
+            services.AddTransient<PrinterTemplatesViewModel>();
             services.AddTransient<UsersViewModel>();
             services.AddTransient<UserManagementViewModel>();
             services.AddTransient<UserRoleManagementViewModel>();
@@ -93,7 +100,9 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<DepartmentsUserControl>();
             services.AddTransient<DepartmentManagementUserControl>();
             services.AddTransient<PrinterManagementUserControl>();
+            services.AddTransient<PrinterTemplateManagementUserControl>();
             services.AddTransient<PrintersUserControl>();
+            services.AddTransient<PrinterTemplatesUserControl>();
             services.AddTransient<UsersUserControl>();
             services.AddTransient<UserRolesUserControl>();
             services.AddTransient<UserManagementUserControl>();

@@ -4,6 +4,7 @@ using LiwaPOS.DAL.Interfaces;
 using LiwaPOS.Entities.Entities;
 using LiwaPOS.Shared.Models.Entities;
 using System.Linq.Expressions;
+using System.Security;
 
 namespace LiwaPOS.BLL.Services
 {
@@ -11,11 +12,13 @@ namespace LiwaPOS.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IRelationshipChecker _relationshipChecker;
 
-        public UserRoleService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserRoleService(IUnitOfWork unitOfWork, IMapper mapper, IRelationshipChecker relationshipChecker)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _relationshipChecker = relationshipChecker;
         }
 
         public async Task AddUserRoleAsync(UserRoleDTO userRoleDto)
@@ -30,6 +33,14 @@ namespace LiwaPOS.BLL.Services
 
         public async Task DeleteAllUserRolesAsync(Expression<Func<UserRole, bool>> filter = null, IEnumerable<UserRole> entities = null)
         {
+            var toDeleteEntities = entities?.ToList() ?? await _unitOfWork.UserRoles.GetAllAsync(filter);
+            foreach (var user in toDeleteEntities)
+            {
+                var hasRelationship = await _relationshipChecker.HasRelationshipAsync<UserRole>(user.Id, u => u.Id);
+                if (hasRelationship)
+                    throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+            }
+
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
                 await _unitOfWork.UserRoles.DeleteAllAsync(filter, entities);
@@ -39,6 +50,10 @@ namespace LiwaPOS.BLL.Services
 
         public async Task DeleteUserRoleAsync(int id)
         {
+            var hasRelationship = await _relationshipChecker.HasRelationshipAsync<UserRole>(id, u => u.Id);
+            if (hasRelationship)
+                throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
                 await _unitOfWork.UserRoles.DeleteAsync(id);

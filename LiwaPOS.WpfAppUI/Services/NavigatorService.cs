@@ -3,7 +3,12 @@ using LiwaPOS.BLL.Managers;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.WpfAppUI.Helpers;
-using LiwaPOS.WpfAppUI.UserControls;
+using LiwaPOS.WpfAppUI.UserControls.General;
+using LiwaPOS.WpfAppUI.UserControls.Management;
+using LiwaPOS.WpfAppUI.UserControls.Management.Automations;
+using LiwaPOS.WpfAppUI.UserControls.Management.Printing;
+using LiwaPOS.WpfAppUI.UserControls.Management.Settings;
+using LiwaPOS.WpfAppUI.UserControls.Management.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 
@@ -36,6 +41,12 @@ namespace LiwaPOS.WpfAppUI.Services
                 throw new InvalidOperationException("Frame has not been set in NavigatorService.");
             }
 
+            if (string.IsNullOrWhiteSpace(viewName))
+            {
+                _frame.Content = null;
+                return;
+            }
+
             Type pageType = viewName switch
             {
                 "AppActionManagement" => typeof(AppActionManagementUserControl),
@@ -49,7 +60,9 @@ namespace LiwaPOS.WpfAppUI.Services
                 "ScriptManagement" => typeof(ScriptManagementUserControl),
                 "Scripts" => typeof(ScriptsUserControl),
                 "Printers" => typeof(PrintersUserControl),
+                "PrinterTemplates" => typeof(PrinterTemplatesUserControl),
                 "PrinterManagement" => typeof(PrinterManagementUserControl),
+                "PrinterTemplateManagement" => typeof(PrinterTemplateManagementUserControl),
                 "Terminals" => typeof(TerminalsUserControl),
                 "Users" => typeof(UsersUserControl),
                 "UserManagement" => typeof(UserManagementUserControl),

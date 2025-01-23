@@ -1,8 +1,10 @@
 ﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
@@ -67,6 +69,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
             }
         }
 
+        public ObservableCollection<string> _windowsPrinters;
+        public ObservableCollection<string> WindowsPrinters
+        {
+            get => _windowsPrinters;
+            set
+            {
+                _windowsPrinters = value;
+                OnPropertyChanged(nameof(WindowsPrinters));
+            }
+        }
+
         public ICommand SaveCommand { get; }
         public ICommand CloseCommand { get; }
 
@@ -75,8 +88,16 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
             _printerService = printerService;
             _customNotificationService = customNotificationService;
 
+            _ = LoadWindowsPrintersAsync();
+
             SaveCommand = new AsyncRelayCommand(SaveScript);
             CloseCommand = new AsyncRelayCommand(ClosePage);
+        }
+
+        private async Task LoadWindowsPrintersAsync()
+        {
+            var data = PrinterHelper.GetPrinters();
+            WindowsPrinters = new ObservableCollection<string>(data);
         }
 
         public void SetParameter(dynamic parameter)

@@ -5,5 +5,7 @@
         public string? Name { get; set; }
         public string? Header { get; set; }
         public int ScreenMenuId { get; set; }
+
+        public ICollection<ScreenMenuItem>? ScreenMenuItems { get; set; }
     }
 }

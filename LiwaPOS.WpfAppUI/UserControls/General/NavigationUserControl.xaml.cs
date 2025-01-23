@@ -1,6 +1,6 @@
 ﻿using LiwaPOS.WpfAppUI.Helpers;
 
-namespace LiwaPOS.WpfAppUI.UserControls
+namespace LiwaPOS.WpfAppUI.UserControls.General
 {
     /// <summary>
     /// Interaction logic for NavigationUserControl.xaml

@@ -550,5 +550,137 @@
   {
     "Key": "PinCode",
     "Value": "Pin Kodu"
+  },
+  {
+    "Key": "Permissions",
+    "Value": "Yetkiler"
+  },
+  {
+    "Key": "ExitFullscreen",
+    "Value": "Tam ekrandan çıkabilir"
+  },
+  {
+    "Key": "ViewAccountScreen",
+    "Value": "Hesap ekranını görüntüleyebilir"
+  },
+  {
+    "Key": "ViewStockNavigation",
+    "Value": "Navigasyonu görebilir Stok"
+  },
+  {
+    "Key": "AccessManagement",
+    "Value": "Yönetime girebilir"
+  },
+  {
+    "Key": "ViewMarketNavigation",
+    "Value": "Navigasyonu görebilir Market"
+  },
+  {
+    "Key": "AccessNavigation",
+    "Value": "Navigasyona girebilir"
+  },
+  {
+    "Key": "PerformEndOfDay",
+    "Value": "Gün sonu yapabilir"
+  },
+  {
+    "Key": "AdminPinApproval",
+    "Value": "Admin PIN'i onay verebilir"
+  },
+  {
+    "Key": "OpenReports",
+    "Value": "Raporları açabilir"
+  },
+  {
+    "Key": "CreateAccount",
+    "Value": "Hesap açabilir"
+  },
+  {
+    "Key": "UnlockBill",
+    "Value": "Adisyon kilidini kaldırabilir"
+  },
+  {
+    "Key": "RemoveBillTag",
+    "Value": "Adisyon etiketini kaldırabilir"
+  },
+  {
+    "Key": "MergeBills",
+    "Value": "Adisyonları birleştirebilir"
+  },
+  {
+    "Key": "ViewOldBills",
+    "Value": "Eski adisyonları görüntüleyebilir"
+  },
+  {
+    "Key": "AddExtraFeature",
+    "Value": "Ekstra özellik girebilir"
+  },
+  {
+    "Key": "ViewOthersDocuments",
+    "Value": "Diğer personellerin belgelerini görebilir"
+  },
+  {
+    "Key": "ModifyBillExistence",
+    "Value": "Adisyon varlığını değiştirebilir"
+  },
+  {
+    "Key": "ChangeOrderQuantity",
+    "Value": "Sipariş miktarını değiştirebilir"
+  },
+  {
+    "Key": "ChangeSelectedOrderQuantity",
+    "Value": "Seçili sipariş miktarını değiştirebilir"
+  },
+  {
+    "Key": "AllowRefund",
+    "Value": "İade yapabilir"
+  },
+  {
+    "Key": "ViewOpenBills",
+    "Value": "Açık adisyonları görebilir"
+  },
+  {
+    "Key": "ViewBillsDuringPayment",
+    "Value": "Ödemede tüm adisyonları görüntüleyebilir"
+  },
+  {
+    "Key": "CloseTips",
+    "Value": "Tip'leri kapatabilir"
+  },
+  {
+    "Key": "CanPerformEndOfDay",
+    "Value": "Gün sonu yapabilir mi?"
+  },
+  {
+    "Key": "ChangeReportDate",
+    "Value": "Rapor tarihini değiştirebilir"
+  },
+  {
+    "Key": "ChangeDepartment",
+    "Value": "Departman değiştirebilir"
+  },
+  {
+    "Key": "AddUserRole",
+    "Value": "Rol Ekle"
+  },
+  {
+    "Key": "EditUserRole",
+    "Value": "Rol Düzenle"
+  },
+  {
+    "Key": "DeleteUserRole",
+    "Value": "Rol Sil"
+  },
+  {
+    "Key": "AddPrinterTemplate",
+    "Value": "Yazıcı Şablonu Ekle"
+  },
+  {
+    "Key": "EditPrinterTemplate",
+    "Value": "Yazıcı Şablonu Düzenle"
+  },
+  {
+    "Key": "DeletePrinterTemplate",
+    "Value": "Yazıcı Şablonu Sil"
   }
 ]

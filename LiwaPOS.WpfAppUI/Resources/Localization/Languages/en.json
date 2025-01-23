@@ -550,5 +550,137 @@
   {
     "Key": "PinCode",
     "Value": "Pin Code"
+  },
+  {
+    "Key": "Permissions",
+    "Value": "Permissions"
+  },
+  {
+    "Key": "ExitFullscreen",
+    "Value": "Exit fullscreen"
+  },
+  {
+    "Key": "ViewAccountScreen",
+    "Value": "View account screen"
+  },
+  {
+    "Key": "ViewStockNavigation",
+    "Value": "View Stock Navigation"
+  },
+  {
+    "Key": "AccessManagement",
+    "Value": "Access Management"
+  },
+  {
+    "Key": "ViewMarketNavigation",
+    "Value": "View Market Navigation"
+  },
+  {
+    "Key": "AccessNavigation",
+    "Value": "Access Navigation"
+  },
+  {
+    "Key": "PerformEndOfDay",
+    "Value": "Perform end of day"
+  },
+  {
+    "Key": "AdminPinApproval",
+    "Value": "Admin PIN approval"
+  },
+  {
+    "Key": "OpenReports",
+    "Value": "Open reports"
+  },
+  {
+    "Key": "CreateAccount",
+    "Value": "Create account"
+  },
+  {
+    "Key": "UnlockBill",
+    "Value": "Unlock bill"
+  },
+  {
+    "Key": "RemoveBillTag",
+    "Value": "Remove bill tag"
+  },
+  {
+    "Key": "MergeBills",
+    "Value": "Merge bills"
+  },
+  {
+    "Key": "ViewOldBills",
+    "Value": "View old bills"
+  },
+  {
+    "Key": "AddExtraFeature",
+    "Value": "Add extra feature"
+  },
+  {
+    "Key": "ViewOthersDocuments",
+    "Value": "View others' documents"
+  },
+  {
+    "Key": "ModifyBillExistence",
+    "Value": "Modify bill existence"
+  },
+  {
+    "Key": "ChangeOrderQuantity",
+    "Value": "Change order quantity"
+  },
+  {
+    "Key": "ChangeSelectedOrderQuantity",
+    "Value": "Change selected order quantity"
+  },
+  {
+    "Key": "AllowRefund",
+    "Value": "Allow refund"
+  },
+  {
+    "Key": "ViewOpenBills",
+    "Value": "View open bills"
+  },
+  {
+    "Key": "ViewBillsDuringPayment",
+    "Value": "View all bills during payment"
+  },
+  {
+    "Key": "CloseTips",
+    "Value": "Close tips"
+  },
+  {
+    "Key": "CanPerformEndOfDay",
+    "Value": "Can perform end of day?"
+  },
+  {
+    "Key": "ChangeReportDate",
+    "Value": "Change report date"
+  },
+  {
+    "Key": "ChangeDepartment",
+    "Value": "Change department"
+  },
+  {
+    "Key": "AddUserRole",
+    "Value": "Add Role"
+  },
+  {
+    "Key": "EditUserRole",
+    "Value": "Edit Role"
+  },
+  {
+    "Key": "DeleteUserRole",
+    "Value": "Delete Role"
+  },
+  {
+    "Key": "AddPrinterTemplate",
+    "Value": "Add Printer Template"
+  },
+  {
+    "Key": "EditPrinterTemplate",
+    "Value": "Edit Printer Template"
+  },
+  {
+    "Key": "DeletePrinterTemplate",
+    "Value": "Delete Printer Template"
   }
 ]

@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Users;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace LiwaPOS.WpfAppUI.UserControls
+namespace LiwaPOS.WpfAppUI.UserControls.Management.Users
 {
     /// <summary>
     /// Interaction logic for UserRolesUserControl.xaml
@@ -23,6 +12,15 @@ namespace LiwaPOS.WpfAppUI.UserControls
         public UserRolesUserControl()
         {
             InitializeComponent();
+        }
+
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = DataContext as UserRolesViewModel;
+            if (viewModel?.SelectedCommand != null)
+            {
+                GlobalVariables.Navigator.Navigate("UserRoleManagement", viewModel.SelectedCommand);
+            }
         }
     }
 }

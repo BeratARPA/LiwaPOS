@@ -7,8 +7,8 @@ using LiwaPOS.Shared.Services;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.UserControls.General;
 using LiwaPOS.WpfAppUI.ViewModels.General;
-using LiwaPOS.WpfAppUI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -98,7 +98,6 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         }
 
         public ICommand SaveCommand { get; }
-        public ICommand CloseCommand { get; }
         public ICommand OpenDynamicProperyEditorWindowCommand { get; }
 
         public LocalSettingsManagementViewModel(ITerminalService terminalService)
@@ -115,8 +114,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
 
             UseDarkMode = Properties.Settings.Default.UseDarkMode;
             UseCustomNavigation = Properties.Settings.Default.UseCustomNavigation;
-
-            CloseCommand = new RelayCommand(ClosePage);
+            
             SaveCommand = new AsyncRelayCommand(SaveScript);
             OpenDynamicProperyEditorWindowCommand = new RelayCommand(OpenDynamicProperyEditorWindow);
         }
@@ -138,12 +136,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         public void SetParameter(dynamic parameter)
         {
 
-        }
-
-        private void ClosePage(object arg)
-        {
-            GlobalVariables.Navigator.Navigate("AppActions");
-        }
+        }       
 
         private async Task SaveScript(object obj)
         {
@@ -153,6 +146,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             Properties.Settings.Default.UseCustomNavigation = UseCustomNavigation;
             Properties.Settings.Default.TerminalName = TerminalName;
             Properties.Settings.Default.Save();
+
+            GlobalVariables.CloseTab(TranslatorExtension.TranslateUI("LocalSettings").Result);
         }
 
         private void OpenDynamicProperyEditorWindow(object arg)

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="LiwaPOS.WpfAppUI.UserControls.Management.Automations.AppActionManagementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.Management.Automations"
+             mc:Ignorable="d" 
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
+             d:DesignHeight="600" d:DesignWidth="800"
+             DataContext="{Binding AppActionManagementViewModel,Source={StaticResource ViewModelLocator}}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding AppActionName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+            <TextBlock Text="{extension:Translator ActionType, Suffix=':'}" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding ActionTypes}"
+              SelectedItem="{Binding AppActionType, UpdateSourceTrigger=PropertyChanged}" 
+              Width="200" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding DynamicInputs}" Width="300" HorizontalAlignment="Left">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="{extension:Translator Close}" Height="30" Command="{Binding CloseCommand}"/>
+            <Button Grid.Column="2" Content="{extension:Translator Save}" Height="30" Command="{Binding SaveCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>

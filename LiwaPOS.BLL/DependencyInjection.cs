@@ -16,6 +16,7 @@ namespace LiwaPOS.BLL
             services.AddScoped<AppRuleManager>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IUserRoleService, UserRoleService>();
             services.AddScoped<IAppRuleService, AppRuleService>();
             services.AddScoped<IAppActionService, AppActionService>();
@@ -24,6 +25,7 @@ namespace LiwaPOS.BLL
             services.AddScoped<IPrinterService, PrinterService>();
             services.AddScoped<ITerminalService, TerminalService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IActionContainerService, ActionContainerService>();
             services.AddScoped<IAutomationCommandMapService, AutomationCommandMapService>();
             services.AddScoped<IAutomationCommandService, AutomationCommandService>();
             services.AddSingleton<IEmailService, EmailService>();

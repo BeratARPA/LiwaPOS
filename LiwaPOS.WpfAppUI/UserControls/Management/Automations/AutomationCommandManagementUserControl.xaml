@@ -1,0 +1,133 @@
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
+             x:Class="LiwaPOS.WpfAppUI.UserControls.Management.Automations.AutomationCommandManagementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.Management.Automations"
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             DataContext="{Binding AutomationCommandManagementViewModel,Source={StaticResource ViewModelLocator}}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <dx:DXTabControl>
+            <dx:DXTabControl.View>
+                <dx:TabControlScrollView HeaderLocation="Left" HeaderOrientation="Horizontal"/>
+            </dx:DXTabControl.View>
+
+            <dx:DXTabItem Header="{extension:Translator GeneralSettings}">
+                <StackPanel>
+                    <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Category, Suffix=':'}" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator ButtonHeader, Suffix=':'}" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ButtonHeader, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Color, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:PopupColorEdit Color="{Binding Color, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator FontSize, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:TextEdit Text="{Binding FontSize, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Confirmation, Suffix=':'}" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding ConfirmationTypes}" SelectedItem="{Binding ConfirmationType, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <CheckBox Content="{extension:Translator ExecuteOnce}" HorizontalAlignment="Left"/>
+                    <CheckBox Content="{extension:Translator ClearSelection}" HorizontalAlignment="Left"/>
+                    <CheckBox Content="{extension:Translator ToggleValues}" HorizontalAlignment="Left"/>
+                    <CheckBox Content="{extension:Translator AskTextInput}" HorizontalAlignment="Left"/>
+                    <CheckBox Content="{extension:Translator AskNumericInput}" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Values, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:MemoEdit Text="{Binding Values, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" ShowIcon="False" />
+                </StackPanel>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="{extension:Translator NavigationSettings}">
+                <StackPanel>
+                    <TextBlock Text="{extension:Translator Symbol, Suffix=':'}" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding Symbols}" SelectedItem="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Image, Suffix=':'}" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator AutoRefresh, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:TextEdit Text="{Binding AutoRefresh, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" Width="200" HorizontalAlignment="Left" NullText="sn."/>
+
+                    <TextBlock Text="{extension:Translator TileCache, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:TextEdit Text="{Binding TileCacheLifetime, UpdateSourceTrigger=PropertyChanged}"  MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" Width="200" HorizontalAlignment="Left" NullText="dk."/>
+
+                    <TextBlock Text="{extension:Translator NavigationModule, Suffix=':'}" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding NavigationModules}" SelectedItem="{Binding NavigationModule, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{extension:Translator Template, Suffix=':'}" VerticalAlignment="Center"/>
+                    <dxe:MemoEdit Text="{Binding ContentTemplate, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" ShowIcon="False" />
+                </StackPanel>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="{extension:Translator Mapping}">
+                <Grid>
+                    <!-- Add ve Delete Butonları -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+                        <Button Content="Add" Width="50" Margin="0,0,5,0"/>
+                        <Button Content="Delete" Width="50"/>
+                    </StackPanel>
+
+                    <!-- GridControl -->
+                    <dxg:GridControl Name="gridControl" AutoGenerateColumns="None" Margin="10,40,10,10">
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn FieldName="Terminal" Header="Terminal" Width="100">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Terminals}" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="UserRole" Header="User Role" Width="100">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding UserRoles}" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="Department" Header="Department" Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Departments}" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="TicketType" Header="Ticket Type" Width="100">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding TicketTypes}" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="EnabledStates" Header="Enabled States" Width="150" />
+                            <dxg:GridColumn FieldName="VisibleStates" Header="Visible States" Width="150" />
+                            <dxg:GridColumn FieldName="Visibility" Header="Visibility" Width="100" />
+                        </dxg:GridControl.Columns>
+                    </dxg:GridControl>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="{extension:Translator Close}" Height="30" Command="{Binding CloseCommand}"/>
+            <Button Grid.Column="2" Content="{extension:Translator Save}" Height="30" Command="{Binding SaveCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>

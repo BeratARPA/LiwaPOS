@@ -1,7 +1,7 @@
 ﻿using LiwaPOS.WpfAppUI.ViewModels.General;
 using System.Windows;
 
-namespace LiwaPOS.WpfAppUI.UserControls
+namespace LiwaPOS.WpfAppUI.UserControls.General
 {
     /// <summary>
     /// Interaction logic for LoginUserControl.xaml

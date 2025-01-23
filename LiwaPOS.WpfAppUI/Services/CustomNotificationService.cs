@@ -1,9 +1,8 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
-using LiwaPOS.WpfAppUI.Commands;
+using LiwaPOS.WpfAppUI.UserControls.General;
 using LiwaPOS.WpfAppUI.ViewModels.General;
-using LiwaPOS.WpfAppUI.Views;
 using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.Services

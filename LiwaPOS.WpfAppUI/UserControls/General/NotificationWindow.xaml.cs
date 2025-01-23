@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace LiwaPOS.WpfAppUI.Views
+namespace LiwaPOS.WpfAppUI.UserControls.General
 {
     /// <summary>
     /// Interaction logic for NotificationWindow.xaml

@@ -6,5 +6,7 @@
         public string? EntityName { get; set; }
         public string? DefaultStates { get; set; }
         public string? DisplayFormat { get; set; }
+
+        public ICollection<EntityCustomField>? EntityCustomFields { get; set; }
     }
 }

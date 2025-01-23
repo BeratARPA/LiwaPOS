@@ -1,5 +1,4 @@
-﻿using LiwaPOS.BLL.Helpers;
-using LiwaPOS.BLL.Interfaces;
+﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Helpers;
 using LiwaPOS.Shared.Models;
@@ -7,8 +6,8 @@ using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.UserControls.General;
 using LiwaPOS.WpfAppUI.ViewModels.General;
-using LiwaPOS.WpfAppUI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

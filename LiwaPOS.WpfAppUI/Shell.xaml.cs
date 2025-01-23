@@ -26,7 +26,7 @@ namespace LiwaPOS.WpfAppUI
             _departmentService = GlobalVariables.ServiceProvider.GetRequiredService<IDepartmentService>();
 
             GlobalVariables.Shell = this;
-
+            
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Login");
 

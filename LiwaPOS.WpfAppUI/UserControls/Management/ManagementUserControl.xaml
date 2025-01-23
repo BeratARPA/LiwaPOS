@@ -1,0 +1,95 @@
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
+             x:Class="LiwaPOS.WpfAppUI.UserControls.Management.ManagementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.Management" 
+             xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+             mc:Ignorable="d" 
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" 
+             xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+             d:DesignHeight="600" d:DesignWidth="800" 
+             DataContext="{Binding ManagementViewModel, Source={StaticResource ViewModelLocator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <dxn:NavBarControl Grid.Column="0" Width="200">
+            <dxn:NavBarControl.View>
+                <dxn:NavigationPaneView 
+                    dxn:ScrollingSettings.ScrollMode="Buttons" 
+                    IsOverflowPanelVisible="False" 
+                    MaxVisibleGroupCount="50" 
+                    ExpandButtonMode="Normal" 
+                    IsSplitterVisible="False"/>
+            </dxn:NavBarControl.View>
+
+            <dxn:NavBarGroup Header="{extension:Translator Settings}" ImageSource="{StaticResource ManagementSettingsIcon}">
+                <dxn:NavBarItem Content="{extension:Translator Departments}" Command="{Binding OpenDepartmentsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Terminals}" Command="{Binding OpenTerminalsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator States}" Command="{Binding OpenStatesCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator LocalSettings}" Command="{Binding OpenLocalSettingsManagementCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator ProgramSettings}" Command="{Binding OpenProgramSettingsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator LiwaPOSNews}" Command="{Binding OpenLiwaPOSNewsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator DatabaseBackups}" Command="{Binding OpenDatabaseBackupsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator DatabaseTools}" Command="{Binding OpenDatabaseToolsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator AboutUs}" Command="{Binding OpenAboutMeCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Legal}" Command="{Binding OpenLegalCommand}"/>
+            </dxn:NavBarGroup>
+
+            <dxn:NavBarGroup Header="{extension:Translator Products}" ImageSource="{StaticResource ManagementProductsIcon}">
+
+            </dxn:NavBarGroup>
+
+            <dxn:NavBarGroup Header="{extension:Translator Printing}" ImageSource="{StaticResource ManagementPrintingIcon}">
+                <dxn:NavBarItem Content="{extension:Translator Printers}" Command="{Binding OpenPrintersCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator PrintJobs}" Command="{Binding OpenLegalCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator PrinterTemplates}" Command="{Binding OpenLegalCommand}"/>
+            </dxn:NavBarGroup>
+
+            <dxn:NavBarGroup Header="{extension:Translator Reports}" ImageSource="{StaticResource ManagementReportsIcon}">
+
+            </dxn:NavBarGroup>
+
+            <dxn:NavBarGroup Header="{extension:Translator Automation}" ImageSource="{StaticResource ManagementAutomationsIcon}">
+                <dxn:NavBarItem Content="{extension:Translator Actions}" Command="{Binding OpenAppActionsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Rules}" Command="{Binding OpenAppRulesCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator AutomationCommands}" Command="{Binding OpenAutomationCommandsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Scripts}" Command="{Binding OpenScriptsCommand}"/>
+            </dxn:NavBarGroup>
+
+            <dxn:NavBarGroup Header="{extension:Translator Users}" ImageSource="{StaticResource ManagementUsersIcon}">
+                <dxn:NavBarItem Content="{extension:Translator UserRoles}" Command="{Binding OpenUserRolesCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator Users}" Command="{Binding OpenUsersCommand}"/>
+            </dxn:NavBarGroup>
+        </dxn:NavBarControl>
+
+         <!-- Tab Control -->
+        <dx:DXTabControl x:Name="MainTabControl" Grid.Column="1"
+                         ItemsSource="{Binding TabItems}"
+                         SelectedItem="{Binding SelectedTabItem}">
+            <dx:DXTabControl.ItemContainerStyle>
+                <Style TargetType="dx:DXTabItem">
+                    <Setter Property="Header" Value="{Binding Header}"/>
+                    <Setter Property="AllowHide" Value="{Binding AllowHide}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                    <Setter Property="CloseCommand" Value="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=dx:DXTabControl}}"/>
+                    <Setter Property="CloseCommandParameter" Value="{Binding}"/>
+                </Style>
+            </dx:DXTabControl.ItemContainerStyle>
+
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView DragDropMode="ReorderOnly" HeaderLocation="Top"/>
+            </dx:DXTabControl.View>
+
+            <dx:DXTabControl.ItemTemplate>
+                <DataTemplate>
+                    <Frame Content="{Binding Content.Content}" NavigationUIVisibility="Hidden"/>
+                </DataTemplate>
+            </dx:DXTabControl.ItemTemplate>
+        </dx:DXTabControl>
+    </Grid>
+</UserControl>
