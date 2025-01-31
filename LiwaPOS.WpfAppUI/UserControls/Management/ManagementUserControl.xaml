@@ -46,8 +46,8 @@
 
             <dxn:NavBarGroup Header="{extension:Translator Printing}" ImageSource="{StaticResource ManagementPrintingIcon}">
                 <dxn:NavBarItem Content="{extension:Translator Printers}" Command="{Binding OpenPrintersCommand}"/>
-                <dxn:NavBarItem Content="{extension:Translator PrintJobs}" Command="{Binding OpenLegalCommand}"/>
-                <dxn:NavBarItem Content="{extension:Translator PrinterTemplates}" Command="{Binding OpenLegalCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator PrintJobs}" Command="{Binding OpenPrintJobsCommand}"/>
+                <dxn:NavBarItem Content="{extension:Translator PrinterTemplates}" Command="{Binding OpenPrinterTemplatesCommand}"/>
             </dxn:NavBarGroup>
 
             <dxn:NavBarGroup Header="{extension:Translator Reports}" ImageSource="{StaticResource ManagementReportsIcon}">

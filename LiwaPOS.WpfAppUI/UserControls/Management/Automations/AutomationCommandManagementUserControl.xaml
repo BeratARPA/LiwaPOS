@@ -25,7 +25,7 @@
             <dx:DXTabItem Header="{extension:Translator GeneralSettings}">
                 <StackPanel>
                     <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding AutomationCommandName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
 
                     <TextBlock Text="{extension:Translator Category, Suffix=':'}" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
@@ -34,7 +34,7 @@
                     <TextBox Text="{Binding ButtonHeader, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
 
                     <TextBlock Text="{extension:Translator Color, Suffix=':'}" VerticalAlignment="Center"/>
-                    <dxe:PopupColorEdit Color="{Binding Color, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+                    <dxe:PopupColorEdit Color="{Binding Color, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="200" HorizontalAlignment="Left"/>
 
                     <TextBlock Text="{extension:Translator FontSize, Suffix=':'}" VerticalAlignment="Center"/>
                     <dxe:TextEdit Text="{Binding FontSize, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" Width="200" HorizontalAlignment="Left"/>
@@ -42,11 +42,11 @@
                     <TextBlock Text="{extension:Translator Confirmation, Suffix=':'}" VerticalAlignment="Center"/>
                     <ComboBox ItemsSource="{Binding ConfirmationTypes}" SelectedItem="{Binding ConfirmationType, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
 
-                    <CheckBox Content="{extension:Translator ExecuteOnce}" HorizontalAlignment="Left"/>
-                    <CheckBox Content="{extension:Translator ClearSelection}" HorizontalAlignment="Left"/>
-                    <CheckBox Content="{extension:Translator ToggleValues}" HorizontalAlignment="Left"/>
-                    <CheckBox Content="{extension:Translator AskTextInput}" HorizontalAlignment="Left"/>
-                    <CheckBox Content="{extension:Translator AskNumericInput}" HorizontalAlignment="Left"/>
+                    <CheckBox Content="{extension:Translator ExecuteOnce}" HorizontalAlignment="Left" IsChecked="{Binding ExecuteOnce, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="{extension:Translator ClearSelection}" HorizontalAlignment="Left" IsChecked="{Binding ClearSelection, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="{extension:Translator ToggleValues}" HorizontalAlignment="Left" IsChecked="{Binding ToggleValues, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="{extension:Translator AskTextInput}" HorizontalAlignment="Left" IsChecked="{Binding AskTextInput, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="{extension:Translator AskNumericInput}" HorizontalAlignment="Left" IsChecked="{Binding AskNumericInput, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="{extension:Translator Values, Suffix=':'}" VerticalAlignment="Center"/>
                     <dxe:MemoEdit Text="{Binding Values, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" ShowIcon="False" />
@@ -79,40 +79,58 @@
                 <Grid>
                     <!-- Add ve Delete Butonları -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
-                        <Button Content="Add" Width="50" Margin="0,0,5,0"/>
-                        <Button Content="Delete" Width="50"/>
+                        <Button Content="{extension:Translator Add}" Width="50" Margin="0,0,5,0" Command="{Binding AddMapCommand}"/>
+                        <Button Content="{extension:Translator Delete}" Width="50" Command="{Binding DeleteMapCommand}"/>
                     </StackPanel>
 
                     <!-- GridControl -->
-                    <dxg:GridControl Name="gridControl" AutoGenerateColumns="None" Margin="10,40,10,10">
+                    <dxg:GridControl Name="gridControl" AutoGenerateColumns="None" Margin="10,40,10,10" ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}">
+                        <dxg:GridControl.View>
+                            <dxg:TableView ShowGroupPanel="False" AllowEditing="True"/>
+                        </dxg:GridControl.View>
+
                         <dxg:GridControl.Columns>
-                            <dxg:GridColumn FieldName="Terminal" Header="Terminal" Width="100">
+                            <dxg:GridColumn FieldName="TerminalId" Header="{extension:Translator Terminal}" Width="100">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Terminals}" />
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Terminals}" IsTextEditable="False" DisplayMember="Name" ValueMember="Id" AllowNullInput="True" NullText="*"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
 
-                            <dxg:GridColumn FieldName="UserRole" Header="User Role" Width="100">
+                            <dxg:GridColumn FieldName="UserRoleId" Header="{extension:Translator Role}" Width="100">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding UserRoles}" />
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding UserRoles}" IsTextEditable="False" DisplayMember="Name" ValueMember="Id" AllowNullInput="True" NullText="*"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
 
-                            <dxg:GridColumn FieldName="Department" Header="Department" Width="150">
+                            <dxg:GridColumn FieldName="DepartmentId" Header="{extension:Translator Department}" Width="150">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Departments}" />
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding Departments}" IsTextEditable="False" DisplayMember="Name" ValueMember="Id" AllowNullInput="True" NullText="*"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
 
-                            <dxg:GridColumn FieldName="TicketType" Header="Ticket Type" Width="100">
+                            <dxg:GridColumn FieldName="TicketTypeId" Header="{extension:Translator TicketType}" Width="100">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding TicketTypes}" />
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding TicketTypes}" IsTextEditable="False" DisplayMember="Name" ValueMember="Id" AllowNullInput="True" NullText="*"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
 
-                            <dxg:GridColumn FieldName="EnabledStates" Header="Enabled States" Width="150" />
-                            <dxg:GridColumn FieldName="VisibleStates" Header="Visible States" Width="150" />
-                            <dxg:GridColumn FieldName="Visibility" Header="Visibility" Width="100" />
+                            <dxg:GridColumn FieldName="EnabledStates" Header="{extension:Translator EnabledStates}" Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings AllowNullInput="True" NullText="*"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="VisibleStates" Header="{extension:Translator VisibleStates}" Width="150" >
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings AllowNullInput="True" NullText="*"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="DisplayOn" Header="{extension:Translator Visibility}" Width="100" >
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:ComboBoxEditSettings ItemsSource="{Binding ScreenVisibilityTypes}" IsTextEditable="False" AllowNullInput="True" NullText="*"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
                         </dxg:GridControl.Columns>
                     </dxg:GridControl>
                 </Grid>

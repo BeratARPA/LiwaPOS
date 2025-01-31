@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Automation;
+using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.UserControls.Management.Automations
 {
@@ -14,7 +16,11 @@ namespace LiwaPOS.WpfAppUI.UserControls.Management.Automations
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var viewModel = DataContext as AutomationCommandsViewModel;
+            if (viewModel?.SelectedCommand != null)
+            {
+                GlobalVariables.Navigator.Navigate("AutomationCommandManagement", viewModel.SelectedCommand);
+            }
         }
     }
 }

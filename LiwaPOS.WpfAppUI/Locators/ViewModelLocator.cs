@@ -38,6 +38,8 @@ namespace LiwaPOS.WpfAppUI.Locators
         public DepartmentManagementViewModel DepartmentManagementViewModel => _viewModelFactory.CreateViewModel<DepartmentManagementViewModel>();
         public PrinterManagementViewModel PrinterManagementViewModel => _viewModelFactory.CreateViewModel<PrinterManagementViewModel>();
         public PrintersViewModel PrintersViewModel => _viewModelFactory.CreateViewModel<PrintersViewModel>();
+        public PrinterTemplatesViewModel PrinterTemplatesViewModel => _viewModelFactory.CreateViewModel<PrinterTemplatesViewModel>();
+        public PrinterTemplateManagementViewModel PrinterTemplateManagementViewModel => _viewModelFactory.CreateViewModel<PrinterTemplateManagementViewModel>();
         public UsersViewModel UsersViewModel => _viewModelFactory.CreateViewModel<UsersViewModel>();
         public UserManagementViewModel UserManagementViewModel => _viewModelFactory.CreateViewModel<UserManagementViewModel>();
         public UserRoleManagementViewModel UserRoleManagementViewModel => _viewModelFactory.CreateViewModel<UserRoleManagementViewModel>();

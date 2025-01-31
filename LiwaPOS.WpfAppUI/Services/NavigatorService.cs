@@ -90,8 +90,19 @@ namespace LiwaPOS.WpfAppUI.Services
 
             if (parameter != null)
             {
-                var viewModel = page.DataContext as dynamic;
-                viewModel?.SetParameter(parameter);
+                if (page.IsLoaded)
+                {
+                    var viewModel = page.DataContext as dynamic;
+                    viewModel?.SetParameter(parameter);
+                }
+                else
+                {
+                    page.Loaded += (s, e) =>
+                    {
+                        var viewModel = page.DataContext as dynamic;
+                        viewModel?.SetParameter(parameter);
+                    };
+                }
             }
 
             _frame.Navigate(page);

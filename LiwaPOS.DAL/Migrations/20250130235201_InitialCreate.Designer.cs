@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiwaPOS.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241229142617_InitialCreate")]
+    [Migration("20250130235201_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -201,6 +201,9 @@ namespace LiwaPOS.DAL.Migrations
                     b.Property<string>("DisplayOn")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EnabledStates")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("EntityGuid")
                         .HasColumnType("uniqueidentifier");
 
@@ -212,6 +215,9 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.Property<int>("UserRoleId")
                         .HasColumnType("int");
+
+                    b.Property<string>("VisibleStates")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

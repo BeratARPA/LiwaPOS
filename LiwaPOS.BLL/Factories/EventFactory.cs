@@ -14,6 +14,7 @@ namespace LiwaPOS.BLL.Factories
             { EventType.PopupDisplayed, typeof(PopupDisplayedEventHandler) },
             { EventType.UserFailedToLogin, typeof(UserFailedToLoginEventHandler) },
             { EventType.ShellInitialized, typeof(ShellInitializedEventHandler) },
+            { EventType.AutomationCommandExecuted, typeof(AutomationCommandExecutedEventHandler) },
         };
 
         private readonly IServiceProvider _serviceProvider;

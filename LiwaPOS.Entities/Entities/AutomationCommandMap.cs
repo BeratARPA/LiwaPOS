@@ -8,5 +8,7 @@
         public int TicketTypeId { get; set; }
         public int AutomationCommandId { get; set; }
         public string? DisplayOn { get; set; }
+        public string? EnabledStates { get; set; }
+        public string? VisibleStates { get; set; }
     }
 }

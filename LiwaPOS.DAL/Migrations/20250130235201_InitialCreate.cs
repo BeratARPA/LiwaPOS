@@ -375,6 +375,8 @@ namespace LiwaPOS.DAL.Migrations
                     TicketTypeId = table.Column<int>(type: "int", nullable: false),
                     AutomationCommandId = table.Column<int>(type: "int", nullable: false),
                     DisplayOn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EnabledStates = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VisibleStates = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

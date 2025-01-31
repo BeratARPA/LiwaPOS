@@ -15,6 +15,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management
 
         // Commands
         public ICommand OpenPrintersCommand { get; }
+        public ICommand OpenPrintJobsCommand { get; }
+        public ICommand OpenPrinterTemplatesCommand { get; }
         public ICommand OpenDepartmentsCommand { get; }
         public ICommand OpenTerminalsCommand { get; }
         public ICommand OpenUsersCommand { get; }
@@ -45,6 +47,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management
 
             // Command initializations
             OpenPrintersCommand = new RelayCommand(OpenPrinters);
+            OpenPrintJobsCommand = new RelayCommand(OpenPrintJobs);
+            OpenPrinterTemplatesCommand = new RelayCommand(OpenPrinterTemplates);
             OpenDepartmentsCommand = new RelayCommand(OpenDepartments);
             OpenTerminalsCommand = new RelayCommand(OpenTerminals);
             OpenUsersCommand = new RelayCommand(OpenUsers);
@@ -102,6 +106,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management
         }
 
         private void OpenPrinters(object obj) => AddNewTab(TranslatorExtension.TranslateUI("Printers").Result, "Printers");
+
+        private void OpenPrintJobs(object obj) => AddNewTab(TranslatorExtension.TranslateUI("PrintJobs").Result, "PrintJobs");
+
+        private void OpenPrinterTemplates(object obj) => AddNewTab(TranslatorExtension.TranslateUI("PrinterTemplates").Result, "PrinterTemplates");
 
         private void OpenDepartments(object obj) => AddNewTab(TranslatorExtension.TranslateUI("Departments").Result, "Departments");
 

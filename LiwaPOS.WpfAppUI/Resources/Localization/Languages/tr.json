@@ -682,5 +682,41 @@
   {
     "Key": "DeletePrinterTemplate",
     "Value": "Yazıcı Şablonu Sil"
+  },
+  {
+    "Key": "Add",
+    "Value": "Ekle"
+  },
+  {
+    "Key": "Delete",
+    "Value": "Sil"
+  },
+  {
+    "Key": "Terminal",
+    "Value": "Terminal"
+  },
+  {
+    "Key": "Role",
+    "Value": "Rol"
+  },
+  {
+    "Key": "Department",
+    "Value": "Departman"
+  },
+  {
+    "Key": "TicketType",
+    "Value": "Adisyon Tipi"
+  },
+  {
+    "Key": "EnabledStates",
+    "Value": "Etkinleştirilmiş Durumlar"
+  },
+  {
+    "Key": "VisibleStates",
+    "Value": "Görünür Durumlar"
+  },
+  {
+    "Key": "Visibility",
+    "Value": "Görünürlük"
   }
 ]

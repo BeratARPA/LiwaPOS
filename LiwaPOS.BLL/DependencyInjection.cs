@@ -59,6 +59,7 @@ namespace LiwaPOS.BLL
             services.AddTransient<PopupDisplayedEventHandler>();
             services.AddTransient<UserFailedToLoginEventHandler>();
             services.AddTransient<ShellInitializedEventHandler>();
+            services.AddTransient<AutomationCommandExecutedEventHandler>();
 
             return services;
         }

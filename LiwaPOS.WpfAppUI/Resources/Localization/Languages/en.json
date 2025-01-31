@@ -682,5 +682,41 @@
   {
     "Key": "DeletePrinterTemplate",
     "Value": "Delete Printer Template"
+  },
+  {
+    "Key": "Add",
+    "Value": "Add"
+  },
+  {
+    "Key": "Delete",
+    "Value": "Delete"
+  },
+  {
+    "Key": "Terminal",
+    "Value": "Terminal"
+  },
+  {
+    "Key": "Role",
+    "Value": "Role"
+  },
+  {
+    "Key": "Department",
+    "Value": "Department"
+  },
+  {
+    "Key": "TicketType",
+    "Value": "Ticket Type"
+  },
+  {
+    "Key": "EnabledStates",
+    "Value": "Enabled States"
+  },
+  {
+    "Key": "VisibleStates",
+    "Value": "Visible States"
+  },
+  {
+    "Key": "Visibility",
+    "Value": "Visibility"
   }
 ]

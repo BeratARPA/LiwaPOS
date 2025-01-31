@@ -7,6 +7,7 @@
         UserFailedToLogin,
         PopupDisplayed,
         PageOpened,
-        ShellInitialized
+        ShellInitialized,
+        AutomationCommandExecuted
     }
 }
