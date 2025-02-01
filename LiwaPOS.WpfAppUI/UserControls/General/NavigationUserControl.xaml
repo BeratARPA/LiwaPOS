@@ -47,7 +47,7 @@
             <dx:SimpleButton Grid.Row="2" Grid.Column="2" Content="{extension:Translator Logout}" Command="{Binding OpenLogoutCommand}" Margin="10" FontSize="25"/>
         </Grid>
 
-        <dxlc:TileLayoutControl x:Name="TileLayoutControlNavigation">
+        <dxlc:TileLayoutControl x:Name="TileLayoutControlNavigation" ItemsSource="{Binding AutomationCommands}">
             <dxlc:TileLayoutControl.Style>
                 <Style TargetType="dxlc:TileLayoutControl">
                     <Style.Triggers>
@@ -60,11 +60,17 @@
                     </Style.Triggers>
                 </Style>
             </dxlc:TileLayoutControl.Style>
-
-            <dxlc:Tile Header="Tile" Size="ExtraSmall"/>
-            <dxlc:Tile Header="Tile" Size="Small"/>
-            <dxlc:Tile Header="Tile" Size="Large" VerticalHeaderAlignment="Center" HorizontalHeaderAlignment="Center"/>
-            <dxlc:Tile Header="Tile" Size="ExtraLarge" Click="Tile_Click"/>
+            <dxlc:TileLayoutControl.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <dxlc:Tile Content="{Binding ButtonHeader}"
+                        Background="{Binding Color}"
+                        Command="{Binding ExecuteCommand}"
+                        CommandParameter="{Binding}" 
+                        FontSize="{Binding FontSize}"/>
+                    </Border>
+                </DataTemplate>
+            </dxlc:TileLayoutControl.ItemTemplate>
         </dxlc:TileLayoutControl>
     </Grid>
 </UserControl>

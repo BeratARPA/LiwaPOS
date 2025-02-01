@@ -12,6 +12,7 @@ namespace LiwaPOS.Shared.Models
                 new EventMetadata { EventType = EventType.UserLoggedIn, DataObjectType = typeof(UserDTO) },
                 new EventMetadata { EventType = EventType.UserLoggedOut, DataObjectType = typeof(UserDTO) },
                 new EventMetadata { EventType = EventType.PageOpened, DataObjectType = typeof(PageOpenedDTO) },
+                new EventMetadata { EventType = EventType.AutomationCommandExecuted, DataObjectType = typeof(AutomationCommandDTO) },
             };
         }
     }

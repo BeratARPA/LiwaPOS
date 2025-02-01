@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>LiwaPOS</AssemblyName>
     <ApplicationIcon>logo.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

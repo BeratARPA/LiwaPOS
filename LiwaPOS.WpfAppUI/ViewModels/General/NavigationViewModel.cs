@@ -1,13 +1,24 @@
 ﻿using LiwaPOS.BLL.Managers;
+using LiwaPOS.Shared.Enums;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Linq;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.General
 {
     public class NavigationViewModel : ViewModelBase
     {
         private readonly UserManager _userManager;
+        private readonly AutomationCommandManager _automationCommandManager;
+
+        private ObservableCollection<AutomationCommandViewModel> _automationCommands;
+        public ObservableCollection<AutomationCommandViewModel> AutomationCommands
+        {
+            get => _automationCommands;
+            set { _automationCommands = value; OnPropertyChanged(); }
+        }
 
         private bool _useCustomNavigation;
         public bool UseCustomNavigation
@@ -33,9 +44,11 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
         public ICommand OpenManageCommand { get; }
         public ICommand OpenLogoutCommand { get; }
 
-        public NavigationViewModel(UserManager userManager)
+        public NavigationViewModel(UserManager userManager, AutomationCommandManager automationCommandManager)
         {
             _userManager = userManager;
+            _automationCommandManager = automationCommandManager;
+
             UseCustomNavigation = Properties.Settings.Default.UseCustomNavigation;
 
             OpenWorkPeriodsCommand = new RelayCommand(OpenWorkPeriods);
@@ -47,6 +60,20 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
             OpenReportsCommand = new RelayCommand(OpenReports);
             OpenManageCommand = new RelayCommand(OpenManage);
             OpenLogoutCommand = new AsyncRelayCommand(OpenLogout);
+
+            _ = LoadAutomationCommands();
+        }
+
+        private async Task LoadAutomationCommands()
+        {
+            if (UseCustomNavigation)
+            {
+                var automationCommands = await _automationCommandManager.GetAutomationCommands(1, 1, 1, 1, ScreenVisibilityType.DisplayOnNavigation);
+                if (automationCommands != null)
+                    AutomationCommands = new ObservableCollection<AutomationCommandViewModel>(automationCommands.Select(ac => new AutomationCommandViewModel(ac, _automationCommandManager)));
+                else
+                    AutomationCommands = new ObservableCollection<AutomationCommandViewModel>();
+            }
         }
 
         private void OpenWorkPeriods(object obj)

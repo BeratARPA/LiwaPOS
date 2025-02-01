@@ -14,6 +14,7 @@ namespace LiwaPOS.BLL
         {
             services.AddScoped<UserManager>();
             services.AddScoped<AppRuleManager>();
+            services.AddScoped<AutomationCommandManager>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPermissionService, PermissionService>();
