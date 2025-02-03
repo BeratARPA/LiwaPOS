@@ -7,9 +7,14 @@
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.General" 
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              mc:Ignorable="d" 
-             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" xmlns:converters="clr-namespace:LiwaPOS.WpfAppUI.Converters"
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding NavigationViewModel, Source={StaticResource ViewModelLocator}}">
+
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid>
             <Grid.Style>
@@ -63,11 +68,34 @@
             <dxlc:TileLayoutControl.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <dxlc:Tile Content="{Binding ButtonHeader}"
-                        Background="{Binding Color}"
-                        Command="{Binding ExecuteCommand}"
-                        CommandParameter="{Binding}" 
-                        FontSize="{Binding FontSize}"/>
+                        <dxlc:Tile Background="{Binding Color}"
+                          Command="{Binding ExecuteCommand}"
+                          CommandParameter="{Binding}">
+                            <dxlc:Tile.ContentTemplate>
+                                <DataTemplate>
+                                    <!-- DataContext'i Tile'ın DataContext'ine bağla -->
+                                    <Grid DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=dxlc:Tile}}">
+                                        <!-- Resim (Image) - Butonun tamamını kapla -->
+                                        <Image Source="{Binding ImageSource}" 
+                                       Stretch="Fill" 
+                                       Visibility="{Binding ImageSource, Converter={StaticResource NullToVisibilityConverter}}"/>
+
+                                        <!-- Sembol (Symbol) ve Metin (Display) -->
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent">
+                                            <TextBlock Text="{Binding Symbol}" 
+                                               FontSize="{Binding FontSize}" 
+                                               HorizontalAlignment="Center"
+                                               Visibility="{Binding Symbol, Converter={StaticResource NullToVisibilityConverter}}"/>
+
+                                            <TextBlock Text="{Binding Display}" 
+                                               FontSize="{Binding FontSize}" 
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxlc:Tile.ContentTemplate>
+                        </dxlc:Tile>
                     </Border>
                 </DataTemplate>
             </dxlc:TileLayoutControl.ItemTemplate>

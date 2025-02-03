@@ -22,7 +22,7 @@ namespace LiwaPOS.WpfAppUI.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // İki yönlü veri bağlaması için genellikle kullanılmaz
-            LoggingService.LogErrorAsync("", typeof(BooleanToVisibilityConverter).Name, "", new NotImplementedException());
+            _ = LoggingService.LogErrorAsync("", typeof(BooleanToVisibilityConverter).Name, "", new NotImplementedException());
             return null;
         }
     }

@@ -100,6 +100,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
             }
         }
 
+        private ObservableCollection<string> _symbols;
+        public ObservableCollection<string> Symbols
+        {
+            get => _symbols;
+            set
+            {
+                _symbols = value;
+                OnPropertyChanged(nameof(Symbols));
+            }
+        }
+
         private int _automationCommandId;
         public int AutomationCommandId
         {
@@ -248,12 +259,14 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
             _userRoleService = userRoleService;
             _customNotificationService = customNotificationService;
 
-           _= LoadInitialDataAsync();
+            _ = LoadInitialDataAsync();
 
             SaveCommand = new AsyncRelayCommand(SaveScript);
             CloseCommand = new AsyncRelayCommand(ClosePage);
             AddMapCommand = new AsyncRelayCommand(AddMap);
-            DeleteMapCommand = new AsyncRelayCommand(DeleteMap, CanDelete);   
+            DeleteMapCommand = new AsyncRelayCommand(DeleteMap, CanDelete);
+
+            Symbols = UnicodeHelper.GetAllSymbols();
         }
 
         public async void SetParameter(dynamic parameter)
@@ -288,7 +301,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
                 // Başka tipte bir veri geldiyse ona göre işlem yapılabilir
             }
         }
-      
+
         private async Task LoadInitialDataAsync()
         {
             Maps = new ObservableCollection<AutomationCommandMapDTO>();

@@ -4,7 +4,6 @@ using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Linq;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.General
 {
@@ -68,7 +67,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
         {
             if (UseCustomNavigation)
             {
-                var automationCommands = await _automationCommandManager.GetAutomationCommands(1, 1, 1, 1, ScreenVisibilityType.DisplayOnNavigation);
+                var automationCommands = await _automationCommandManager.GetAutomationCommands(1, 1, 1, 0, ScreenVisibilityType.DisplayOnNavigation);
                 if (automationCommands != null)
                     AutomationCommands = new ObservableCollection<AutomationCommandViewModel>(automationCommands.Select(ac => new AutomationCommandViewModel(ac, _automationCommandManager)));
                 else

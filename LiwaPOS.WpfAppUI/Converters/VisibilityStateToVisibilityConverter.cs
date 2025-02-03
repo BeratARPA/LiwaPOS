@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace LiwaPOS.WpfAppUI.Converters
 {
-    internal class VisibilityStateToVisibilityConverter
+    public class VisibilityStateToVisibilityConverter
     {
         public static Visibility Convert(VisibilityState state)
         {

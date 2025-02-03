@@ -1,11 +1,9 @@
-﻿using LiwaPOS.BLL.Interfaces;
-using LiwaPOS.BLL.Managers;
+﻿using LiwaPOS.BLL.Managers;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.General
 {
     public class LoginViewModel : ViewModelBase
-    {
-        private readonly IApplicationStateService _applicationStateService;
+    {     
         private readonly UserManager _userManager;
         private string _pinCode;
         private string _message;
@@ -30,9 +28,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
             }
         }
 
-        public LoginViewModel(IApplicationStateService applicationStateService, UserManager userManager)
-        {
-            _applicationStateService = applicationStateService;
+        public LoginViewModel(UserManager userManager)
+        {          
             _userManager = userManager;
         }
 

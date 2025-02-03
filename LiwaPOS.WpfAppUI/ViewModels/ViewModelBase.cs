@@ -37,6 +37,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels
             {
                 customNotificationService.ShowNotification(new NotificationDTO
                 {
+                    Name = "Validation Notification",
                     Title = await TranslatorExtension.TranslateUI("Warning"),
                     Message = string.Join("\n", errorMessages),
                     ButtonType = NotificationButtonType.None,

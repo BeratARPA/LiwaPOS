@@ -16,13 +16,13 @@ namespace LiwaPOS.WpfAppUI
     {
         private readonly DispatcherTimer _dispatcherTimerTime;
         private readonly IDepartmentService _departmentService;
-        private readonly IApplicationStateService _applicationState;
+        private readonly IApplicationStateService _applicationStateService;
 
         public Shell()
         {
             InitializeComponent();
 
-            _applicationState = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
+            _applicationStateService = GlobalVariables.ServiceProvider.GetRequiredService<IApplicationStateService>();
             _departmentService = GlobalVariables.ServiceProvider.GetRequiredService<IDepartmentService>();
 
             GlobalVariables.Shell = this;
@@ -135,7 +135,7 @@ namespace LiwaPOS.WpfAppUI
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (_applicationState.IsLocked)
+            if (_applicationStateService.IsLocked)
             {
                 e.Cancel = true;
                 return;

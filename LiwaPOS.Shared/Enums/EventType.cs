@@ -8,6 +8,7 @@
         PopupDisplayed,
         PageOpened,
         ShellInitialized,
-        AutomationCommandExecuted
+        AutomationCommandExecuted,
+        PopupClicked
     }
 }

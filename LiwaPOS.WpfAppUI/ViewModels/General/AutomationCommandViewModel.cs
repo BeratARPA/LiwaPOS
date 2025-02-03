@@ -9,12 +9,21 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
     public class AutomationCommandViewModel : ViewModelBase
     {
         private readonly AutomationCommandManager _automationCommandManager;
+        private bool _hasExecuted;
 
         public AutomationCommandDTO _automationCommand { get; }
         public string ButtonHeader => _automationCommand.ButtonHeader ?? _automationCommand.Name;
         public string Color => _automationCommand.Color;
         public int FontSize => _automationCommand.FontSize;
         public bool ToggleValues => _automationCommand.ToggleValues;
+        public string ImageSource => _automationCommand.Image;
+        public string Symbol => _automationCommand.Symbol;
+        public bool ExecuteOnce => _automationCommand.ExecuteOnce;
+        public bool ClearSelection => _automationCommand.ClearSelection;
+        public int ConfirmationType => _automationCommand.ConfirmationType;
+        public string NavigationModule => _automationCommand.NavigationModule;
+        public bool AskTextInput => _automationCommand.AskTextInput;
+        public bool AskNumericInput => _automationCommand.AskNumericInput;
 
         public ObservableCollection<string> Values { get; }
 
@@ -43,21 +52,13 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
             if (_automationCommand.ToggleValues && !string.IsNullOrEmpty(_automationCommand.Values))
             {
                 var values = _automationCommand.Values.Split('|');
+                Values = new ObservableCollection<string>(values);
                 SelectedValue = values.First();
             }
 
             ExecuteCommand = new AsyncRelayCommand(ExecuteAsync, CanExecute);
         }
-
-        public void NextValue()
-        {
-            if (ToggleValues && Values.Count > 1)
-            {
-                int currentIndex = Values.IndexOf(SelectedValue);
-                SelectedValue = Values[(currentIndex + 1) % Values.Count];
-            }
-        }
-      
+       
         public ICommand ExecuteCommand { get; }
 
         public bool CanExecute(object obj)
@@ -69,13 +70,37 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
 
         public async Task ExecuteAsync(object obj)
         {
-            await _automationCommandManager.ExecuteCommandAsync(_automationCommand, SelectedValue);
-            if (_automationCommand.ToggleValues && !string.IsNullOrEmpty(_automationCommand.Values))
+            if (ExecuteOnce && _hasExecuted)
+                return;
+            
+            if (AskTextInput)
             {
-                var values = _automationCommand.Values.Split('|');
-                var currentIndex = Array.IndexOf(values, SelectedValue);
-                SelectedValue = values[(currentIndex + 1) % values.Length];
+                //var textInput = await ShowTextInputPopupAsync();
+                // textInput kullanarak işlem yapın
             }
+
+            if (AskNumericInput)
+            {
+                //var numericInput = await ShowNumericInputPopupAsync();
+                // numericInput kullanarak işlem yapın
+            }
+
+            if (ConfirmationType == 1) // Onay
+            {
+                //var isConfirmed = await ShowConfirmationPopupAsync();
+                //if (!isConfirmed)
+                //    return;
+            }
+
+            await _automationCommandManager.ExecuteCommandAsync(_automationCommand, SelectedValue);
+
+            if (ToggleValues && Values.Count > 1)
+            {
+                var currentIndex = Values.IndexOf(SelectedValue);
+                SelectedValue = Values[(currentIndex + 1) % Values.Count];
+            }
+
+            _hasExecuted = true;
         }
     }
 }

@@ -7,15 +7,18 @@ namespace LiwaPOS.BLL.Managers
     public class AutomationCommandManager
     {
         private readonly AppRuleManager _appRuleManager;
+        private readonly INavigatorService _navigatorService;
         private readonly IAutomationCommandService _automationCommandService;
         private readonly IAutomationCommandMapService _automationCommandMapService;
 
         public AutomationCommandManager(
             AppRuleManager appRuleManager,
+            INavigatorService navigatorService,
             IAutomationCommandService automationCommandService,
             IAutomationCommandMapService automationCommandMapService)
         {
             _appRuleManager = appRuleManager;
+            _navigatorService = navigatorService;
             _automationCommandService = automationCommandService;
             _automationCommandMapService = automationCommandMapService;
         }
@@ -44,6 +47,13 @@ namespace LiwaPOS.BLL.Managers
 
         public async Task ExecuteCommandAsync(AutomationCommandDTO automationCommand, string selectedValue)
         {
+            // Komutun çalıştırılması
+            if (!string.IsNullOrEmpty(automationCommand.NavigationModule))
+            {
+                // İlgili modülü aç
+                _navigatorService.Navigate(automationCommand.NavigationModule);
+            }
+
             await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.AutomationCommandExecuted, automationCommand);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.BLL.Managers;
 using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Models;
 using LiwaPOS.WpfAppUI.UserControls.General;
@@ -9,6 +10,13 @@ namespace LiwaPOS.WpfAppUI.Services
 {
     public class CustomNotificationService : ICustomNotificationService
     {
+        private readonly AppRuleManager _appRuleManager;
+
+        public CustomNotificationService(AppRuleManager appRuleManager)
+        {
+            _appRuleManager = appRuleManager;
+        }
+
         // Her pozisyon için ayrı bir aktif bildirim listesi
         private static readonly Dictionary<NotificationPosition, List<NotificationWindow>> _activeNotificationsByPosition = new()
     {
@@ -34,11 +42,28 @@ namespace LiwaPOS.WpfAppUI.Services
             _activeNotificationsByPosition[notification.Position].Add(notificationWindow);
 
             if (notification.IsDialog)
+            {
                 result = notificationWindow.ShowDialog();
+                _ = ExecuteEventPopupClicked(notification.Name, result);
+            }
             else
+            {
                 notificationWindow.Show();
+            }
+
+            _ = ExecuteEventPopupDisplayed(notification);
 
             return result ?? false;
+        }
+
+        private async Task ExecuteEventPopupDisplayed(NotificationDTO notification)
+        {
+            await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.PopupDisplayed, notification);
+        }
+
+        private async Task ExecuteEventPopupClicked(string name, bool? result)
+        {
+            await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.PopupClicked, new PopupClickedDTO { Name = name, Result = result ?? false });
         }
 
         private void ArrangeNotificationPosition(NotificationWindow notificationWindow, NotificationPosition position)

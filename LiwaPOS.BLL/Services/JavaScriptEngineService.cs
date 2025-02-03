@@ -51,6 +51,7 @@ namespace LiwaPOS.BLL.Services
                 {
                     return _customNotificationService.ShowNotification(new NotificationDTO
                     {
+                        Name = "JavaScript Notification",
                         Title = title,
                         Message = message,
                         Icon = iconType,
@@ -114,6 +115,7 @@ namespace LiwaPOS.BLL.Services
             {
                 _customNotificationService.ShowNotification(new NotificationDTO
                 {
+                    Name = "JavaScript Error Notification",
                     Title = "JavaScript Error",
                     Message = ex.Message,
                     Icon = NotificationIcon.Error,
@@ -147,6 +149,7 @@ namespace LiwaPOS.BLL.Services
             {
                 _customNotificationService.ShowNotification(new NotificationDTO
                 {
+                    Name = "JavaScript Error Notification",
                     Title = "JavaScript Error",
                     Message = ex.Message,
                     Icon = NotificationIcon.Error,
@@ -180,6 +183,7 @@ namespace LiwaPOS.BLL.Services
             {
                 _customNotificationService.ShowNotification(new NotificationDTO
                 {
+                    Name = "JavaScript Error Notification",
                     Title = "JavaScript Error",
                     Message = ex.Message,
                     Icon = NotificationIcon.Error,
@@ -229,6 +233,7 @@ namespace LiwaPOS.BLL.Services
             {
                 _customNotificationService.ShowNotification(new NotificationDTO
                 {
+                    Name = "JavaScript Error Notification",
                     Title = "JavaScript Error",
                     Message = ex.Message,
                     Icon = NotificationIcon.Error,
