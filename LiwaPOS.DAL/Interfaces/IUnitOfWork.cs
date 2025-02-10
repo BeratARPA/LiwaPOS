@@ -15,6 +15,7 @@
         IDepartmentRepository Departments { get; }
         IPrinterRepository Printers { get; }
         IPermissionRepository Permissions { get; }
+        IProgramSettingValueRepository ProgramSettingValues { get; }
 
         Task CommitAsync();
         Task BeginTransactionAsync();

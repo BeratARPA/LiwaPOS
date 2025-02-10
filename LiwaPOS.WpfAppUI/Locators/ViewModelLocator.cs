@@ -44,5 +44,6 @@ namespace LiwaPOS.WpfAppUI.Locators
         public UserManagementViewModel UserManagementViewModel => _viewModelFactory.CreateViewModel<UserManagementViewModel>();
         public UserRoleManagementViewModel UserRoleManagementViewModel => _viewModelFactory.CreateViewModel<UserRoleManagementViewModel>();
         public UserRolesViewModel UserRolesViewModel => _viewModelFactory.CreateViewModel<UserRolesViewModel>();
+        public KeyboardViewModel KeyboardViewModel => _viewModelFactory.CreateViewModel<KeyboardViewModel>();
     }
 }

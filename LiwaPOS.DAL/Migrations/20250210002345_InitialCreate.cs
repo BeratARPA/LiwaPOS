@@ -188,6 +188,21 @@ namespace LiwaPOS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProgramSettingValues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProgramSettingValues", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ScreenMenus",
                 columns: table => new
                 {
@@ -668,6 +683,9 @@ namespace LiwaPOS.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "PrinterTemplates");
+
+            migrationBuilder.DropTable(
+                name: "ProgramSettingValues");
 
             migrationBuilder.DropTable(
                 name: "RuleActionMaps");

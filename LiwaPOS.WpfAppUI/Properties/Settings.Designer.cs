@@ -37,7 +37,7 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseDarkMode {
             get {
                 return ((bool)(this["UseDarkMode"]));
@@ -49,7 +49,7 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseCustomNavigation {
             get {
                 return ((bool)(this["UseCustomNavigation"]));
@@ -73,13 +73,49 @@ namespace LiwaPOS.WpfAppUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server")]
-        public string TerminalName {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double KeyboardHeight {
             get {
-                return ((string)(this["TerminalName"]));
+                return ((double)(this["KeyboardHeight"]));
             }
             set {
-                this["TerminalName"] = value;
+                this["KeyboardHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double KeyboardWidth {
+            get {
+                return ((double)(this["KeyboardWidth"]));
+            }
+            set {
+                this["KeyboardWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double KeyboardTop {
+            get {
+                return ((double)(this["KeyboardTop"]));
+            }
+            set {
+                this["KeyboardTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double KeyboardLeft {
+            get {
+                return ((double)(this["KeyboardLeft"]));
+            }
+            set {
+                this["KeyboardLeft"] = value;
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraExport.Xls;
-using LiwaPOS.WpfAppUI.Extensions;
+﻿using LiwaPOS.WpfAppUI.Extensions;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +7,7 @@ namespace LiwaPOS.WpfAppUI.Helpers
 {
     public class DynamicInputGenerator
     {
-        public static double MaxLabelWidth(object model)
+        private static double MaxLabelWidth(object model)
         {
             if (model == null)
                 return 0;

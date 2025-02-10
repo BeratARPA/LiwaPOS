@@ -563,6 +563,28 @@ namespace LiwaPOS.DAL.Migrations
                     b.ToTable("PrinterTemplates");
                 });
 
+            modelBuilder.Entity("LiwaPOS.Entities.Entities.ProgramSettingValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("EntityGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProgramSettingValues");
+                });
+
             modelBuilder.Entity("LiwaPOS.Entities.Entities.RuleActionMap", b =>
                 {
                     b.Property<int>("Id")

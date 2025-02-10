@@ -6,7 +6,7 @@
         xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
         xmlns:local="clr-namespace:LiwaPOS.WpfAppUI" Style="{DynamicResource CustomWindowStyle}"
         mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Title="LiwaPOS" SnapsToDevicePixels="True" Height="600" Width="800" FontFamily="Segoe UI" FontSize="20" Icon="logo.ico" Closing="Window_Closing">
+        Title="LiwaPOS" SnapsToDevicePixels="True" Height="600" Width="800" FontFamily="Segoe UI" FontSize="20" Icon="logo.ico" Closing="Window_Closing" Loaded="Window_Loaded">
 
     <Grid x:Name="GridMain">
         <Grid.LayoutTransform>
@@ -42,8 +42,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            
-            <Button x:Name="ButtonKeyboard" Margin="10,5,10,5" Grid.Column="0" Content="{extension:Translator Keyboard}" Click="ButtonKeyboard_Click"/>
+
+            <Button x:Name="ButtonKeyboard" Focusable="False" Margin="10,5,10,5" Grid.Column="0" Content="{extension:Translator Keyboard}" Click="ButtonKeyboard_Click"/>
             
             <StackPanel x:Name="StackPanelButtons" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left"/>
 

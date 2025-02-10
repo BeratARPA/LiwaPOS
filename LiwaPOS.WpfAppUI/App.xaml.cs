@@ -80,6 +80,7 @@ namespace LiwaPOS.WpfAppUI
             services.AddTransient<UserManagementViewModel>();
             services.AddTransient<UserRoleManagementViewModel>();
             services.AddTransient<UserRolesViewModel>();
+            services.AddTransient<KeyboardViewModel>();
             services.AddTransient<ShellViewModel>();
 
             // Views       
@@ -112,6 +113,8 @@ namespace LiwaPOS.WpfAppUI
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
             if (Settings.Default.UseDarkMode)
             {
                 ThemesController.SetTheme(ThemeType.SoftDark);
@@ -121,47 +124,53 @@ namespace LiwaPOS.WpfAppUI
             {
                 ThemesController.SetTheme(ThemeType.LightTheme);
                 ApplicationThemeHelper.ApplicationThemeName = Theme.Win11LightName;
-            }
+            }            
 
-            base.OnStartup(e);
-
+#if DEBUG
+            await Bootstrap();
+#else
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try
             {
-                // DI Container'ı oluştur
-                var serviceCollection = new ServiceCollection();
-                ConfigureServices(serviceCollection);
-
-                _serviceProvider = serviceCollection.BuildServiceProvider();
-                GlobalVariables.ServiceProvider = _serviceProvider;
-
-                var databaseInitializerService = _serviceProvider.GetRequiredService<DatabaseInitializerService>();
-                await databaseInitializerService.Initialize();
-
-                var viewModelLocator = new ViewModelLocator();
-                Resources.Add("ViewModelLocator", viewModelLocator);
-
-                // TranslatorExtension'ı başlat
-                TranslatorExtension.Initialize(_serviceProvider);
-
-                var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
-                var applicationStateService = _serviceProvider.GetRequiredService<IApplicationStateService>();
-                GlobalVariables.Navigator = new NavigatorService(_serviceProvider, applicationStateService, appRuleManager);
-
-                // Uygulamayı başlat
-                var shell = _serviceProvider.GetRequiredService<Shell>();
-                shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
-                shell.Show();
-
-                await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
-
-                GlobalVariables.CustomNotificationService = _serviceProvider.GetRequiredService<ICustomNotificationService>();
-
+                await Bootstrap();
             }
             catch (Exception ex)
             {
                 HandleException(ex);
             }
+#endif
+        }
+
+        public async Task Bootstrap()
+        {
+            // DI Container'ı oluştur
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+            GlobalVariables.ServiceProvider = _serviceProvider;
+
+            var databaseInitializerService = _serviceProvider.GetRequiredService<DatabaseInitializerService>();
+            await databaseInitializerService.Initialize();
+
+            var viewModelLocator = new ViewModelLocator();
+            Resources.Add("ViewModelLocator", viewModelLocator);
+
+            // TranslatorExtension'ı başlat
+            TranslatorExtension.Initialize(_serviceProvider);
+
+            var appRuleManager = _serviceProvider.GetRequiredService<AppRuleManager>();
+            var applicationStateService = _serviceProvider.GetRequiredService<IApplicationStateService>();
+            GlobalVariables.Navigator = new NavigatorService(_serviceProvider, applicationStateService, appRuleManager);
+
+            // Uygulamayı başlat
+            var shell = _serviceProvider.GetRequiredService<Shell>();
+            shell.DataContext = _serviceProvider.GetRequiredService<ShellViewModel>();
+            shell.Show();
+
+            await appRuleManager.ExecuteAppRulesForEventAsync(EventType.ShellInitialized);
+
+            GlobalVariables.CustomNotificationService = _serviceProvider.GetRequiredService<ICustomNotificationService>();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

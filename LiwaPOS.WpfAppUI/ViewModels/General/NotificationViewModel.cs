@@ -96,6 +96,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
 
         private void SetButtonVisibility(NotificationButtonType buttonType)
         {
+            if (buttonType == NotificationButtonType.None && IsDialog)
+                buttonType = NotificationButtonType.YesNo;
+
             if (buttonType == NotificationButtonType.None)
                 return;
 

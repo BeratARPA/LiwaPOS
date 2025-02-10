@@ -34,6 +34,7 @@ namespace LiwaPOS.DAL.Context
         public DbSet<PrinterMap> PrinterMaps { get; set; }
         public DbSet<PrinterTemplate> PrinterTemplates { get; set; }
         public DbSet<PrintJob> PrintJobs { get; set; }
+        public DbSet<ProgramSettingValue> ProgramSettingValues{ get; set; }
         public DbSet<RuleActionMap> RuleActionMaps { get; set; }
         public DbSet<ScreenMenu> ScreenMenus { get; set; }
         public DbSet<ScreenMenuCategory> ScreenMenuCategories { get; set; }

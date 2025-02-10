@@ -28,7 +28,7 @@ namespace LiwaPOS.BLL.Managers
             var user = await _userService.GetUserAsync(x => x.PinCode == pinCode);
             if (user != null)
             {
-                _applicationStateService.CurrentLoggedInUser = user;
+               await _applicationStateService.SetCurrentUser(user);
                 _applicationStateService.SetTextBlockUsername();
 
                 _applicationStateService.SetGridBottomBarVisibility(VisibilityState.Visible);
@@ -52,7 +52,7 @@ namespace LiwaPOS.BLL.Managers
             _navigatorService.Navigate("Login");
 
             await _appRuleManager.ExecuteAppRulesForEventAsync(EventType.UserLoggedOut, _applicationStateService.CurrentLoggedInUser);
-            _applicationStateService.CurrentLoggedInUser = null;
+            await _applicationStateService.SetCurrentUser(null);
             return true;
         }
 
@@ -64,9 +64,19 @@ namespace LiwaPOS.BLL.Managers
             else
                 return "-";
         }
+
         public async Task<UserDTO> GetUserByPinCode(string pinCode)
         {
             var user = await _userService.GetUserAsync(x => x.PinCode == pinCode);
+            if (user != null)
+                return user;
+            else
+                return null;
+        }
+
+        public async Task<UserDTO> GetUserByUserName(string userName)
+        {
+            var user = await _userService.GetUserAsync(x => x.Name == userName);
             if (user != null)
                 return user;
             else

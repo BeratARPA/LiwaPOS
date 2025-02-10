@@ -1,0 +1,358 @@
+﻿<UserControl x:Class="LiwaPOS.WpfAppUI.UserControls.General.Keyboards.Keyboard1UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.General.Keyboards" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" Focusable="False"
+             DataContext="{Binding KeyboardViewModel, Source={StaticResource ViewModelLocator}}"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Her satır için bir row tanımlıyoruz -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Satır: Rakamlar ve semboller -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <!-- Back tuşu için geniş bir kolon -->
+                <ColumnDefinition Width="95"/>
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Column="0" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyDoubleQuote}" 
+                       Content="{Binding Model.KeyDoubleQuote.Caption}" 
+                       Height="50" Width="50"  Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="1" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key1}" 
+                       Content="{Binding Model.Key1.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="2" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key2}" 
+                       Content="{Binding Model.Key2.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="3" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key3}" 
+                       Content="{Binding Model.Key3.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="4" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key4}" 
+                       Content="{Binding Model.Key4.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="5" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key5}" 
+                       Content="{Binding Model.Key5.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="6" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key6}" 
+                       Content="{Binding Model.Key6.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="7" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key7}" 
+                       Content="{Binding Model.Key7.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="8" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key8}" 
+                       Content="{Binding Model.Key8.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="9" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key9}" 
+                       Content="{Binding Model.Key9.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="10" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.Key0}" 
+                       Content="{Binding Model.Key0.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="11" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyStar}" 
+                       Content="{Binding Model.KeyStar.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="12" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyDash}" 
+                       Content="{Binding Model.KeyDash.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0"/>
+            <dx:SimpleButton Grid.Column="13" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyBack}" 
+                       Height="50" Width="95" Focusable="False">
+                <Path Stretch="Fill" Width="35" Height="25" 
+              Data="{StaticResource Delete}" 
+              Fill="{StaticResource Window.Static.Foreground}"/>
+            </dx:SimpleButton>
+        </Grid>
+
+        <!-- 2. Satır: Harfler (Q, W, E, ... ve özel karakterler) -->
+        <Grid Grid.Row="1" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="69"/>
+                <!-- Tab -->
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="81"/>
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Column="0" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyTab}" 
+                       Content="{Binding Model.KeyTab.Caption}" 
+                       Height="50" Width="64" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="1" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyQ}" 
+                       Content="{Binding Model.KeyQ.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="2" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyW}" 
+                       Content="{Binding Model.KeyW.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="3" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyE}" 
+                       Content="{Binding Model.KeyE.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="4" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyR}" 
+                       Content="{Binding Model.KeyR.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="5" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyT}" 
+                       Content="{Binding Model.KeyT.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="6" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyY}" 
+                       Content="{Binding Model.KeyY.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="7" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyU}" 
+                       Content="{Binding Model.KeyU.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="8" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyI}" 
+                       Content="{Binding Model.KeyI.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="9" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyO}" 
+                       Content="{Binding Model.KeyO.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="10" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyP}" 
+                       Content="{Binding Model.KeyP.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="11" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyGTr}" 
+                       Content="{Binding Model.KeyGTr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0"/>
+            <dx:SimpleButton Grid.Column="12" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyUTr}" 
+                       Content="{Binding Model.KeyUTr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="13" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyAt}" 
+                       Content="{Binding Model.KeyAt.Caption}" 
+                       Height="50" Width="81" Focusable="False"/>
+        </Grid>
+
+        <!-- 3. Satır: CapsLock, harfler (A, S, D, ...), ve Enter -->
+        <Grid Grid.Row="2" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="83"/>
+                <!-- CapsLock -->
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="122"/>
+                <!-- Enter -->
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Column="0" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyCaps}" 
+                       Content="{Binding Model.KeyCaps.Caption}" 
+                       Height="50" Width="78" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="1" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyA}" 
+                       Content="{Binding Model.KeyA.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="2" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyS}" 
+                       Content="{Binding Model.KeyS.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="3" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyD}" 
+                       Content="{Binding Model.KeyD.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="4" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyF}" 
+                       Content="{Binding Model.KeyF.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="5" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyG}" 
+                       Content="{Binding Model.KeyG.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="6" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyH}" 
+                       Content="{Binding Model.KeyH.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="7" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyJ}" 
+                       Content="{Binding Model.KeyJ.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="8" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyK}" 
+                       Content="{Binding Model.KeyK.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="9" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyL}" 
+                       Content="{Binding Model.KeyL.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="10" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeySTr}" 
+                       Content="{Binding Model.KeySTr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="11" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyITr}" 
+                       Content="{Binding Model.KeyITr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="12" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyEnter}" 
+                       Content="{Binding Model.KeyEnter.Caption}" 
+                       Height="50" Width="122" Focusable="False"/>
+        </Grid>
+
+        <!-- 4. Satır: Shift, harfler (Z, X, C, ...), diğer Shift -->
+        <Grid Grid.Row="3" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="97"/>
+                <!-- Sol Shift -->
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="108"/>
+                <!-- Sağ Shift -->
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Column="0" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyShift}" 
+                       Height="50" Width="92" HorizontalContentAlignment="Left" Margin="0,0,5,0">
+                <Path Margin="7,0,0,0" Fill="{StaticResource Window.Static.Foreground}" Stretch="Fill" Width="25" Height="25" 
+              Data="{StaticResource Up}"/>
+            </dx:SimpleButton>
+            <dx:SimpleButton Grid.Column="1" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyZ}" 
+                       Content="{Binding Model.KeyZ.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="2" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyX}" 
+                       Content="{Binding Model.KeyX.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="3" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyC}" 
+                       Content="{Binding Model.KeyC.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="4" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyV}" 
+                       Content="{Binding Model.KeyV.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="5" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyB}" 
+                       Content="{Binding Model.KeyB.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="6" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyN}" 
+                       Content="{Binding Model.KeyN.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="7" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyM}" 
+                       Content="{Binding Model.KeyM.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="8" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyOTr}" 
+                       Content="{Binding Model.KeyOTr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="9" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyCTr}" 
+                       Content="{Binding Model.KeyCTr.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="10" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyPoint}" 
+                       Content="{Binding Model.KeyPoint.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="11" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyComma}" 
+                       Content="{Binding Model.KeyComma.Caption}" 
+                       Height="50" Width="50" Margin="0,0,5,0"/>
+            <dx:SimpleButton Grid.Column="12" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeyShift}" 
+                       Height="50" Width="108" HorizontalContentAlignment="Left" Focusable="False">
+                <Path Margin="7,0,0,0" Fill="{StaticResource Window.Static.Foreground}" Stretch="Fill" Width="25" Height="25" 
+              Data="{StaticResource Up}"/>
+            </dx:SimpleButton>
+        </Grid>
+
+        <!-- 5. Satır: Ok tuşları ve boşluk -->
+        <Grid Grid.Row="4" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76"/>
+                <!-- Yukarı ok -->
+                <ColumnDefinition Width="77"/>
+                <!-- Aşağı ok -->
+                <ColumnDefinition Width="657"/>
+                <!-- Space -->
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Column="0" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.UpArrow}" 
+                       Content="{Binding Model.UpArrow.Caption}" 
+                       Height="50" Width="71" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="1" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.DownArrow}" 
+                       Content="{Binding Model.DownArrow.Caption}" 
+                       Height="50" Width="72" Margin="0,0,5,0" Focusable="False"/>
+            <dx:SimpleButton Grid.Column="2" Command="{Binding PressKeyCommand}" 
+                       CommandParameter="{Binding Model.KeySpace}" 
+                       Content="{Binding Model.KeySpace.Caption}" 
+                       Height="50" Width="657" Focusable="False"/>
+        </Grid>
+    </Grid>
+</UserControl>

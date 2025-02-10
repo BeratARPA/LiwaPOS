@@ -113,20 +113,7 @@ namespace LiwaPOS.WpfAppUI.Services
                 await appRuleManager.ExecuteAppRulesForEventAsync(EventType.PageOpened, new PageOpenedDTO { ViewName = viewName });
             }
 
-            _applicationStateService.ActiveAppScreen = viewName switch
-            {
-                "Login" => AppScreenType.LoginScreen,
-                "Navigation" => AppScreenType.NavigationScreen,
-                "WorkPeriods" => AppScreenType.WorkPeriodsScreen,
-                "POS" => AppScreenType.POSScreen,
-                "Tickets" => AppScreenType.TicketsScreen,
-                "Accounts" => AppScreenType.AccountsScreen,
-                "Inventories" => AppScreenType.InventoriesScreen,
-                "Market" => AppScreenType.MarketScreen,
-                "Report" => AppScreenType.ReportScreen,
-                "Management" => AppScreenType.LoginScreen,
-                _ => AppScreenType.Nothing
-            };
+            _applicationStateService.SetActiveAppScreen(viewName);
         }
 
         public void GoBack()

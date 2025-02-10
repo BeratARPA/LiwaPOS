@@ -11,11 +11,7 @@ namespace LiwaPOS.BLL
     public static class DependencyInjection
     {
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
-        {
-            services.AddScoped<UserManager>();
-            services.AddScoped<AppRuleManager>();
-            services.AddScoped<AutomationCommandManager>();
-
+        {         
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IUserRoleService, UserRoleService>();
@@ -29,6 +25,7 @@ namespace LiwaPOS.BLL
             services.AddScoped<IActionContainerService, ActionContainerService>();
             services.AddScoped<IAutomationCommandMapService, AutomationCommandMapService>();
             services.AddScoped<IAutomationCommandService, AutomationCommandService>();
+            services.AddScoped<IProgramSettingValueService, ProgramSettingValueService>();
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<IHttpService, HttpService>();
             services.AddSingleton<IGoogleMapService, GoogleMapService>();
@@ -61,6 +58,11 @@ namespace LiwaPOS.BLL
             services.AddTransient<UserFailedToLoginEventHandler>();
             services.AddTransient<ShellInitializedEventHandler>();
             services.AddTransient<AutomationCommandExecutedEventHandler>();
+
+            services.AddScoped<UserManager>();
+            services.AddScoped<ProgramSettingValueManager>();
+            services.AddScoped<AppRuleManager>();
+            services.AddScoped<AutomationCommandManager>();
 
             return services;
         }

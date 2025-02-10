@@ -28,6 +28,7 @@ namespace LiwaPOS.DAL
             services.AddScoped<IRuleActionMapRepository, RuleActionMapRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IProgramSettingValueRepository, ProgramSettingValueRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IActionContainerRepository, ActionContainerRepository>();
 

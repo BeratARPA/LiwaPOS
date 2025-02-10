@@ -21,6 +21,7 @@ namespace LiwaPOS.DAL.Services
         private IUserRoleRepository _userRoles;
         private IPrinterRepository _printers;
         private IPermissionRepository _permissions;
+        private IProgramSettingValueRepository _programSettingValues;
 
         public UnitOfWork(DataContext context)
         {
@@ -40,6 +41,7 @@ namespace LiwaPOS.DAL.Services
         public IDepartmentRepository Departments => _departments ??= new DepartmentRepository(_context);
         public IPrinterRepository Printers => _printers ??= new PrinterRepository(_context);
         public IPermissionRepository Permissions => _permissions ??= new PermissionRepository(_context);
+        public IProgramSettingValueRepository ProgramSettingValues => _programSettingValues ??= new ProgramSettingValueRepository(_context);
 
         public async Task CommitAsync()
         {

@@ -17,6 +17,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
     public class LocalSettingsManagementViewModel : ViewModelBase
     {
         private readonly ITerminalService _terminalService;
+        private readonly IApplicationStateService _applicationStateService;
 
         private string _connectionString;
         public string ConnectionString
@@ -100,11 +101,10 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         public ICommand SaveCommand { get; }
         public ICommand OpenDynamicProperyEditorWindowCommand { get; }
 
-        public LocalSettingsManagementViewModel(ITerminalService terminalService)
+        public LocalSettingsManagementViewModel(ITerminalService terminalService, IApplicationStateService applicationStateService)
         {
             _terminalService = terminalService;
-
-            TerminalName = Properties.Settings.Default.TerminalName;
+            _applicationStateService = applicationStateService;
 
             _ = LoadTerminalsAsync();
 
@@ -114,7 +114,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
 
             UseDarkMode = Properties.Settings.Default.UseDarkMode;
             UseCustomNavigation = Properties.Settings.Default.UseCustomNavigation;
-            
+
             SaveCommand = new AsyncRelayCommand(SaveScript);
             OpenDynamicProperyEditorWindowCommand = new RelayCommand(OpenDynamicProperyEditorWindow);
         }
@@ -123,6 +123,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         {
             var data = await GetTerminals();
             Terminals = new ObservableCollection<TerminalDTO>(data);
+
+            await GetCurrentTerminal();
 
             // TerminalName ile eşleşen terminali seçili olarak ayarla
             SelectedTerminal = Terminals.FirstOrDefault(t => t.Name == TerminalName);
@@ -133,10 +135,16 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             return await _terminalService.GetAllTerminalsAsync();
         }
 
+        private async Task GetCurrentTerminal()
+        {
+            var currentTerminal = await _applicationStateService.GetCurrentTerminal();
+            TerminalName = currentTerminal?.Name ?? "";
+        }
+
         public void SetParameter(dynamic parameter)
         {
 
-        }       
+        }
 
         private async Task SaveScript(object obj)
         {
@@ -144,8 +152,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             await ConnectionService.SaveConnectionString(ConnectionString);
             Properties.Settings.Default.UseDarkMode = UseDarkMode;
             Properties.Settings.Default.UseCustomNavigation = UseCustomNavigation;
-            Properties.Settings.Default.TerminalName = TerminalName;
             Properties.Settings.Default.Save();
+
+            await _applicationStateService.SetCurrentTerminal(TerminalName);
 
             GlobalVariables.CloseTab(TranslatorExtension.TranslateUI("LocalSettings").Result);
         }
@@ -155,10 +164,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             var connectionString = new ConnectionStringDTO();
             if (!string.IsNullOrEmpty(ConnectionString))
             {
-                connectionString.DataSource = RegexHelper.FindAllMatches(ConnectionString, "Data Source=(.*?);")[0];
-                connectionString.UserId = RegexHelper.FindAllMatches(ConnectionString, "User Id=(.*?);")[0];
-                connectionString.Password = RegexHelper.FindAllMatches(ConnectionString, "Password=(.*?);")[0];
-                connectionString.Database = RegexHelper.FindAllMatches(ConnectionString, "Database=(.*?);")[0];
+                var dataSourceMatches = RegexHelper.FindAllMatches(ConnectionString, "Data Source=(.*?);");
+                connectionString.DataSource = dataSourceMatches.Any() ? dataSourceMatches[0] : "";
+
+                var userIdMatches = RegexHelper.FindAllMatches(ConnectionString, "User Id=(.*?);");
+                connectionString.UserId = userIdMatches.Any() ? userIdMatches[0] : "";
+
+                var passwordMatches = RegexHelper.FindAllMatches(ConnectionString, "Password=(.*?);");
+                connectionString.Password = passwordMatches.Any() ? passwordMatches[0] : "";
+
+                var databaseMatches = RegexHelper.FindAllMatches(ConnectionString, "Database=(.*?);");
+                connectionString.Database = databaseMatches.Any() ? databaseMatches[0] : "";
             }
 
             var viewModel = new DynamicPropertyEditorViewModel(connectionString);

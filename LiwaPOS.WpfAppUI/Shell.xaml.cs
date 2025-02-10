@@ -1,9 +1,11 @@
 ﻿using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.UserControls.General.Keyboards;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -18,6 +20,9 @@ namespace LiwaPOS.WpfAppUI
         private readonly IDepartmentService _departmentService;
         private readonly IApplicationStateService _applicationStateService;
 
+        private KeyboardWindow _keyboardWindow;
+        public KeyboardWindow KeyboardWindow { get { return _keyboardWindow ?? (_keyboardWindow = new KeyboardWindow()); } set { _keyboardWindow = value; } }
+
         public Shell()
         {
             InitializeComponent();
@@ -26,7 +31,7 @@ namespace LiwaPOS.WpfAppUI
             _departmentService = GlobalVariables.ServiceProvider.GetRequiredService<IDepartmentService>();
 
             GlobalVariables.Shell = this;
-            
+
             GlobalVariables.Navigator.SetFrame(FrameContent);
             GlobalVariables.Navigator.Navigate("Login");
 
@@ -45,6 +50,32 @@ namespace LiwaPOS.WpfAppUI
             }
 
             _ = UpdateDepartmentButtonsVisibilityAsync();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            if (source != null) source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == NativeWin32.WM_SHOWLIWAPOS)
+            {
+                ShowMe();
+            }
+            return IntPtr.Zero;
+        }
+
+        private void ShowMe()
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            var top = Topmost;
+            Topmost = true;
+            Topmost = top;
         }
 
         private void DispatcherTimerTime_Tick(object? sender, EventArgs e)
@@ -153,7 +184,10 @@ namespace LiwaPOS.WpfAppUI
 
         private void ButtonKeyboard_Click(object sender, RoutedEventArgs e)
         {
-
+            if (KeyboardWindow.IsVisible)
+                KeyboardWindow.HideKeyboard();
+            else
+                KeyboardWindow.ShowKeyboard();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace LiwaPOS.Shared.Helpers
     {
         // E-mail doğrulama regex
         private const string EmailPattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
-  
+
         // URL doğrulama regex
         private const string UrlPattern = @"^(http|https):\/\/[^\s/$.?#].[^\s]*$";
 
@@ -66,10 +66,12 @@ namespace LiwaPOS.Shared.Helpers
             string inputAsString = input.ToString() ?? string.Empty;
             var matches = Regex.Matches(inputAsString, pattern);
             var results = new List<string>();
+
             foreach (Match match in matches)
             {
                 results.Add(match.Groups[1].Value);
             }
+          
             return results;
         }
 
