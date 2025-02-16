@@ -39,16 +39,22 @@ namespace LiwaPOS.BLL.Managers
         {
             var existingSetting = await _programSettingValueService.GetProgramSettingValueAsNoTrackingAsync(e => e.Name == name);
             if (existingSetting != null)
-                await _programSettingValueService.DeleteProgramSettingValueAsync(existingSetting.Id);
-
-            // Yeni ekleme
-            var newSetting = new ProgramSettingValueDTO
             {
-                EntityGuid = Guid.NewGuid(),
-                Name = name,
-                Value = value
-            };
-            await _programSettingValueService.AddProgramSettingValueAsync(newSetting);
+                // Güncelleme
+                existingSetting.Value = value;
+                await _programSettingValueService.UpdateProgramSettingValueAsync(existingSetting);
+            }
+            else
+            {
+                // Yeni ekleme
+                var newSetting = new ProgramSettingValueDTO
+                {
+                    EntityGuid = Guid.NewGuid(),
+                    Name = name,
+                    Value = value
+                };
+                await _programSettingValueService.AddProgramSettingValueAsync(newSetting);
+            }
         }
 
         // İsime göre ayar okuma

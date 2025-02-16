@@ -1,6 +1,8 @@
 ﻿using LiwaPOS.Entities.Entities;
+using LiwaPOS.Shared.Enums;
 using LiwaPOS.Shared.Services;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LiwaPOS.DAL.Context
 {
@@ -49,7 +51,7 @@ namespace LiwaPOS.DAL.Context
         public DbSet<WarehouseType> WarehouseTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {          
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,114 +1,119 @@
 ﻿using LiwaPOS.BLL.Interfaces;
+using LiwaPOS.BLL.ValueChangeSystem;
+using LiwaPOS.Entities.Entities;
 using LiwaPOS.Shared.Helpers;
+using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Extensions;
 using LiwaPOS.WpfAppUI.Helpers;
-using System.Collections.ObjectModel;
+using Microsoft.Web.WebView2.Wpf;
+using PrintHTML.Core.Helpers;
+using PrintHTML.Core.Services;
+using System.Collections.Immutable;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
 {
     public class PrinterTemplateManagementViewModel : ViewModelBase
     {
-        private readonly IPrinterService _printerService;
+        private readonly IDynamicValueResolver _dynamicValueResolver;
+        private readonly IPrinterTemplateService _printerTemplateService;
         private readonly ICustomNotificationService _customNotificationService;
-        private string _printerName;
-        private string _shareName;
-        private bool _rtlMode;
-        private string _charReplacement;
-        private int _printerId;
+        private readonly PrinterService _printerService = new PrinterService();
+        private string _templateName;
+        private string _template;
+        private int _templateId;
+        private string _monacoEditorSource;
+        private FlowDocument _document;
+        private WebView2 _webView;
 
-        public int PrinterId
+        public int TemplateId
         {
-            get => _printerId;
+            get => _templateId;
             set
             {
-                _printerId = value;
+                _templateId = value;
                 OnPropertyChanged();
             }
         }
 
-        public string PrinterName
+        public string TemplateName
         {
-            get => _printerName;
+            get => _templateName;
             set
             {
-                _printerName = value;
+                _templateName = value;
                 OnPropertyChanged();
             }
         }
 
-        public string ShareName
+        public string Template
         {
-            get => _shareName;
+            get => _template;
             set
             {
-                _shareName = value;
+                _template = value;
                 OnPropertyChanged();
             }
         }
 
-        public bool RTLMode
+        public FlowDocument Document
         {
-            get => _rtlMode;
+            get => _document;
             set
             {
-                _rtlMode = value;
+                _document = value;
                 OnPropertyChanged();
             }
         }
 
-        public string CharReplacement
+        public string MonacoEditorSource
         {
-            get => _charReplacement;
+            get => _monacoEditorSource;
             set
             {
-                _charReplacement = value;
+                _monacoEditorSource = value;
                 OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> _windowsPrinters;
-        public ObservableCollection<string> WindowsPrinters
-        {
-            get => _windowsPrinters;
-            set
-            {
-                _windowsPrinters = value;
-                OnPropertyChanged(nameof(WindowsPrinters));
             }
         }
 
         public ICommand SaveCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand PreviewCommand { get; }
+        public ICommand PrintCommand { get; }
+        public ICommand TemplateHelpCommand { get; }
 
-        public PrinterTemplateManagementViewModel(IPrinterService printerService, ICustomNotificationService customNotificationService)
+        public PrinterTemplateManagementViewModel(IDynamicValueResolver dynamicValueResolver, IPrinterTemplateService printerTemplateService, ICustomNotificationService customNotificationService)
         {
-            _printerService = printerService;
+            _dynamicValueResolver = dynamicValueResolver;
+            _printerTemplateService = printerTemplateService;
             _customNotificationService = customNotificationService;
 
-            _ = LoadWindowsPrintersAsync();
-
-            SaveCommand = new AsyncRelayCommand(SaveScript);
+            SaveCommand = new AsyncRelayCommand(SaveTemplate);
             CloseCommand = new AsyncRelayCommand(ClosePage);
-        }
+            PreviewCommand = new AsyncRelayCommand(PreviewTemplate);
+            PrintCommand = new AsyncRelayCommand(PrintTemplate);
+            TemplateHelpCommand = new AsyncRelayCommand(TemplateHelp);
 
-        private async Task LoadWindowsPrintersAsync()
-        {
-            var data = PrinterHelper.GetPrinters();
-            WindowsPrinters = new ObservableCollection<string>(data);
+            // HTML file path for Monaco Editor
+            string assemblyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string filePath = Path.Combine(assemblyPath, "Resources", "monacoeditorprintertemplate.html");
+
+            // Dosya yolunu URI formatına çevirirken özel karakterleri uygun şekilde kodlama
+            MonacoEditorSource = new Uri(filePath).AbsoluteUri;
         }
 
         public void SetParameter(dynamic parameter)
         {
-            if (parameter is PrinterDTO printer)
+            if (parameter is PrinterTemplateDTO printerTemplate)
             {
-                PrinterId = printer.Id;
-                PrinterName = printer.Name;
-                ShareName = printer.ShareName;
-                RTLMode = printer.RTLMode;
-                CharReplacement = printer.CharReplacement;
+                TemplateId = printerTemplate.Id;
+                TemplateName = printerTemplate.Name;
+                Template = printerTemplate.Template;
             }
             else
             {
@@ -124,52 +129,127 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
         private async Task<List<(string PropertyName, Func<Task<bool>> ValidationFunction, string Message)>> GetValidationsAsync()
         {
             return new List<(string PropertyName, Func<Task<bool>> ValidationFunction, string Message)>
-    {
-        (
-            nameof(PrinterName),
-            async () => !string.IsNullOrEmpty(PrinterName),
-            string.Format(await TranslatorExtension.TranslateUI("NotEmpty_ph"), nameof(PrinterName))
-        ),
-        (
-            nameof(PrinterName),
-            async () => !(await _printerService.GetAllPrintersAsNoTrackingAsync(x => x.Name == PrinterName&& x.Id != PrinterId)).Any(),
-            string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(PrinterName))
-        )
-    };
+            {
+                (
+                nameof(TemplateName),
+                async () => !string.IsNullOrEmpty(TemplateName),
+                string.Format(await TranslatorExtension.TranslateUI("NotEmpty_ph"), nameof(TemplateName))
+                ),
+                (
+                nameof(TemplateName),
+                async () => !(await _printerTemplateService.GetAllPrinterTemplatesAsNoTrackingAsync(x => x.Name == TemplateName&& x.Id != TemplateId)).Any(),
+                string.Format(await TranslatorExtension.TranslateUI("AlreadyUse_ph"), nameof(TemplateName))
+                )
+            };
         }
 
-        private async Task SaveScript(object obj)
+        private async Task SaveTemplate(object obj)
         {
+            if (_webView == null)
+                return;
+
             var validations = await GetValidationsAsync();
             var isValid = await ValidateFieldsAsync(validations, _customNotificationService);
             if (!isValid)
                 return;
 
-            var existingPrinter = await _printerService.GetPrinterByIdAsNoTrackingAsync(PrinterId);
-            if (existingPrinter != null)
-            {
-                existingPrinter.Name = PrinterName;
-                existingPrinter.ShareName = ShareName;
-                existingPrinter.RTLMode = RTLMode;
-                existingPrinter.CharReplacement = CharReplacement;
+            var content = await GetEditorContent();
+            if (string.IsNullOrEmpty(content))
+                return;
 
-                await _printerService.UpdatePrinterAsync(existingPrinter);
+            var existingPrinterTemplate = await _printerTemplateService.GetPrinterTemplateByIdAsNoTrackingAsync(TemplateId);
+            if (existingPrinterTemplate != null)
+            {
+                existingPrinterTemplate.Name = TemplateName;
+                existingPrinterTemplate.Template = content;
+
+                await _printerTemplateService.UpdatePrinterTemplateAsync(existingPrinterTemplate);
             }
             else
             {
-                var printer = new PrinterDTO
+                var printerTemplate = new PrinterTemplateDTO
                 {
                     EntityGuid = Guid.NewGuid(),
-                    Name = PrinterName,
-                    ShareName = ShareName,
-                    RTLMode = RTLMode,
-                    CharReplacement = CharReplacement
+                    Name = TemplateName,
+                    Template = content
                 };
 
-                await _printerService.AddPrinterAsync(printer);
+                await _printerTemplateService.AddPrinterTemplateAsync(printerTemplate);
             }
 
             GlobalVariables.Navigator.Navigate("PrinterTemplates");
+        }
+
+        private async Task PreviewTemplate(object obj)
+        {
+            var content = await GetEditorContent();
+            if (string.IsNullOrEmpty(content))
+                return;
+
+            var context = new ValueContext(null, null);
+            var result = _dynamicValueResolver.ResolveExpression(content, context);
+
+            Document = _printerService.GeneratePreview(result);
+        }
+
+        private async Task PrintTemplate(object obj)
+        {
+            var content = await GetEditorContent();
+            if (string.IsNullOrEmpty(content))
+                return;
+
+            AsyncPrintTask.Exec(true, () => _printerService.DoPrint(content, PrinterHelper.GetDefaultPrinter()));
+        }
+
+        private async Task TemplateHelp(object obj)
+        {
+            Document = new FlowDocument();
+        }
+
+        private async Task<string> GetEditorContent()
+        {
+            if (_webView == null)
+                return "";
+
+            string editorContent = await _webView.ExecuteScriptAsync("window.editor.getValue();");
+            // Gelen string JSON formatında olabilir, bunu düzenle:
+            editorContent = editorContent.Trim('"').Replace("\\n", "\n").Replace("\\r", "\r").Replace("\\t", "\t");
+            // Unicode kaçış karakterlerini çözümlemek için bir Regex kullan
+            editorContent = Regex.Unescape(editorContent);
+            // Kaçış karakterlerini kaldır (örn. \\u003C yerine < koy)
+            editorContent = Regex.Replace(editorContent, @"\\u([0-9A-Fa-f]{4})", m => ((char)int.Parse(m.Groups[1].Value, System.Globalization.NumberStyles.HexNumber)).ToString());
+
+            return editorContent;
+        }
+
+        public void SetWebView(WebView2 webView)
+        {
+            _webView = webView;
+
+            // Initialize WebView2 control
+            InitializeWebView();
+        }
+
+        private async void InitializeWebView()
+        {
+            if (_webView != null)
+            {
+                // Initialize WebView2 and load the Monaco editor
+                await _webView.EnsureCoreWebView2Async();
+                _webView.CoreWebView2.Navigate(MonacoEditorSource);
+
+                _webView.CoreWebView2.NavigationCompleted += async (sender, e) =>
+                {
+                    if (e.IsSuccess)
+                    {
+                        await _webView.ExecuteScriptAsync($"window.editor.setValue(`{Template}`);");
+                    }
+                    else
+                    {
+                        MessageBox.Show("WebView2 sayfası yüklenirken bir hata oluştu.");
+                    }
+                };
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
         private string _shareName;
         private bool _rtlMode;
         private string _charReplacement;
+        private int _lineCharactersCount;
         private int _printerId;
 
         public int PrinterId
@@ -69,6 +70,16 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
             }
         }
 
+        public int LineCharactersCount
+        {
+            get => _lineCharactersCount;
+            set
+            {
+                _lineCharactersCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> _windowsPrinters;
         public ObservableCollection<string> WindowsPrinters
         {
@@ -90,7 +101,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
 
             _ = LoadWindowsPrintersAsync();
 
-            SaveCommand = new AsyncRelayCommand(SaveScript);
+            SaveCommand = new AsyncRelayCommand(SavePrinter);
             CloseCommand = new AsyncRelayCommand(ClosePage);
         }
 
@@ -109,6 +120,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
                 ShareName = printer.ShareName;
                 RTLMode = printer.RTLMode;
                 CharReplacement = printer.CharReplacement;
+                LineCharactersCount = printer.LineCharactersCount;
             }
             else
             {
@@ -138,7 +150,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
     };
         }
 
-        private async Task SaveScript(object obj)
+        private async Task SavePrinter(object obj)
         {
             var validations = await GetValidationsAsync();
             var isValid = await ValidateFieldsAsync(validations, _customNotificationService);
@@ -152,6 +164,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
                 existingPrinter.ShareName = ShareName;
                 existingPrinter.RTLMode = RTLMode;
                 existingPrinter.CharReplacement = CharReplacement;
+                existingPrinter.LineCharactersCount = LineCharactersCount;
 
                 await _printerService.UpdatePrinterAsync(existingPrinter);
             }
@@ -163,7 +176,8 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
                     Name = PrinterName,
                     ShareName = ShareName,
                     RTLMode = RTLMode,
-                    CharReplacement = CharReplacement
+                    CharReplacement = CharReplacement,
+                    LineCharactersCount = LineCharactersCount
                 };
 
                 await _printerService.AddPrinterAsync(printer);

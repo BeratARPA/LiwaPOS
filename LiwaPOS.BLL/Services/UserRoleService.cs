@@ -4,7 +4,6 @@ using LiwaPOS.DAL.Interfaces;
 using LiwaPOS.Entities.Entities;
 using LiwaPOS.Shared.Models.Entities;
 using System.Linq.Expressions;
-using System.Security;
 
 namespace LiwaPOS.BLL.Services
 {
@@ -36,9 +35,9 @@ namespace LiwaPOS.BLL.Services
             var toDeleteEntities = entities?.ToList() ?? await _unitOfWork.UserRoles.GetAllAsync(filter);
             foreach (var user in toDeleteEntities)
             {
-                var hasRelationship = await _relationshipChecker.HasRelationshipAsync<UserRole>(user.Id, u => u.Id);
+                var hasRelationship = _relationshipChecker.HasRelationship<UserRole>(user.Id);
                 if (hasRelationship)
-                    throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+                    return;
             }
 
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
@@ -50,9 +49,9 @@ namespace LiwaPOS.BLL.Services
 
         public async Task DeleteUserRoleAsync(int id)
         {
-            var hasRelationship = await _relationshipChecker.HasRelationshipAsync<UserRole>(id, u => u.Id);
+            var hasRelationship = _relationshipChecker.HasRelationship<UserRole>(id);
             if (hasRelationship)
-                throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+                return;
 
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {

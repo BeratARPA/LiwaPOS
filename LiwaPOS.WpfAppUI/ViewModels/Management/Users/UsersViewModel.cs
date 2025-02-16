@@ -3,6 +3,8 @@ using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
@@ -12,7 +14,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         private string _searchText;
         private UserDTO _selectedCommand;
         private ObservableCollection<UserDTO> _commands;
-        private ObservableCollection<UserDTO> _filteredCommands;
+        private ICollectionView _filteredCommands;
         private readonly IUserService _userService;
 
         public string SearchText
@@ -46,7 +48,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
             }
         }
 
-        public ObservableCollection<UserDTO> FilteredCommands
+        public ICollectionView FilteredCommands
         {
             get => _filteredCommands;
             set
@@ -78,7 +80,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         {
             var data = await GetUsers();
             Commands = new ObservableCollection<UserDTO>(data);
-            FilteredCommands = new ObservableCollection<UserDTO>(Commands);
+
+            // ICollectionView ile gruplama ve sıralama işlemleri
+            FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
         }
 
         // Arama metni değiştikçe komutları filtreler
@@ -86,14 +90,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                FilteredCommands = new ObservableCollection<UserDTO>(Commands);
+                FilteredCommands.Filter = null;  // Tüm listeyi göster
             }
             else
             {
-                FilteredCommands = new ObservableCollection<UserDTO>(
-                    Commands.Where(c => c.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                );
+                FilteredCommands.Filter = obj =>
+                {
+                    var command = obj as UserDTO;
+                    return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                };
             }
+            FilteredCommands.Refresh();
         }
 
         // Yeni komut ekleme

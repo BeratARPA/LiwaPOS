@@ -22,6 +22,7 @@ namespace LiwaPOS.Entities.Mappings
             CreateMap<Terminal, TerminalDTO>().ReverseMap();
             CreateMap<Department, DepartmentDTO>().ReverseMap();
             CreateMap<Printer, PrinterDTO>().ReverseMap();
+            CreateMap<PrinterTemplate, PrinterTemplateDTO>().ReverseMap();
             CreateMap<ProgramSettingValue, ProgramSettingValueDTO>().ReverseMap();
         }
     }

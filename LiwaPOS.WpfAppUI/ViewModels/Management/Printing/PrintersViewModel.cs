@@ -94,7 +94,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
             {
                 FilteredCommands.Filter = obj =>
                 {
-                    var command = obj as TerminalDTO;
+                    var command = obj as PrinterDTO;
                     return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
                 };
             }

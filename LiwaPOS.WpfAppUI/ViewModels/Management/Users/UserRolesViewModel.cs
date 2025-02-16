@@ -3,6 +3,8 @@ using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
@@ -12,7 +14,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         private string _searchText;
         private UserRoleDTO _selectedCommand;
         private ObservableCollection<UserRoleDTO> _commands;
-        private ObservableCollection<UserRoleDTO> _filteredCommands;
+        private ICollectionView _filteredCommands;
         private readonly IUserRoleService _userRoleService;
         private readonly IPermissionService _permissionService;
 
@@ -47,7 +49,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
             }
         }
 
-        public ObservableCollection<UserRoleDTO> FilteredCommands
+        public ICollectionView FilteredCommands
         {
             get => _filteredCommands;
             set
@@ -80,7 +82,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         {
             var data = await GetUserRoles();
             Commands = new ObservableCollection<UserRoleDTO>(data);
-            FilteredCommands = new ObservableCollection<UserRoleDTO>(Commands);
+
+            // ICollectionView ile gruplama ve sıralama işlemleri
+            FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
         }
 
         // Arama metni değiştikçe komutları filtreler
@@ -88,14 +92,17 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Users
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                FilteredCommands = new ObservableCollection<UserRoleDTO>(Commands);
+                FilteredCommands.Filter = null;  // Tüm listeyi göster
             }
             else
             {
-                FilteredCommands = new ObservableCollection<UserRoleDTO>(
-                    Commands.Where(c => c.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                );
+                FilteredCommands.Filter = obj =>
+                {
+                    var command = obj as UserRoleDTO;
+                    return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                };
             }
+            FilteredCommands.Refresh();
         }
 
         // Yeni komut ekleme

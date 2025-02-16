@@ -718,5 +718,21 @@
   {
     "Key": "Visibility",
     "Value": "Visibility"
+  },
+  {
+    "Key": "Print",
+    "Value": "Print"
+  },
+  {
+    "Key": "Preview",
+    "Value": "Preview"
+  },
+  {
+    "Key": "TemplateHelp",
+    "Value": "Template Help"
+  },
+  {
+    "Key": "LineCharactersCount",
+    "Value": "Line Characters Count"
   }
 ]

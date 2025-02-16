@@ -20,6 +20,7 @@ namespace LiwaPOS.DAL.Services
         private IUserRepository _users;
         private IUserRoleRepository _userRoles;
         private IPrinterRepository _printers;
+        private IPrinterTemplateRepository _printerTemplates;
         private IPermissionRepository _permissions;
         private IProgramSettingValueRepository _programSettingValues;
 
@@ -40,6 +41,7 @@ namespace LiwaPOS.DAL.Services
         public ITerminalRepository Terminals => _terminals ??= new TerminalRepository(_context);
         public IDepartmentRepository Departments => _departments ??= new DepartmentRepository(_context);
         public IPrinterRepository Printers => _printers ??= new PrinterRepository(_context);
+        public IPrinterTemplateRepository PrinterTemplates => _printerTemplates ??= new PrinterTemplateRepository(_context);
         public IPermissionRepository Permissions => _permissions ??= new PermissionRepository(_context);
         public IProgramSettingValueRepository ProgramSettingValues => _programSettingValues ??= new ProgramSettingValueRepository(_context);
 

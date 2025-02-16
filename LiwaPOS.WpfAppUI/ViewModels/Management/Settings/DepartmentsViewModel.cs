@@ -3,6 +3,8 @@ using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
@@ -12,7 +14,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         private string _searchText;
         private DepartmentDTO _selectedCommand;
         private ObservableCollection<DepartmentDTO> _commands;
-        private ObservableCollection<DepartmentDTO> _filteredCommands;
+        private ICollectionView _filteredCommands;
         private readonly IDepartmentService _departmentService;
 
         public string SearchText
@@ -46,7 +48,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
             }
         }
 
-        public ObservableCollection<DepartmentDTO> FilteredCommands
+        public ICollectionView FilteredCommands
         {
             get => _filteredCommands;
             set
@@ -78,7 +80,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         {
             var data = await GetDepartments();
             Commands = new ObservableCollection<DepartmentDTO>(data);
-            FilteredCommands = new ObservableCollection<DepartmentDTO>(Commands);
+
+            // ICollectionView ile gruplama ve sıralama işlemleri
+            FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
         }
 
         // Arama metni değiştikçe komutları filtreler
@@ -86,13 +90,15 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Settings
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                FilteredCommands = new ObservableCollection<DepartmentDTO>(Commands);
+                FilteredCommands.Filter = null;
             }
             else
             {
-                FilteredCommands = new ObservableCollection<DepartmentDTO>(
-                    Commands.Where(c => c.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                );
+                FilteredCommands.Filter = obj =>
+                {
+                    var command = obj as DepartmentDTO;
+                    return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                };
             }
         }
 

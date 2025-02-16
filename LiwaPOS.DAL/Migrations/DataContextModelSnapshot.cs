@@ -17,7 +17,7 @@ namespace LiwaPOS.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -481,6 +481,9 @@ namespace LiwaPOS.DAL.Migrations
 
                     b.Property<Guid>("EntityGuid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("LineCharactersCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

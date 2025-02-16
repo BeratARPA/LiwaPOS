@@ -141,7 +141,8 @@ namespace LiwaPOS.DAL.Services
                         Name = "Ticket Printer",
                         ShareName = defaultPrinterName,
                         RTLMode = false,
-                        CharReplacement = ""
+                        CharReplacement = "",
+                        LineCharactersCount = 42
                     },
                     new Printer
                     {
@@ -149,7 +150,8 @@ namespace LiwaPOS.DAL.Services
                         Name = "Kitchen Printer",
                         ShareName = defaultPrinterName,
                         RTLMode = false,
-                        CharReplacement = ""
+                        CharReplacement = "",
+                        LineCharactersCount = 42
                     },
                     new Printer
                     {
@@ -157,7 +159,8 @@ namespace LiwaPOS.DAL.Services
                         Name = "Invoice Printer",
                         ShareName = defaultPrinterName,
                         RTLMode = false,
-                        CharReplacement = ""
+                        CharReplacement = "",
+                        LineCharactersCount = 42
                     },
                 };
 

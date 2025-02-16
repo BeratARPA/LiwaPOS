@@ -57,7 +57,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.General
 
         private void Cancel(object obj)
         {
-            SelectedItems.Clear();
+            _onConfirmAction?.Invoke(SelectedItems);
         }
 
         private void AddSelected(object obj)

@@ -19,6 +19,7 @@ namespace LiwaPOS.DAL
 
             // Özel Repository Tanımlamaları
             services.AddScoped<IRelationshipChecker, RelationshipChecker>();
+            services.AddScoped<IPrinterTemplateRepository, PrinterTemplateRepository>();
             services.AddScoped<IPrinterRepository, PrinterRepository>();
             services.AddScoped<ITerminalRepository, TerminalRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();

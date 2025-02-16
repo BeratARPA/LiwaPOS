@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LiwaPOS.WpfAppUI.UserControls.Management.Printing"
-             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions"
+             xmlns:extension="clr-namespace:LiwaPOS.WpfAppUI.Extensions" 
+             xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding PrinterTemplateManagementViewModel,Source={StaticResource ViewModelLocator}}">
@@ -15,18 +16,33 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding PrinterTemplateName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{extension:Translator Name, Suffix=':'}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding TemplateName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{extension:Translator TemplateHelp}" Margin="0,0,5,0" Width="100" Height="30" Command="{Binding TemplateHelpCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                <Button Content="{extension:Translator Preview}" Margin="0,0,5,0" Width="100" Height="30" Command="{Binding PreviewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                <Button Content="{extension:Translator Print}" Width="100" Height="30" Command="{Binding PrintCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Grid>
 
-            <TextBlock Text="{extension:Translator PrinterShareNamePortName, Suffix=':'}" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding WindowsPrinters}" SelectedItem="{Binding ShareName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{extension:Translator CharReplacement, Suffix=':'}" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding CharReplacement, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+            <wpf:WebView2 x:Name="MonacoEditorWebView" Grid.Column="0" Margin="10"/>
 
-            <CheckBox Content="{extension:Translator RTLSupport}" HorizontalAlignment="Left" IsChecked="{Binding RTLMode, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
+            <GridSplitter Grid.Column="0" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Gray"/>
+
+            <Grid Grid.Column="1" Background="White" Margin="10">
+                <FlowDocumentScrollViewer   Document="{Binding Document}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+            </Grid>
+        </Grid>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

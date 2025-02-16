@@ -28,42 +28,42 @@
                     var suggestions = [
                         {
                             label: 'showMessage',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'showMessage(title, message, icon, position, buttonType, duration, isDialog)'
                         },
                         {
                             label: 'runAction',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'runAction(actionType, actionParams)'
                         },
                         {
                             label: 'runAction',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'runAction(actionName)'
                         },
                         {
                             label: 'executeSql',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'executeSql(command)'
                         }, 
                         {
                             label: 'httpGet',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'httpGet(url)'
                         },
                         {
                             label: 'httpPost',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'httpPost(url, body)'
                         },
                         {
                             label: 'httpPut',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'httpPut(url, body)'
                         },
                         {
                             label: 'httpDelete',
-                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
                             insertText: 'httpDelete(url)'
                         },
                     ];
@@ -77,11 +77,10 @@
                 language: 'javascript', // javascript dilini burada seçiyoruz
                 theme: 'vs-light', // 'vs-light' for light theme
                 automaticLayout: true,
-                minimap: {
-                    enabled: true // Minimap özelliğini açtı
-                },
-                fontSize: 25, // Font büyüklüğünü ayarladı
+                minimap: { enabled: false },
+                fontSize: 18, // Font büyüklüğünü ayarladı
                 wordWrap: 'on', // Uzun satırlar taşarak gözükmesin diye kelime kaydırma açıldı
+                suggestOnTriggerCharacters: true
             });
         });
     </script>

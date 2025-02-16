@@ -151,6 +151,7 @@ namespace LiwaPOS.DAL.Migrations
                     ShareName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RTLMode = table.Column<bool>(type: "bit", nullable: false),
                     CharReplacement = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LineCharactersCount = table.Column<int>(type: "int", nullable: false),
                     EntityGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

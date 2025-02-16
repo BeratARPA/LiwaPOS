@@ -78,7 +78,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
 
             // HTML file path for Monaco Editor
             string assemblyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string filePath = Path.Combine(assemblyPath, "Resources", "monacoeditor.html");
+            string filePath = Path.Combine(assemblyPath, "Resources", "monacoeditorscript.html");
 
             // Dosya yolunu URI formatına çevirirken özel karakterleri uygun şekilde kodlama
             MonacoEditorSource = new Uri(filePath).AbsoluteUri;
@@ -100,7 +100,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
 
         private async Task ClosePage(object arg)
         {
-            GlobalVariables.Navigator.Navigate("Scripts");
+            GlobalVariables.Navigator.Navigate("PrinterTemplates");
         }
 
         private async Task<List<(string PropertyName, Func<Task<bool>> ValidationFunction, string Message)>> GetValidationsAsync()
@@ -160,7 +160,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
                 await _scriptService.AddScriptAsync(script);
             }
 
-            GlobalVariables.Navigator.Navigate("Scripts");
+            GlobalVariables.Navigator.Navigate("PrinterTemplates");
         }
 
         private async Task RunScript(object obj)

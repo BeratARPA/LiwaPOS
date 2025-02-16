@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monaco Editor with IntelliSense</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.1/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+
+            // Temel IntelliSense önerileri
+            monaco.languages.registerCompletionItemProvider('html', {
+                provideCompletionItems: function () {
+                    var suggestions = [
+                        {
+                            label: '<ascii>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<ascii>$0',
+                            documentation: 'ascii: ASCII karakterleri'
+                        },
+                        {
+                            label: '<c>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<c>$0',
+                            documentation: 'c: ortala'
+                        },
+                        {
+                            label: '<l>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<l>$0',
+                            documentation: 'l: sola yasla'
+                        },
+                        {
+                            label: '<r>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<r>$0',
+                            documentation: 'r: sağ yasla'
+                        },
+                        {
+                            label: '<j>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<j>$0',
+                            documentation: 'j: tablo oluştur, "|" kullanarak column oluşturur (örn: <j> test | test)'
+                        },
+                        {
+                            label: '<t>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<t>$0',
+                            documentation: 't: bold yap'
+                        },
+                        {
+                            label: '<f>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<f>$0',
+                            documentation: 'f: satırı doldurur (örn: <f>- örnek -------------)'
+                        },
+                        {
+                            label: '<eb>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<eb>$0<db>',
+                            documentation: 'eb, db: etiketler arasına yazılan yazıyı bold yapar'
+                        },
+                        {
+                            label: '<bx>',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: '<bx>$0',
+                            documentation: 'bx: içeriğin etrafına kenarlıklı kutu oluşturur'
+                        }
+                    ];
+                    return { suggestions: suggestions };
+                }
+            });
+
+            // Editörü başlat
+            window.editor = monaco.editor.create(document.getElementById('container'), {
+                value: '',
+                language: 'html', // html dilini burada seçiyoruz
+                theme: 'vs-light', // 'vs-light' for light theme
+                automaticLayout: true,
+                minimap: { enabled: false },
+                fontSize: 18, // Font büyüklüğünü ayarladı
+                wordWrap: 'on', // Uzun satırlar taşarak gözükmesin diye kelime kaydırma açıldı
+                suggestOnTriggerCharacters: true
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>

@@ -1,4 +1,7 @@
-﻿namespace LiwaPOS.WpfAppUI.UserControls.Management.Printing
+﻿using LiwaPOS.WpfAppUI.Helpers;
+using LiwaPOS.WpfAppUI.ViewModels.Management.Printing;
+
+namespace LiwaPOS.WpfAppUI.UserControls.Management.Printing
 {
     /// <summary>
     /// Interaction logic for PrinterTemplatesUserControl.xaml
@@ -12,7 +15,11 @@
 
         private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            var viewModel = DataContext as PrintersViewModel;
+            if (viewModel?.SelectedCommand != null)
+            {
+                GlobalVariables.Navigator.Navigate("PrinterTemplateManagement", viewModel.SelectedCommand);
+            }
         }
     }
 }

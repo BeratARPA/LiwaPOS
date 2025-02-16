@@ -4,6 +4,7 @@ using LiwaPOS.BLL.Factories;
 using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.Managers;
 using LiwaPOS.BLL.Services;
+using LiwaPOS.BLL.ValueChangeSystem;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiwaPOS.BLL
@@ -11,7 +12,9 @@ namespace LiwaPOS.BLL
     public static class DependencyInjection
     {
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
-        {         
+        {
+            ValueResolutionExtensions.AddDynamicValueResolution(services);
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IUserRoleService, UserRoleService>();
@@ -19,6 +22,7 @@ namespace LiwaPOS.BLL
             services.AddScoped<IAppActionService, AppActionService>();
             services.AddScoped<IRuleActionMapService, RuleActionMapService>();
             services.AddScoped<IScriptService, ScriptService>();
+            services.AddScoped<IPrinterTemplateService, PrinterTemplateService>();
             services.AddScoped<IPrinterService, PrinterService>();
             services.AddScoped<ITerminalService, TerminalService>();
             services.AddScoped<IDepartmentService, DepartmentService>();

@@ -3,6 +3,8 @@ using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Helpers;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
@@ -12,7 +14,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         private string _searchText;
         private ScriptDTO _selectedCommand;
         private ObservableCollection<ScriptDTO> _commands;
-        private ObservableCollection<ScriptDTO> _filteredCommands;
+        private ICollectionView _filteredCommands;
         private readonly IScriptService _scriptService;
 
         public string SearchText
@@ -46,7 +48,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
             }
         }
 
-        public ObservableCollection<ScriptDTO> FilteredCommands
+        public ICollectionView FilteredCommands
         {
             get => _filteredCommands;
             set
@@ -78,7 +80,9 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         {
             var data = await GetScripts();
             Commands = new ObservableCollection<ScriptDTO>(data);
-            FilteredCommands = new ObservableCollection<ScriptDTO>(Commands);
+
+            // ICollectionView ile gruplama ve sıralama işlemleri
+            FilteredCommands = CollectionViewSource.GetDefaultView(Commands);
         }
 
         // Arama metni değiştikçe komutları filtreler
@@ -86,13 +90,15 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                FilteredCommands = new ObservableCollection<ScriptDTO>(Commands);
+                FilteredCommands.Filter = null;
             }
             else
             {
-                FilteredCommands = new ObservableCollection<ScriptDTO>(
-                    Commands.Where(c => c.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                );
+                FilteredCommands.Filter = obj =>
+                {
+                    var command = obj as ScriptDTO;
+                    return command != null && command.Name.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                };
             }
         }
 

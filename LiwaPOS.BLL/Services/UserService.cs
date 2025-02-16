@@ -35,9 +35,9 @@ namespace LiwaPOS.BLL.Services
             var toDeleteEntities = entities?.ToList() ?? await _unitOfWork.Users.GetAllAsync(filter);
             foreach (var user in toDeleteEntities)
             {
-                var hasRelationship = await _relationshipChecker.HasRelationshipAsync<User>(user.Id, u => u.UserRoleId);
+                var hasRelationship = _relationshipChecker.HasRelationship<User>(user.Id);
                 if (hasRelationship)
-                    throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+                    return;
             }
 
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
@@ -49,9 +49,9 @@ namespace LiwaPOS.BLL.Services
 
         public async Task DeleteUserAsync(int id)
         {
-            var hasRelationship = await _relationshipChecker.HasRelationshipAsync<User>(id, u => u.UserRoleId);
+            var hasRelationship = _relationshipChecker.HasRelationship<User>(id);
             if (hasRelationship)
-                throw new InvalidOperationException("İlişkisi bulunmaktadır, silinemez!");
+                return;
 
             await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {

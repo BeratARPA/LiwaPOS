@@ -14,6 +14,7 @@
         ITerminalRepository Terminals { get; }
         IDepartmentRepository Departments { get; }
         IPrinterRepository Printers { get; }
+        IPrinterTemplateRepository PrinterTemplates { get; }
         IPermissionRepository Permissions { get; }
         IProgramSettingValueRepository ProgramSettingValues { get; }
 

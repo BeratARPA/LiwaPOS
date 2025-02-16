@@ -33,9 +33,11 @@
     <PackageReference Include="devexpress.wpf.navbar" Version="24.1.3" />
     <PackageReference Include="DevExpress.Wpf.Themes.Win11Dark" Version="24.1.3" />
     <PackageReference Include="DevExpress.Wpf.Themes.Win11Light" Version="24.1.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
-    <PackageReference Include="System.Management" Version="9.0.0" />
+    <PackageReference Include="Figgle" Version="0.5.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3065.39" />
+    <PackageReference Include="PrintHTML.Core" Version="1.0.3" />
+    <PackageReference Include="System.Management" Version="9.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,7 +74,10 @@
     <None Update="Resources\Localization\Languages\tr.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\monacoeditor.html">
+    <None Update="Resources\monacoeditorprintertemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\monacoeditorscript.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\SqlLocalDB.msi">

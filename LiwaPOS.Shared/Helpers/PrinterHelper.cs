@@ -10,12 +10,20 @@ namespace LiwaPOS.Shared.Helpers
         /// </summary>
         public static IEnumerable<string> GetPrinters()
         {
-            List<string> printers = new List<string>();
-            foreach (string printer in PrinterSettings.InstalledPrinters)
+            return PrinterSettings.InstalledPrinters.Cast<string>();
+        }
+
+        /// <summary>
+        /// Belirtilen yazıcıyı getirir.
+        /// </summary>
+        public static PrinterSettings GetPrinter(string printerName)
+        {
+            var printers = GetPrinters();
+            if (printers.Contains(printerName))
             {
-                printers.Add(printer);
+                return new PrinterSettings { PrinterName = printerName };
             }
-            return printers;
+            return null;
         }
 
         /// <summary>
@@ -67,6 +75,128 @@ namespace LiwaPOS.Shared.Helpers
             catch (Exception ex)
             {
                 return $"Error retrieving printer status: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Yazıcının kağıt durumunu kontrol eder.
+        /// </summary>
+        public static string GetPrinterPaperStatus(string printerName)
+        {
+            try
+            {
+                string query = $"SELECT * FROM Win32_Printer WHERE Name = '{printerName.Replace("\\", "\\\\")}'";
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject printer in searcher.Get())
+                    {
+                        int extendedPrinterStatus = Convert.ToInt32(printer["ExtendedPrinterStatus"]);
+                        return extendedPrinterStatus switch
+                        {
+                            1 => "Other",
+                            2 => "Unknown",
+                            3 => "Idle",
+                            4 => "Printing",
+                            5 => "Warmup",
+                            6 => "Stopped Printing",
+                            7 => "Offline",
+                            _ => "Unknown Status",
+                        };
+                    }
+                }
+                return "Printer Not Found";
+            }
+            catch (Exception ex)
+            {
+                return $"Error: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Yazıcıya test sayfası gönderir.
+        /// </summary>
+        public static bool PrintTestPage(string printerName)
+        {
+            try
+            {
+                string query = $"SELECT * FROM Win32_Printer WHERE Name = '{printerName}'";
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject printer in searcher.Get())
+                    {
+                        printer.InvokeMethod("PrintTestPage", null);
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Test page error: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Yazıcı bağlantısını kaldırır.
+        /// </summary>
+        public static bool RemovePrinter(string printerName)
+        {
+            try
+            {
+                string query = $"SELECT * FROM Win32_Printer WHERE Name = '{printerName}'";
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject printer in searcher.Get())
+                    {
+                        printer.Delete();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Remove printer error: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Yazıcı kuyruğunu duraklatır.
+        /// </summary>
+        public static bool PausePrinter(string printerName)
+        {
+            return ChangePrinterState(printerName, "Pause");
+        }
+
+        /// <summary>
+        /// Yazıcı kuyruğunu devam ettirir.
+        /// </summary>
+        public static bool ResumePrinter(string printerName)
+        {
+            return ChangePrinterState(printerName, "Resume");
+        }
+
+        private static bool ChangePrinterState(string printerName, string action)
+        {
+            try
+            {
+                string query = $"SELECT * FROM Win32_Printer WHERE Name = '{printerName.Replace("\\", "\\\\")}'";
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject printer in searcher.Get())
+                    {
+                        printer.InvokeMethod(action, null);
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{action} error: {ex.Message}");
+                return false;
             }
         }
     }

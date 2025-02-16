@@ -718,5 +718,21 @@
   {
     "Key": "Visibility",
     "Value": "Görünürlük"
+  },
+  {
+    "Key": "Print",
+    "Value": "Yazdır"
+  },
+  {
+    "Key": "Preview",
+    "Value": "Önizleme"
+  },
+  {
+    "Key": "TemplateHelp",
+    "Value": "Şablon Yardımı"
+  },
+  {
+    "Key": "LineCharactersCount",
+    "Value": "Satır Karakter Sayısı"
   }
 ]

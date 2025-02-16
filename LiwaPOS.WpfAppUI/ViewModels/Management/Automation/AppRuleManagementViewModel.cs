@@ -216,6 +216,7 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Automation
                 }
 
                 // Eylem haritalarını alıyoruz
+                SelectedActions.Clear();
                 var ruleActionMaps = await _ruleActionMapService.GetAllRuleActionMapsAsNoTrackingAsync(x => x.AppRuleId == appRule.Id);
                 foreach (var ruleActionMap in ruleActionMaps)
                 {

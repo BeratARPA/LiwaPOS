@@ -24,6 +24,9 @@
             
             <TextBlock Text="{extension:Translator CharReplacement, Suffix=':'}" VerticalAlignment="Center"/>
             <TextBox Text="{Binding CharReplacement, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
+
+            <TextBlock Text="{extension:Translator LineCharactersCount, Suffix=':'}" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding LineCharactersCount, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"/>
             
             <CheckBox Content="{extension:Translator RTLSupport}" HorizontalAlignment="Left" IsChecked="{Binding RTLMode, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
