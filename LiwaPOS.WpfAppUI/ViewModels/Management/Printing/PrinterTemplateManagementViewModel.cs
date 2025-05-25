@@ -1,8 +1,8 @@
-﻿using LiwaPOS.BLL.Interfaces;
+﻿using DevExpress.Xpf.Core;
+using LiwaPOS.BLL.Interfaces;
 using LiwaPOS.BLL.ValueChangeSystem;
-using LiwaPOS.Entities.Entities;
+using LiwaPOS.Shared.Extensions;
 using LiwaPOS.Shared.Helpers;
-using LiwaPOS.Shared.Models;
 using LiwaPOS.Shared.Models.Entities;
 using LiwaPOS.WpfAppUI.Commands;
 using LiwaPOS.WpfAppUI.Extensions;
@@ -10,11 +10,11 @@ using LiwaPOS.WpfAppUI.Helpers;
 using Microsoft.Web.WebView2.Wpf;
 using PrintHTML.Core.Helpers;
 using PrintHTML.Core.Services;
-using System.Collections.Immutable;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
 {
@@ -198,12 +198,27 @@ namespace LiwaPOS.WpfAppUI.ViewModels.Management.Printing
             if (string.IsNullOrEmpty(content))
                 return;
 
-            AsyncPrintTask.Exec(true, () => _printerService.DoPrint(content, PrinterHelper.GetDefaultPrinter()));
+            var context = new ValueContext(null, null);
+            var result = _dynamicValueResolver.ResolveExpression(content, context);
+
+            AsyncPrintTask.Exec(true, () => _printerService.DoPrint(result, PrinterHelper.GetDefaultPrinter()));
         }
 
         private async Task TemplateHelp(object obj)
         {
-            Document = new FlowDocument();
+            string assemblyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string filePath = Path.Combine(assemblyPath, "Resources", "TokenHelp.xaml");
+            if (!FileExtension.Exists(filePath))
+            {
+                Document = new FlowDocument();
+                return;
+            }
+            
+            using (FileStream fileStream = File.OpenRead(filePath))
+            {
+                FlowDocument tokenHelpDocument = XamlReader.Load(fileStream) as FlowDocument ?? new FlowDocument();
+                Document = tokenHelpDocument;
+            }
         }
 
         private async Task<string> GetEditorContent()

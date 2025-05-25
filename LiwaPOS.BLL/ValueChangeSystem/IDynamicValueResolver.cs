@@ -1,6 +1,4 @@
-﻿using LiwaPOS.Shared.Models;
-
-namespace LiwaPOS.BLL.ValueChangeSystem
+﻿namespace LiwaPOS.BLL.ValueChangeSystem
 {
     public interface IDynamicValueResolver
     {

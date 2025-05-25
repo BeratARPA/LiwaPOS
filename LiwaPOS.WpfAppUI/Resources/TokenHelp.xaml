@@ -1,0 +1,146 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" FontSize="12" FontFamily="Consolas">
+    <Paragraph>
+        <Bold>Token Quick Reference (Syntax: [TOKEN|param1,param2])</Bold>
+    </Paragraph>
+
+    <!-- TOKEN TABLE -->
+    <Table CellSpacing="5" Margin="0,10">
+        <Table.Columns>
+            <TableColumn Width="200"/>
+            <!-- Token -->
+            <TableColumn Width="Auto"/>
+            <!-- Description -->
+            <TableColumn Width="300"/>
+            <!-- Parameters -->
+            <TableColumn Width="300"/>
+            <!-- Example -->
+        </Table.Columns>
+
+        <TableRowGroup>
+            <!-- HEADER -->
+            <TableRow Background="#EEE" FontWeight="Bold">
+                <TableCell>
+                    <Paragraph>Token</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Description</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Parameters</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Example</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- RANDOM -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">RANDOM</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Generates a random string</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>
+                        1. Length (required)
+                        <LineBreak/>
+                        2. AllowedChars (default: alphanumeric)
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>[RANDOM|5,A1B2] → "A1B2B"</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- RANDOMC -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">RANDOMC</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Generates a random numeric string with a check digit</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Length (required)</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>[RANDOMC|4] → "12342"</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- DATE -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">DATE</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Returns the current date in the specified format</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Format (default: 'd')</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>[DATE|yyyyMMdd] → "20231005"</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- GUID -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">GUID</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Generates a new GUID</Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                    <Paragraph>[GUID] → "a3d4e5f6-..."</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- SHA256 -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">SHA256</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Computes the SHA256 hash of the input string</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Input string (required)</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>[SHA256|test] → "9f86d..."</Paragraph>
+                </TableCell>
+            </TableRow>
+
+            <!-- CALL -->
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontWeight="Bold">CALL</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>Executes JavaScript code and returns the result</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>JS code (required)</Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph>[CALL|Math.PI.toFixed(2)] → "3.14"</Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <!-- FOOTNOTES -->
+    <Paragraph FontSize="11" Foreground="Gray" Margin="0,20,0,0">
+        <Bold>General Rules:</Bold>
+        <LineBreak/>
+        - Parameters start with "|" and are separated by ","
+        <LineBreak/>
+        - All tokens are CASE-INSENSITIVE
+        <LineBreak/>
+        - Whitespace is automatically trimmed ([DATE | yyyy MM dd] is valid)
+    </Paragraph>
+</FlowDocument>

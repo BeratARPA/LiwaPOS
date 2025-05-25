@@ -1,4 +1,4 @@
-﻿using LiwaPOS.Shared.Models;
+﻿using LiwaPOS.BLL.Services;
 using System.Text.RegularExpressions;
 
 namespace LiwaPOS.BLL.ValueChangeSystem
@@ -10,19 +10,26 @@ namespace LiwaPOS.BLL.ValueChangeSystem
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly TokenRegistry _registry;
-
-        public TokenExpressionEngine(TokenRegistry registry) => _registry = registry;
+        private readonly JavaScriptEngineService _javaScriptEngineService;
+  
+        public TokenExpressionEngine(TokenRegistry registry, JavaScriptEngineService javaScriptEngineService)
+        {
+            _registry = registry;
+            _javaScriptEngineService = javaScriptEngineService;
+        }
 
         public string ResolveExpression(string expression, ValueContext context)
         {
+            // CALL token'ı varsa yeni motor oluştur
+            if (_tokenPattern.IsMatch(expression) && expression.Contains("[CALL"))
+                context.JavaScriptEngine = _javaScriptEngineService.CreateNewEngine();
+
             return _tokenPattern.Replace(expression, match =>
             {
                 var token = match.Groups["token"].Value.Trim();
                 var args = ParseArguments(match.Groups["args"].Value);
 
-                // Context kopyasını oluştur
-                var localContext = context;
-                return _registry.ResolveToken(token, args, localContext) ?? match.Value;
+                return _registry.ResolveToken(token, args, context) ?? match.Value;
             });
         }
         private IReadOnlyList<string> ParseArguments(string input)

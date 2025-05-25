@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\TokenHelp.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -53,6 +57,9 @@
     <Resource Include="Resources\Images\liwasoftwhitelogo.png" />
     <Resource Include="Resources\Images\warning.ico" />
     <Resource Include="Resources\Images\warning.png" />
+    <None Include="Resources\TokenHelp.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

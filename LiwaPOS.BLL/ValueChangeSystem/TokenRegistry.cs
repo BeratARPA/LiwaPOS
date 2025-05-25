@@ -1,5 +1,4 @@
-﻿using LiwaPOS.Shared.Models;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 
 namespace LiwaPOS.BLL.ValueChangeSystem

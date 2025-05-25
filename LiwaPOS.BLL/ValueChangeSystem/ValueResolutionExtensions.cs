@@ -11,7 +11,7 @@ namespace LiwaPOS.BLL.ValueChangeSystem
             services.AddSingleton<IDynamicValueResolver, TokenExpressionEngine>();
 
             // Handler'ları kaydet
-            services.AddSingleton<ITokenHandler, DateTimeTokenHandler>();
+            services.AddSingleton<ITokenHandler, GeneralTokenHandler>();
             // Diğer handler'ları buraya ekleyin
 
             return services;

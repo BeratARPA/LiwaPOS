@@ -26,8 +26,7 @@ namespace LiwaPOS.BLL.Services
             _httpService = httpService;
         }
 
-        // JavaScript kodunu çalıştırmak için kullanılan method
-        public object ExecuteJavaScript(string script)
+        public Engine CreateNewEngine()
         {
             // Jint JavaScript motorunu oluştur
             var engine = new Engine(cfg =>
@@ -38,6 +37,12 @@ namespace LiwaPOS.BLL.Services
                 cfg.CatchClrExceptions(); // JavaScript kodunda hata oluştuğunda .NET tarafında da hata oluşmasını sağlamak için
             });
 
+            InitializeEngine(engine); // Mevcut initialize logic'iniz
+            return engine;
+        }
+
+        private void InitializeEngine(Engine engine)
+        {
             #region .NET'te tanımlanan action'ları JavaScript içinde kullanmak için tanıtıyoruz         
             engine.SetValue("console", new
             {
@@ -104,9 +109,14 @@ namespace LiwaPOS.BLL.Services
                 }).Result;
             }));
             #endregion
+        }
 
+        // JavaScript kodunu çalıştırmak için kullanılan method
+        public object ExecuteJavaScript(string script)
+        {
             try
             {
+                var engine = CreateNewEngine();
                 // JavaScript kodunu değerlendir ve sonucu al sonra sonucu .NET nesnesine dönüştür
                 var result = engine.Evaluate(script).ToObject();
                 return result ?? new object();

@@ -15,7 +15,7 @@ namespace LiwaPOS.WpfAppUI.UserControls.Management.Printing
 
         private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var viewModel = DataContext as PrintersViewModel;
+            var viewModel = DataContext as PrinterTemplatesViewModel;
             if (viewModel?.SelectedCommand != null)
             {
                 GlobalVariables.Navigator.Navigate("PrinterTemplateManagement", viewModel.SelectedCommand);
